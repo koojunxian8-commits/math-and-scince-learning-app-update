@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>数学符号闯关手册</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=ZCOOL+KuaiLe&family=Zhi+Mang+Xing&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#000; --paper:#FFF8ED;
+  --lv1:#3FB57A; --lv1-bg:#EAFBF2;
+  --lv2:#4C93E8; --lv2-bg:#EAF3FE;
+  --lv3:#A76CE0; --lv3-bg:#F5EBFC;
+  --lv4:#E8913A; --lv4-bg:#FDF1E4;
+  --font-cn: system-ui, sans-serif;
+  padding-top: env(safe-area-inset-top,0px);
+  padding-bottom: env(safe-area-inset-bottom,0px);
+  box-sizing:border-box;
+}
+body[data-font="round"]{ --font-cn:"ZCOOL KuaiLe", sans-serif; }
+body[data-font="hand"]{ --font-cn:"Zhi Mang Xing", cursive; }
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family: var(--font-cn), "Baloo 2", system-ui, sans-serif;
+  min-height:100%;
+}
+.hero{ text-align:center; padding:38px 20px 16px; }
+.hero .mascot{ font-size:44px; display:block; margin-bottom:6px; }
+.hero h1{ font-weight:800; font-size:clamp(24px,6vw,34px); margin:0 0 6px; }
+.hero p{ margin:0; font-size:15px; opacity:.7; font-weight:600; }
+.tabs{
+  display:flex; gap:10px; justify-content:center; flex-wrap:wrap;
+  padding:16px 16px 20px; position:sticky; top:env(safe-area-inset-top,0px);
+  background:var(--paper); z-index:10;
+}
+.tab{
+  border:none; cursor:pointer; font-family:inherit; font-weight:800; font-size:15px;
+  padding:12px 20px; border-radius:999px; color:#fff; opacity:.4;
+  transition:opacity .2s, transform .2s; box-shadow:0 3px 0 rgba(0,0,0,.12);
+}
+.tab[data-lv="1"]{background:var(--lv1)}
+.tab[data-lv="2"]{background:var(--lv2)}
+.tab[data-lv="3"]{background:var(--lv3)}
+.tab[data-lv="4"]{background:var(--lv4)}
+.tab.active{opacity:1; transform:scale(1.08) rotate(-1deg)}
+main{max-width:940px; margin:0 auto; padding:0 16px 60px;}
+.level{display:none}
+.level.active{display:block}
+.level-banner{
+  border-radius:20px; padding:18px 22px; margin-bottom:20px; color:#fff; font-weight:800;
+  display:flex; align-items:center; gap:12px; font-size:18px;
+}
+.level[data-lv="1"] .level-banner{background:var(--lv1)}
+.level[data-lv="2"] .level-banner{background:var(--lv2)}
+.level[data-lv="3"] .level-banner{background:var(--lv3)}
+.level[data-lv="4"] .level-banner{background:var(--lv4)}
+.badge{
+  background:rgba(255,255,255,.3); border-radius:50%; width:36px; height:36px; flex:0 0 auto;
+  display:flex; align-items:center; justify-content:center; font-size:18px;
+}
+.grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px;}
+.card{
+  border-radius:20px; padding:16px; background:var(--paper);
+  border:3px solid transparent; text-align:center;
+}
+.level[data-lv="1"] .card{background:var(--lv1-bg); border-color:color-mix(in srgb, var(--lv1) 30%, transparent)}
+.level[data-lv="2"] .card{background:var(--lv2-bg); border-color:color-mix(in srgb, var(--lv2) 30%, transparent)}
+.level[data-lv="3"] .card{background:var(--lv3-bg); border-color:color-mix(in srgb, var(--lv3) 30%, transparent)}
+.level[data-lv="4"] .card{background:var(--lv4-bg); border-color:color-mix(in srgb, var(--lv4) 30%, transparent)}
+.emoji{font-size:34px; margin-bottom:2px;}
+.sym{font-size:22px; font-weight:800; margin-bottom:6px;}
+.level[data-lv="1"] .sym{color:var(--lv1)}
+.level[data-lv="2"] .sym{color:var(--lv2)}
+.level[data-lv="3"] .sym{color:var(--lv3)}
+.level[data-lv="4"] .sym{color:var(--lv4)}
+.name{font-weight:800; font-size:15px; margin-bottom:6px;}
+.desc{font-size:13.5px; line-height:1.5; opacity:.85; margin-bottom:8px;}
+.ex{
+  font-size:12.5px; font-weight:700; display:inline-block; padding:4px 10px; border-radius:10px;
+  background:rgba(0,0,0,.07);
+}
+section.group{margin-bottom:24px;}
+.group h3{font-size:15px; margin:0 0 10px; opacity:.75; font-weight:800;}
+.fonts{display:flex; gap:8px; justify-content:center; margin-top:10px;}
+.fbtn{
+  border:2px solid currentColor; background:transparent; color:var(--ink); opacity:.55;
+  border-radius:999px; padding:5px 14px; font-size:13px; font-weight:700; cursor:pointer;
+  font-family:system-ui,sans-serif;
+}
+.fbtn.active{opacity:1; background:var(--ink); color:var(--paper);}
+.dlbtn{
+  margin-top:12px; border:none; cursor:pointer; font-family:inherit; font-weight:800; font-size:14px;
+  padding:9px 20px; border-radius:999px; background:var(--gold,#F4B942); color:#000;
+  box-shadow:0 3px 0 rgba(0,0,0,.12);
+}
+.card{cursor:zoom-in;}
+.modal{
+  display:none; position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:100;
+  align-items:center; justify-content:center; padding:20px;
+}
+.modal.open{display:flex;}
+.modal-box{
+  background:var(--paper); border-radius:24px; padding:32px 28px; max-width:360px; width:100%;
+  text-align:center; position:relative;
+}
+.modal-box .emoji{font-size:64px;}
+.modal-box .sym{font-size:34px; margin:6px 0;}
+.modal-box .name{font-size:20px; margin-bottom:10px;}
+.modal-box .desc{font-size:16px; opacity:.9;}
+.modal-box .ex{font-size:15px; margin-top:10px;}
+.modal-close{
+  position:absolute; top:10px; right:14px; border:none; background:none; font-size:22px;
+  cursor:pointer; color:var(--ink); opacity:.5;
+}
+#m-emoji{display:inline-block; animation-duration:.9s; animation-timing-function:ease-in-out; animation-fill-mode:both;}
+@keyframes m-grow{0%{transform:scale(.6)}60%{transform:scale(1.35)}100%{transform:scale(1)}}
+@keyframes m-shrink{0%{transform:scale(1.35)}100%{transform:scale(.75)}}
+@keyframes m-x2{0%{transform:scale(.7)}25%{transform:scale(1.25)}50%{transform:scale(.85)}75%{transform:scale(1.25)}100%{transform:scale(1)}}
+@keyframes m-split{0%{transform:scaleX(1)}50%{transform:scaleX(.25)}100%{transform:scaleX(1)}}
+@keyframes m-steady{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes m-shake{0%,100%{transform:translateX(0) rotate(0)}25%{transform:translateX(-8px) rotate(-6deg)}75%{transform:translateX(8px) rotate(6deg)}}
+@keyframes m-tiltR{0%{transform:rotate(0)}100%{transform:rotate(14deg) translateX(6px)}}
+@keyframes m-wobble{0%,100%{transform:rotate(0)}50%{transform:rotate(8deg)}}
+@keyframes m-spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+@keyframes m-pulseIn{0%{transform:scale(.4) rotate(-8deg); opacity:0}60%{transform:scale(1.15) rotate(4deg); opacity:1}100%{transform:scale(1) rotate(0)}}
+.play-controls{display:none; align-items:center; justify-content:center; gap:14px; margin-top:14px;}
+.modal.play-mode .play-controls{display:flex;}
+.play-controls button{
+  border:none; background:var(--ink); color:var(--paper); width:38px; height:38px; border-radius:50%;
+  font-size:16px; cursor:pointer;
+}
+#play-count{font-size:13px; opacity:.6; font-weight:700; min-width:46px;}
+.progress{height:4px; background:rgba(0,0,0,.1); border-radius:4px; overflow:hidden; margin-top:14px; display:none;}
+.modal.play-mode .progress{display:block;}
+.progress-bar{height:100%; width:0%; background:var(--gold,#F4B942);}
+.q-count{font-size:13px; opacity:.6; font-weight:700; margin-bottom:6px;}
+.q-sym{font-size:40px; font-weight:800; margin-bottom:8px;}
+.q-ask{font-size:15px; margin-bottom:14px; opacity:.85;}
+.q-opts{display:flex; flex-direction:column; gap:10px;}
+.q-opt{
+  border:2px solid rgba(0,0,0,.12); background:transparent; border-radius:14px; padding:10px 14px;
+  font-family:inherit; font-size:15px; font-weight:700; cursor:pointer; color:var(--ink); width:100%;
+}
+.q-opt:disabled{cursor:default;}
+.q-correct{background:#3FB57A; border-color:#3FB57A; color:#fff;}
+.q-wrong{background:#E8735C; border-color:#E8735C; color:#fff;}
+.q-done{font-size:48px; margin-bottom:8px;}
+.q-score{font-size:18px; font-weight:800; margin-bottom:16px;}
+.q-review{max-height:260px; overflow-y:auto; text-align:left; margin-bottom:16px;}
+.q-review-item{
+  background:rgba(232,115,92,.1); border-radius:12px; padding:10px 12px; margin-bottom:8px; font-size:13.5px;
+}
+.q-why{opacity:.8;}
+#quiz-modal .modal-box{max-height:85vh; overflow-y:auto;}
+.intro-overlay{position:fixed; inset:0; background:var(--paper); z-index:200; display:flex; align-items:center; justify-content:center; padding:20px;}
+.intro-box{text-align:center;}
+.intro-label{font-size:13px; font-weight:700; margin:14px 0 10px;}
+.intro-fbtn.active{background:var(--lv2); color:#fff; border-color:var(--lv2);}
+.intro-mascot{font-size:56px; margin-bottom:12px;}
+.intro-box h2{font-size:20px; margin:0 0 22px;}
+.intro-fonts{display:flex; gap:14px; flex-wrap:wrap; justify-content:center;}
+.intro-fbtn{
+  border:3px solid var(--lv2); background:var(--lv2-bg); border-radius:18px; padding:16px 22px;
+  font-size:18px; font-weight:800; cursor:pointer; color:var(--ink); line-height:1.4;
+}
+.sbtn{font-size:16px; padding:8px 24px;}
+.only-sci{display:none}
+body[data-subject="science"] .only-sci{display:block}
+body[data-subject="science"] .only-math{display:none}
+body[data-subject="science"] .tabs{display:none}
+.stage{position:relative; height:150px; display:flex; align-items:center; justify-content:center; margin-bottom:4px;}
+#m-scene{position:absolute; inset:0; display:none;}
+#m-burst{position:absolute; inset:0; pointer-events:none;}
+.sc-item{position:absolute; font-size:26px; line-height:1;}
+.sc-label{position:absolute; left:0; right:0; bottom:0; text-align:center; font-weight:800; font-size:18px;}
+.sc-box{position:absolute; border:2px dashed var(--lv1); border-radius:12px; opacity:0; transition:opacity .5s;}
+.sc-beam{position:absolute; width:260px; height:6px; left:50%; margin-left:-130px; top:88px; background:var(--ink); border-radius:3px; transform-origin:50% 50%;}
+.sc-post{position:absolute; left:50%; top:92px; margin-left:-9px; border-left:9px solid transparent; border-right:9px solid transparent; border-bottom:34px solid var(--ink);}
+.sc-big{position:absolute; left:50%; top:34px; font-size:44px; font-weight:800; color:var(--lv1); transform:translateX(-50%) scale(0);}
+.sc-pie{position:absolute; left:50%; top:6px; width:104px; height:104px; margin-left:-52px; border-radius:50%; background:rgba(0,0,0,.1);}
+.sc-wheel{position:absolute; width:44px; height:44px; border:4px solid var(--lv2); border-radius:50%; left:20px; top:56px;}
+.sc-wheel::after{content:''; position:absolute; top:-2px; left:50%; width:8px; height:8px; margin-left:-4px; background:var(--lv4); border-radius:50%;}
+.sc-line{position:absolute; left:42px; top:100px; width:0; height:4px; background:var(--lv2); border-radius:2px;}
+.replay{position:absolute; top:10px; left:14px; border:none; background:none; font-size:20px; cursor:pointer; opacity:.6;}
+.sc-particle{position:absolute; left:50%; top:50%; font-size:16px; animation:burst .9s ease-out forwards;}
+@keyframes burst{0%{transform:translate(-50%,-50%) scale(.4); opacity:1}100%{transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(1.1); opacity:0}}
+@media (prefers-reduced-motion: reduce){.sc-particle{display:none}}
+.sc-label{font-size:16px}
+.sc-step{position:absolute; left:0; right:0; text-align:center; font-weight:800; font-size:20px;}
+.sc-nline{position:absolute; height:3px; background:var(--ink); border-radius:2px;}
+.sc-tick{position:absolute; width:2px; height:12px; background:var(--ink);}
+.sc-num{position:absolute; width:24px; text-align:center; font-size:12px; font-weight:700;}
+.sc-brace{position:absolute; height:6px; border:3px solid var(--lv4); border-bottom:none; border-radius:4px 4px 0 0;}
+.sc-mach{position:absolute; width:90px; height:70px; border:4px solid var(--lv2); border-radius:14px; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:22px; transition:transform .3s; background:rgba(76,147,232,.12);}
+.sc-tok{position:absolute; font-size:28px; font-weight:800;}
+.sc-bar{position:absolute; background:var(--lv3); border-radius:3px 3px 0 0;}
+.sc-cell{position:absolute; width:48px; height:48px; border-radius:10px; background:rgba(0,0,0,.1); display:flex; align-items:center; justify-content:center; font-size:24px; font-weight:800;}
+.sc-dash{position:absolute; height:0; border-top:3px dashed var(--ink); opacity:.6;}
+.sc-au{position:absolute; text-align:center; font-weight:800; font-size:16px;}
+.sc-rot{position:absolute; width:0; height:0;}
+.sc-ring{position:absolute; border:2px dashed rgba(0,0,0,.25); border-radius:50%;}
+.sc-tube{position:absolute; width:24px; height:108px; border:3px solid var(--ink); border-radius:12px;}
+.sc-fill{position:absolute; width:16px; border-radius:8px; background:var(--lv4);}
+.sc-circ{position:absolute; border-radius:50%; border:2px solid var(--ink);}
+.sc-vline{position:absolute; width:0; border-left:3px dashed var(--lv4);}
+.sc-coin{position:absolute; top:30px; font-size:60px; line-height:1;}
+.sc-die{position:absolute; left:0; right:0; top:20px; text-align:center; font-size:64px; line-height:1;}
+.tabs{background:rgba(255,248,237,.93)}
+@keyframes twinkle{from{opacity:.25}to{opacity:1}}
+body[data-subject="science"] .hero h1,body[data-subject="science"] .hero p,body[data-subject="science"] .group h3{color:#fff; opacity:1}
+body[data-subject="science"] .fbtn{color:#fff}
+body[data-subject="science"] .fbtn.active{background:#fff; color:#000}
+@keyframes cardIn{from{opacity:0;transform:translateY(18px) scale(.96)}to{opacity:1;transform:none}}
+@keyframes levelIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes bannerIn{from{opacity:0;transform:translateX(-24px)}to{opacity:1;transform:none}}
+@keyframes owlBob{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-8px) rotate(-3deg)}}
+@keyframes owlHoot{0%{transform:scale(1)}30%{transform:scale(1.35) rotate(-14deg)}60%{transform:scale(.9) rotate(10deg)}100%{transform:scale(1)}}
+@keyframes boxIn{from{opacity:0;transform:scale(.8) translateY(20px)}to{opacity:1;transform:none}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes slideIn{from{opacity:0;transform:translateX(34px)}to{opacity:1;transform:none}}
+@keyframes qIn{from{opacity:0;transform:translateX(24px)}to{opacity:1;transform:none}}
+@keyframes qShake{0%,100%{transform:translateX(0)}20%{transform:translateX(-9px)}40%{transform:translateX(8px)}60%{transform:translateX(-6px)}80%{transform:translateX(4px)}}
+@keyframes okPulse{0%{transform:scale(1)}40%{transform:scale(1.07)}100%{transform:scale(1)}}
+@keyframes confetti{0%{transform:translate(-50%,-50%) rotate(0) scale(.6);opacity:1}100%{transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) rotate(var(--rot)) scale(1);opacity:0}}
+@keyframes shoot{from{transform:translate(0,0) rotate(-35deg);opacity:1}to{transform:translate(-280px,190px) rotate(-35deg);opacity:0}}
+@keyframes ripple{from{transform:scale(.3);opacity:.7}to{transform:scale(2.4);opacity:0}}
+@keyframes bgDrift{from{background-position:0 0}to{background-position:260px 260px}}
+@keyframes introUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: no-preference){
+  .level.active{animation:levelIn .45s ease backwards}
+  .level.active .level-banner{animation:bannerIn .5s cubic-bezier(.2,.9,.3,1) backwards}
+  .level.active .card{animation:cardIn .5s cubic-bezier(.2,.9,.3,1) backwards; animation-delay:calc(var(--i,0)*35ms)}
+  .hero .mascot{display:inline-block; animation:owlBob 2.6s ease-in-out infinite; cursor:pointer}
+  .hero .mascot.hoot{animation:owlHoot .6s ease}
+  .modal.open{animation:fadeIn .25s ease}
+  .modal.open .modal-box{animation:boxIn .38s cubic-bezier(.3,1.5,.5,1)}
+  .modal.open .modal-box.slide{animation:slideIn .4s ease}
+  #quiz-content>*{animation:qIn .35s ease backwards}
+  .q-opt.q-correct{animation:okPulse .5s ease}
+  .q-opt.q-wrong{animation:qShake .45s ease}
+  .intro-box>*{animation:introUp .6s ease backwards}
+  .intro-box>*:nth-child(2){animation-delay:.08s}.intro-box>*:nth-child(3){animation-delay:.16s}.intro-box>*:nth-child(4){animation-delay:.24s}
+  .intro-box>*:nth-child(5){animation-delay:.32s}.intro-box>*:nth-child(6){animation-delay:.4s}.intro-box>*:nth-child(7){animation-delay:.48s}
+  .intro-box>.intro-mascot{animation:introUp .6s ease backwards, owlBob 2.6s ease-in-out .6s infinite}
+    button:active,.card:active{transform:scale(.96)}
+}
+@media (prefers-reduced-motion: no-preference) and (hover:hover){
+  .card{transition:transform .2s, box-shadow .2s}
+  .card:hover{transform:translateY(-4px); box-shadow:0 8px 18px rgba(0,0,0,.15)}
+  .dlbtn:hover,.tab:hover{filter:brightness(1.06)}
+}
+.confetti{position:fixed; z-index:300; font-size:18px; pointer-events:none; animation:confetti 1.1s ease-out forwards}
+.shoot{position:fixed; z-index:-1; width:130px; height:2px; background:linear-gradient(270deg,transparent,#fff); border-radius:2px; pointer-events:none; animation:shoot 1.1s ease-out forwards}
+.sc-wave{position:absolute; left:50%; top:62px; width:70px; height:70px; margin:-35px 0 0 -35px; border:3px solid var(--lv4); border-radius:50%; animation:ripple 1.8s ease-out infinite}
+.q-bar{height:6px; background:rgba(0,0,0,.1); border-radius:4px; overflow:hidden; margin-bottom:10px}
+.q-bar>div{height:100%; background:var(--lv1); border-radius:4px}
+@keyframes lblPop{0%{transform:scale(.8);opacity:.3}60%{transform:scale(1.12)}100%{transform:scale(1);opacity:1}}
+@keyframes sunPulse{from{transform:scale(.85);opacity:.7}to{transform:scale(1.15);opacity:1}}
+@keyframes starTw{from{opacity:.2;transform:scale(.6)}to{opacity:1;transform:scale(1.2)}}
+.sc-glow{position:absolute; border-radius:50%; background:radial-gradient(circle,#ffd54a 0%,rgba(255,213,74,.4) 45%,transparent 70%);}
+@media (prefers-reduced-motion: reduce){.sc-glow,.sc-item{animation:none !important}}
+.m-ctl{display:none; flex-wrap:wrap; gap:8px 14px; justify-content:center; align-items:center; margin:2px 0 8px; font-size:13px;}
+.ctl-g{display:inline-flex; align-items:center; gap:6px; background:rgba(0,0,0,.07); border-radius:999px; padding:3px 6px 3px 12px;}
+.ctl-g b{font-weight:800;}
+.ctl-g em{font-style:normal; font-weight:800; min-width:22px; text-align:center;}
+.ctl-g button{width:28px; height:28px; border-radius:50%; border:none; background:var(--ink); color:var(--paper); font-size:17px; cursor:pointer; line-height:1;}
+.ctl-g button:active{transform:scale(.88);}
+.ctl-hint{opacity:.6; font-weight:700;}
+.modal.play-mode .m-ctl{display:none !important;}
+.sc-pen{position:absolute; font-size:18px; line-height:1; pointer-events:none; z-index:2;}
+.sc-step .hl{background:linear-gradient(transparent 58%,rgba(255,213,74,.75) 58%) no-repeat; background-size:100% 100%; padding:0 4px; border-radius:3px; animation:hlGrow .5s ease;}
+@keyframes hlGrow{from{background-size:0% 100%}to{background-size:100% 100%}}
+:root{--lv5:#2BA6A0; --lv5-bg:#E3F6F4;}
+.level[data-lv="5"] .level-banner{background:var(--lv5)}
+.level[data-lv="5"] .sym{color:var(--lv5)}
+.level[data-lv="5"] .card{background:var(--lv5-bg); border-color:color-mix(in srgb, var(--lv5) 30%, transparent)}
+.only-units{display:none}
+body[data-subject="units"] .only-units{display:block}
+body[data-subject="units"] .only-math{display:none}
+body[data-subject="units"] .tabs{display:none}
+body[data-subject="units"]{
+  background-color:#EAF6FB;
+  background-image:linear-gradient(rgba(60,130,170,.11) 1px,transparent 1px),linear-gradient(90deg,rgba(60,130,170,.11) 1px,transparent 1px),linear-gradient(rgba(60,130,170,.22) 1px,transparent 1px),linear-gradient(90deg,rgba(60,130,170,.22) 1px,transparent 1px);
+  background-size:20px 20px,20px 20px,100px 100px,100px 100px;
+}
+#bg{position:fixed; inset:0; width:100%; height:100%; z-index:-1; pointer-events:none; opacity:1; transition:opacity .5s ease;}
+body[data-subject="math"]{background:linear-gradient(165deg,#FFFBF1 0%,#FFF2DA 52%,#FBEBD2 100%) fixed;}
+body[data-subject="science"]{
+  background-color:#04071c;
+  background-image:
+    radial-gradient(ellipse at 14% 6%,rgba(135,92,255,.34),transparent 46%),
+    radial-gradient(ellipse at 90% 72%,rgba(40,150,255,.26),transparent 52%),
+    radial-gradient(ellipse at 45% 118%,rgba(255,120,180,.20),transparent 55%),
+    linear-gradient(#050a28,#0a1038 58%,#150d3a);
+  background-attachment:fixed;
+}
+body[data-theme="chalk"]{background:radial-gradient(ellipse at 50% 15%,#33705a 0%,#1d4336 70%,#15302a 100%) fixed;}
+body[data-theme="notebook"]{background-color:#FFFDF4; background-image:linear-gradient(90deg,transparent 52px,rgba(226,80,80,.4) 52px,rgba(226,80,80,.4) 54px,transparent 54px),repeating-linear-gradient(transparent 0,transparent 31px,rgba(86,140,220,.3) 31px,rgba(86,140,220,.3) 32px); background-size:auto; background-attachment:scroll;}
+body[data-theme="aurora"]{background:linear-gradient(180deg,#020618 0%,#06163a 55%,#0b2a3a 100%) fixed;}
+body[data-theme="solar"]{background:radial-gradient(ellipse at 0% 0%,#4a2a08 0%,#0b0a1c 45%,#04040e 100%) fixed;}
+body[data-theme="lab"]{background:linear-gradient(170deg,#F2FFFB 0%,#DDF7F0 55%,#CFEFF3 100%) fixed;}
+body[data-theme="blueprint"]{background-color:#0d4a8a; background-image:linear-gradient(rgba(255,255,255,.10) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.10) 1px,transparent 1px),linear-gradient(rgba(255,255,255,.22) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.22) 1px,transparent 1px); background-size:20px 20px,20px 20px,100px 100px,100px 100px; background-attachment:scroll;}
+body.dark .hero h1,body.dark .hero p,body.dark .group h3{color:#fff; opacity:1}
+body.dark .fbtn{color:#fff}
+body.dark .fbtn.active{background:#fff; color:#000}
+body.dark .tabs{background:rgba(18,50,40,.88)}
+body[data-subject="math"][data-theme="candy"][data-level="1"]{background:linear-gradient(165deg,#F6FFF4 0%,#E8F8EC 52%,#DDF3E4 100%) fixed}
+body[data-subject="math"][data-theme="candy"][data-level="2"]{background:linear-gradient(165deg,#F3F9FF 0%,#E4F0FC 52%,#D8E8FA 100%) fixed}
+body[data-subject="math"][data-theme="candy"][data-level="3"]{background:linear-gradient(165deg,#FAF5FF 0%,#EFE4FA 52%,#E4D6F5 100%) fixed}
+.card{backdrop-filter:blur(5px); -webkit-backdrop-filter:blur(5px)}
+.level[data-lv="1"] .card{background:rgba(233,247,238,.76)}
+.level[data-lv="2"] .card{background:rgba(233,241,252,.76)}
+.level[data-lv="3"] .card{background:rgba(243,235,252,.76)}
+.level[data-lv="4"] .card{background:rgba(253,241,228,.92)}
+.level[data-lv="5"] .card{background:rgba(227,246,244,.78)}
+body.dark .level[data-lv="1"] .card{background:rgba(233,247,238,.9)}
+body.dark .level[data-lv="2"] .card{background:rgba(233,241,252,.9)}
+body.dark .level[data-lv="3"] .card{background:rgba(243,235,252,.9)}
+body.dark .level[data-lv="5"] .card{background:rgba(227,246,244,.9)}
+</style>
+</head>
+<body data-font="round" data-subject="math" data-level="1">
+<canvas id="bg" aria-hidden="true"></canvas>
+
+<div class="intro-overlay" id="intro-overlay">
+  <div class="intro-box">
+    <div class="intro-mascot">🦉</div>
+    <h2 class="i18n" data-en="Pick your settings">先选一下喜欢的设置</h2>
+    <p class="intro-label i18n" data-en="Font style">字体风格</p>
+    <div class="intro-fonts" id="intro-font-group">
+      <button class="intro-fbtn" data-f="default" style="font-family:system-ui,sans-serif" onclick="pickIntroFont('default',this)">Aa<br><span class="i18n" data-en="Default">默认</span></button>
+      <button class="intro-fbtn active" data-f="round" style="font-family:'ZCOOL KuaiLe',sans-serif" onclick="pickIntroFont('round',this)">Aa<br><span class="i18n" data-en="Rounded">圆体</span></button>
+      <button class="intro-fbtn" data-f="hand" style="font-family:'Zhi Mang Xing',cursive" onclick="pickIntroFont('hand',this)">Aa<br><span class="i18n" data-en="Handwritten">手写</span></button>
+    </div>
+    <p class="intro-label i18n" data-en="Language">语言</p>
+    <div class="intro-fonts" id="intro-lang-group">
+      <button class="intro-fbtn active" data-l="zh" onclick="pickIntroLang('zh',this)">中文</button>
+      <button class="intro-fbtn" data-l="en" onclick="pickIntroLang('en',this)">English</button>
+    </div>
+    <button class="dlbtn" style="margin-top:20px" onclick="startApp()"><span class="i18n" data-en="Start">开始</span> 🚀</button>
+  </div>
+</div>
+
+
+<div class="hero">
+  <span class="mascot" onclick="hoot(this)">🦉</span>
+  <h1 class="i18n only-math" data-en="Math Symbol Quest Guide">数学符号闯关手册</h1>
+  <p class="i18n only-math" data-en="Follow Professor Owl through each level to learn math symbols!">跟着猫头鹰老师，一关一关认识数学符号！</p>
+  <h1 class="i18n only-sci" data-en="Science Explorer Guide">科学探索小百科</h1>
+  <p class="i18n only-sci" data-en="Explore space, area and volume with Professor Owl!">跟着猫头鹰老师，探索宇宙、面积和体积！</p>
+  <h1 class="i18n only-units" data-en="Units Guide">单位小百科</h1>
+  <p class="i18n only-units" data-en="Measure length, weight, time and temperature with Professor Owl!">跟着猫头鹰老师，量一量长度、重量、时间和温度！</p>
+  <div class="fonts subjects" style="margin-bottom:10px">
+    <button class="fbtn sbtn active" data-s="math" onclick="setSubject('math')">🔢 <span class="i18n" data-en="Math">数学</span></button>
+    <button class="fbtn sbtn" data-s="science" onclick="setSubject('science')">🔬 <span class="i18n" data-en="Science">科学</span></button>
+    <button class="fbtn sbtn" data-s="units" onclick="setSubject('units')">📏 <span class="i18n" data-en="Units">单位</span></button>
+  </div>
+  <div class="fonts">
+    <button class="fbtn" data-f="default" onclick="setFont('default')">Aa <span class="i18n" data-en="Default">默认</span></button>
+    <button class="fbtn active" data-f="round" onclick="setFont('round')">Aa <span class="i18n" data-en="Rounded">圆体</span></button>
+    <button class="fbtn" data-f="hand" onclick="setFont('hand')">Aa <span class="i18n" data-en="Handwritten">手写</span></button>
+  </div>
+  <div class="fonts" style="margin-top:8px">
+    <button class="fbtn lbtn active" data-l="zh" onclick="setLang('zh')">中文</button>
+    <button class="fbtn lbtn" data-l="en" onclick="setLang('en')">English</button>
+  </div>
+  <div class="fonts" style="margin-top:8px"><button class="fbtn" id="bg-btn" onclick="cycleBg()">🎨 <span class="i18n" data-en="Background:">背景：</span><span id="bg-name"></span></button></div>
+  <button class="dlbtn i18n" data-en="⬇️ Download this guide" onclick="downloadPage()">⬇️ 下载这份手册</button>
+  <button class="dlbtn i18n" data-en="▶️ Play walkthrough" style="background:#5FC49A;color:#1a3b2c" onclick="startPlay()">▶️ 播放讲解</button>
+  <button class="dlbtn i18n" data-en="📝 Quiz me" style="background:#F27B7B;color:#3a1414" onclick="startQuiz()">📝 考考自己</button>
+</div>
+
+<div class="modal" id="quiz-modal" onclick="if(event.target===this)closeQuiz()">
+  <div class="modal-box"><button class="modal-close" onclick="closeQuiz()">✕</button>
+    <div id="quiz-content"></div>
+  </div>
+</div>
+
+<div class="modal" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <button class="replay" title="replay" onclick="if(modalCard)playStage(modalCard)">🔁</button>
+    <div class="stage"><div class="emoji" id="m-emoji"></div><div id="m-burst"></div><div id="m-scene"></div></div>
+    <div class="m-ctl" id="m-ctl"></div>
+    <div class="sym" id="m-sym"></div>
+    <div class="name" id="m-name"></div>
+    <div class="desc" id="m-desc"></div>
+    <div class="ex" id="m-ex"></div>
+    <div class="play-controls" id="play-controls">
+      <button onclick="playStep(-1)">⏮</button>
+      <button id="play-pause" onclick="togglePause()">⏸</button>
+      <button onclick="playStep(1)">⏭</button>
+      <span id="play-count"></span>
+    </div>
+    <div class="progress"><div class="progress-bar" id="progress-bar"></div></div>
+  </div>
+</div>
+
+<div class="tabs">
+  <button class="tab active" data-lv="1" onclick="showLevel(1)">🟢 <span class="i18n" data-en="Level 1">第一关</span></button>
+  <button class="tab" data-lv="2" onclick="showLevel(2)">🔵 <span class="i18n" data-en="Level 2">第二关</span></button>
+  <button class="tab" data-lv="3" onclick="showLevel(3)">🟣 <span class="i18n" data-en="Level 3">第三关</span></button>
+</div>
+
+<main>
+
+  <section class="level active" data-lv="1">
+    <div class="level-banner"><span class="badge">🌱</span><span class="i18n" data-en="Elementary level: add, subtract, multiply, divide">小学关卡：加减乘除大比拼</span></div>
+    <div class="grid">
+      <div class="card" data-anim="grow" data-scene="add:2,3"><div class="emoji">🧩</div><div class="sym">+</div><div class="name i18n" data-en="Plus sign">加号</div><div class="desc i18n" data-en="Put two numbers together to make more">把两个数放一起，变成更多</div><span class="ex">2+3=5</span></div>
+      <div class="card" data-anim="shrink" data-scene="sub:5,2"><div class="emoji">🍪</div><div class="sym">−</div><div class="name i18n" data-en="Minus sign">减号</div><div class="desc i18n" data-en="Take a bit away, so it's less">从一堆里拿走一点，变少了</div><span class="ex">5−2=3</span></div>
+      <div class="card" data-anim="x2" data-scene="mul:3,4"><div class="emoji">🔁</div><div class="sym">×</div><div class="name i18n" data-en="Times sign">乘号</div><div class="desc i18n" data-en="Like adding, but faster">跟加法差不多，但算得更快</div><span class="ex">3×4=12</span></div>
+      <div class="card" data-anim="split" data-scene="div:6,2"><div class="emoji">🍕</div><div class="sym">÷</div><div class="name i18n" data-en="Divide sign">除号</div><div class="desc i18n" data-en="Share something equally among people">把东西平均分给每个人</div><span class="ex">6÷2=3</span></div>
+      <div class="card" data-anim="steady" data-scene="bal:eq"><div class="emoji">⚖️</div><div class="sym">=</div><div class="name i18n" data-en="Equals sign">等于号</div><div class="desc i18n" data-en="Both sides of the sign are the same">等号两边，数字一样多</div><span class="ex">2+2=4</span></div>
+      <div class="card" data-anim="shake" data-scene="bal:ne"><div class="emoji">🙅</div><div class="sym">≠</div><div class="name i18n" data-en="Not equal">不等于</div><div class="desc i18n" data-en="Both sides of the sign are different">等号两边，数字不一样</div><span class="ex">3≠5</span></div>
+      <div class="card" data-anim="tiltR" data-scene="cmp:5,3"><div class="emoji">🐊</div><div class="sym">&gt; &lt;</div><div class="name i18n" data-en="Greater/Less than">大于/小于</div><div class="desc i18n" data-en="The open side points at the bigger number">嘴巴张开的一边，数字比较大</div><span class="ex">5&gt;3</span></div>
+      <div class="card" data-anim="wobble" data-scene="steps:9.9;很接近 10;9.9 ≈ 10" data-scene-en="steps:9.9;very close to 10;9.9 ≈ 10"><div class="emoji">🌫️</div><div class="sym">≈</div><div class="name i18n" data-en="Approximately">约等于</div><div class="desc i18n" data-en="Two numbers are close enough to count as equal">两个数很接近，可以当作一样</div><span class="ex">9.9≈10</span></div>
+      <div class="card" data-anim="spin" data-scene="pie:50"><div class="emoji">🍰</div><div class="sym">%</div><div class="name i18n" data-en="Percent sign">百分号</div><div class="desc i18n" data-en="Split a whole thing into 100 pieces">把一整个东西分成100份</div><span class="ex">50%=0.5</span></div>
+      <div class="card" data-anim="split" data-scene="pie:50"><div class="emoji">🥧</div><div class="sym">½</div><div class="name i18n" data-en="Fraction">分数</div><div class="desc i18n" data-en="Split something into equal parts and take some of them">把东西平均分成几份，取其中的几份</div><span class="ex">1/2=0.5</span></div>
+      <div class="card" data-anim="steady" data-scene="ratio:5,6"><div class="emoji">🍎</div><div class="sym">5 : 6</div><div class="name i18n" data-en="Ratio">比</div><div class="desc i18n" data-en="Put two numbers side by side to compare them, like 5 apples for every 6 oranges">拿两个数放一起比一比，像 5 个苹果配 6 个橘子</div><span class="ex">5:6</span></div>
+    </div>
+  
+    <div class="group">
+      <h3>🔢 <span class="i18n" data-en="Place value &amp; units">数位与单位</span></h3>
+      <div class="grid">
+      <div class="card" data-anim="steady" data-scene="steps:352;=300+50+2;3个百 5个十 2个一" data-scene-en="steps:352;=300+50+2;3 hundreds 5 tens 2 ones"><div class="emoji">🏠</div><div class="sym">个 十 百</div><div class="name i18n" data-en="Place value">数位</div><div class="desc i18n" data-en="A digit is worth different amounts in different positions">数字站的位置不同，大小就不同</div><span class="ex">352=300+50+2</span></div>
+      <div class="card" data-anim="grow" data-scene="steps:1万;=10个一千;=10000" data-scene-en="steps:1 wan;=10 thousands;=10000"><div class="emoji">🔟</div><div class="sym">万</div><div class="name i18n" data-en="Wan (ten thousand)">万</div><div class="desc i18n" data-en="One wan equals 10 thousands">一万就是10个一千</div><span class="ex i18n" data-en="1 wan = 10,000">1万=10000</span></div>
+      <div class="card" data-anim="grow" data-scene="steps:1亿;=10000个一万;=10000万" data-scene-en="steps:1 yi;=10000 wan;=100 million"><div class="emoji">💯</div><div class="sym">亿</div><div class="name i18n" data-en="Yi (hundred million)">亿</div><div class="desc i18n" data-en="One yi equals 10,000 wan">一亿就是10000个一万</div><span class="ex i18n" data-en="1 yi = 10,000 wan">1亿=10000万</span></div>
+      <div class="card" data-anim="pulseIn" data-scene="steps:3 . 5;左边整数 右边小数;3.5 = 3 + 0.5" data-scene-en="steps:3 . 5;whole part and decimal part;3.5 = 3 + 0.5"><div class="emoji">🔹</div><div class="sym">.</div><div class="name i18n" data-en="Decimal point">小数点</div><div class="desc i18n" data-en="The dot that separates whole numbers from decimals">把整数和小数分开的点</div><span class="ex">3.5=3+0.5</span></div>
+      <div class="card" data-anim="shrink" data-scene="nl:0,-3,0 − 3 = −3"><div class="emoji">❄️</div><div class="sym">−3</div><div class="name i18n" data-en="Negative number">负数</div><div class="desc i18n" data-en="A number smaller than zero">比0还小的数</div><span class="ex">0−3=−3</span></div>
+      <div class="card" data-anim="spin" data-scene="ang:90,直角 = 90°" data-scene-en="ang:90,right angle = 90°"><div class="emoji">📐</div><div class="sym">°</div><div class="name i18n" data-en="Degree">度</div><div class="desc i18n" data-en="A unit for the size of an angle">量角度大小的单位</div><span class="ex">90°，180°，360°</span></div>
+      </div>
+    </div>
+
+    <div class="group">
+      <h3>🧮 <span class="i18n" data-en="Helpers for calculating">运算小帮手</span></h3>
+      <div class="grid">
+      <div class="card" data-anim="steady" data-scene="steps:5 ≥ 5;3 ≤ 4;可以相等" data-scene-en="steps:5 ≥ 5;3 ≤ 4;can be equal"><div class="emoji">🟰</div><div class="sym">≤ ≥</div><div class="name i18n" data-en="At most / at least">小于等于 大于等于</div><div class="desc i18n" data-en="Compare sizes, and both sides may be equal">比较大小，两边可以相等</div><span class="ex">5≥5，3≤4</span></div>
+      <div class="card" data-anim="grow" data-scene="steps:(2+3) × 4;先算括号 5 × 4;=20" data-scene-en="steps:(2+3) × 4;brackets first: 5 × 4;=20"><div class="emoji">🎁</div><div class="sym">( )</div><div class="name i18n" data-en="Brackets">括号</div><div class="desc i18n" data-en="Work out what is inside the brackets first">先算括号里面的</div><span class="ex">(2+3)×4=20</span></div>
+      <div class="card" data-anim="split" data-scene="steps:7 ÷ 2;每份2个 分3份;还剩1个;=3 余 1" data-scene-en="steps:7 ÷ 2;3 parts of 2 each;1 left over;=3 remainder 1"><div class="emoji">🍪</div><div class="sym">…</div><div class="name i18n" data-en="Remainder">余数</div><div class="desc i18n" data-en="What is left over after sharing equally">平均分完后剩下的</div><span class="ex">7÷2=3…1</span></div>
+      <div class="card" data-anim="wobble" data-scene="steps:2 × 1/2;=1;互为倒数" data-scene-en="steps:2 × 1/2;=1;reciprocals"><div class="emoji">🔄</div><div class="sym">1/x</div><div class="name i18n" data-en="Reciprocal">倒数</div><div class="desc i18n" data-en="Two numbers that multiply to make 1">乘起来等于1的两个数</div><span class="ex">2×1/2=1</span></div>
+      <div class="card" data-anim="steady" data-scene="steps:2 + 4 + 6 = 12;12 ÷ 3;平均数 = 4" data-scene-en="steps:2 + 4 + 6 = 12;12 ÷ 3;average = 4"><div class="emoji">📊</div><div class="sym">x̄</div><div class="name i18n" data-en="Average">平均数</div><div class="desc i18n" data-en="Add everything up, then share equally">全部加起来，再平均分</div><span class="ex">(2+4+6)÷3=4</span></div>
+      <div class="card" data-anim="steady" data-scene="steps:6 ÷ 3 = 2;没有余数;3 | 6" data-scene-en="steps:6 ÷ 3 = 2;no remainder;3 | 6"><div class="emoji">🧩</div><div class="sym">|</div><div class="name i18n" data-en="Divides evenly">整除</div><div class="desc i18n" data-en="Shares out exactly with nothing left">能分得刚刚好，没有余数</div><span class="ex">3|6</span></div>
+      </div>
+    </div>
+
+  </section>
+
+  <section class="level" data-lv="2">
+    <div class="level-banner"><span class="badge">🚀</span><span class="i18n" data-en="Middle school level: unknowns &amp; shapes adventure">中学关卡：未知数与图形大冒险</span></div>
+
+    <div class="group">
+      <h3>✏️ <span class="i18n" data-en="Hidden numbers">藏起来的数字</span></h3>
+      <div class="grid">
+        <div class="card" data-scene="steps:x + 2 = 5;x = 5 − 2;x = 3"><div class="emoji">🎁</div><div class="sym">x y z</div><div class="name i18n" data-en="Unknown number">未知数</div><div class="desc i18n" data-en="Stands for a number we don't know yet">代表一个还不知道是几的数字</div><span class="ex">x+2=5</span></div>
+        <div class="card" data-scene="square:5"><div class="emoji">👯</div><div class="sym">x²</div><div class="name i18n" data-en="Square">平方</div><div class="desc i18n" data-en="A number multiplied by itself">这个数自己乘自己</div><span class="ex">5²=25</span></div>
+        <div class="card" data-scene="root:3"><div class="emoji">🕵️</div><div class="sym">√x</div><div class="name i18n" data-en="Square root">根号</div><div class="desc i18n" data-en="The number that, times itself, gives x">找出自己乘自己会变成x的数</div><span class="ex">√9=3</span></div>
+        <div class="card" data-scene="nl:0,-5,|−5| = 5"><div class="emoji">🧼</div><div class="sym">|x|</div><div class="name i18n" data-en="Absolute value">绝对值</div><div class="desc i18n" data-en="Ignore the sign, just look at the size">不管正负号，只看数字大小</div><span class="ex">|−5|=5</span></div>
+        <div class="card" data-scene="steps:x = ±2;x = 2;或 x = −2" data-scene-en="steps:x = ±2;x = 2;or x = −2"><div class="emoji">🎀</div><div class="sym">±</div><div class="name i18n" data-en="Plus-minus">正负号</div><div class="desc i18n" data-en="Can be plus or minus">可以加，也可以减</div><span class="ex">x=±2</span></div>
+        <div class="card" data-scene="inf:"><div class="emoji">♾️</div><div class="sym">∞</div><div class="name i18n" data-en="Infinity">无穷大</div><div class="desc i18n" data-en="A number too big to ever finish counting">数字大到永远数不完</div><span class="ex">1,2,3...→∞</span></div>
+      </div>
+    </div>
+
+    <div class="group">
+      <h3>📐 <span class="i18n" data-en="Shape playground">形状乐园</span></h3>
+      <div class="grid">
+        <div class="card" data-scene="roll:"><div class="emoji">🔵</div><div class="sym">π</div><div class="name i18n" data-en="Pi">圆周率</div><div class="desc i18n" data-en="A fixed number every circle has, about 3.14">圆形都有的一个数字，约3.14</div><span class="ex">C=π×d</span></div>
+        <div class="card" data-scene="ang:90,∠A = 90°"><div class="emoji">📐</div><div class="sym">∠</div><div class="name i18n" data-en="Angle">角</div><div class="desc i18n" data-en="The space where two lines open up">两条线张开形成的角度</div><span class="ex">∠A=90°</span></div>
+        <div class="card" data-scene="tri:one"><div class="emoji">🔺</div><div class="sym">△</div><div class="name i18n" data-en="Triangle">三角形</div><div class="desc i18n" data-en="A simple way to write "triangle"">三角形的简单写法</div><span class="ex">△ABC</span></div>
+        <div class="card" data-scene="ang:90,AB ⊥ CD"><div class="emoji">📏</div><div class="sym">⊥</div><div class="name i18n" data-en="Perpendicular">垂直</div><div class="desc i18n" data-en="Two lines meet at a perfect right angle">两条线刚好垂直，像十字</div><span class="ex">AB⊥CD</span></div>
+        <div class="card" data-scene="par:"><div class="emoji">🛤️</div><div class="sym">∥</div><div class="name i18n" data-en="Parallel">平行</div><div class="desc i18n" data-en="Two lines that never meet">两条线永远不会碰到一起</div><span class="ex">AB∥CD</span></div>
+        <div class="card" data-scene="steps:sin 30°;=对边 ÷ 斜边;=1 ÷ 2 = 0.5" data-scene-en="steps:sin 30°;=opposite ÷ hypotenuse;=1 ÷ 2 = 0.5"><div class="emoji">📏</div><div class="sym">sin cos tan</div><div class="name i18n" data-en="Trig functions">三角函数</div><div class="desc i18n" data-en="A way to work out a triangle's side lengths">算三角形边长的一种方法</div><span class="ex">sin30°=0.5</span></div>
+      </div>
+    </div>
+
+    <div class="group">
+      <h3>🧺 <span class="i18n" data-en="Sorting baskets">分类小篮子</span></h3>
+      <div class="grid">
+        <div class="card" data-scene="steps:{1，2，3};一个篮子装了3个数" data-scene-en="steps:{1 2 3};a basket holding 3 numbers"><div class="emoji">🧺</div><div class="sym">{ }</div><div class="name i18n" data-en="Set">集合</div><div class="desc i18n" data-en="A bunch of numbers grouped together">把一群数字放在一起</div><span class="ex">{1,2,3}</span></div>
+        <div class="card" data-scene="steps:3 ∈ {1 2 3};3 在篮子里" data-scene-en="steps:3 ∈ {1 2 3};3 is in the basket"><div class="emoji">🍎</div><div class="sym">∈</div><div class="name i18n" data-en="Belongs to">属于</div><div class="desc i18n" data-en="This thing is inside that group">这个东西在这一堆里面</div><span class="ex">3∈{1,2,3}</span></div>
+        <div class="card" data-scene="venn:int"><div class="emoji">🤝</div><div class="sym">∩</div><div class="name i18n" data-en="Intersection">交集</div><div class="desc i18n" data-en="The part both groups share">两堆里面都有的部分</div><span class="ex">{1,2,3}∩{2,3,4}={2,3}</span></div>
+        <div class="card" data-scene="venn:uni"><div class="emoji">🎒</div><div class="sym">∪</div><div class="name i18n" data-en="Union">并集</div><div class="desc i18n" data-en="Put both groups together into one">把两堆东西合成一堆</div><span class="ex">{1,2}∪{3,4}={1,2,3,4}</span></div>
+        <div class="card" data-scene="steps:∀x;每一个 x 都是;x + 0 = x" data-scene-en="steps:∀x;every x;x + 0 = x"><div class="emoji">🔄</div><div class="sym">∀</div><div class="name i18n" data-en="For all">任意</div><div class="desc i18n" data-en="Means "every single one is like this"">意思是"每一个都是这样"</div><span class="ex">∀x，x+0=x</span></div>
+        <div class="card" data-scene="steps:∃x;至少有一个 x;x + 1 = 5 时 x = 4" data-scene-en="steps:∃x;at least one x;x + 1 = 5 when x = 4"><div class="emoji">🔍</div><div class="sym">∃</div><div class="name i18n" data-en="There exists">存在</div><div class="desc i18n" data-en="Means "at least one is like this"">意思是"至少有一个是这样"</div><span class="ex">∃x，使x+1=5</span></div>
+        <div class="card" data-scene="steps:x = 2;⇒;x + 1 = 3"><div class="emoji">➡️</div><div class="sym">⇒</div><div class="name i18n" data-en="Implies">推出</div><div class="desc i18n" data-en="If the first part is true, so is the next">前面对的话，后面也会对</div><span class="ex">x=2⇒x+1=3</span></div>
+      </div>
+    </div>
+  
+    <div class="group">
+      <h3>🧱 <span class="i18n" data-en="Families of numbers">数的家族</span></h3>
+      <div class="grid">
+      <div class="card" data-anim="pulseIn" data-scene="steps:0 1 2 3 ...;用来数数" data-scene-en="steps:0 1 2 3 ...;used for counting"><div class="emoji">🍎</div><div class="sym">ℕ</div><div class="name i18n" data-en="Natural numbers">自然数</div><div class="desc i18n" data-en="Numbers used for counting">用来数数的数</div><span class="ex">0,1,2,3...</span></div>
+      <div class="card" data-anim="pulseIn" data-scene="steps:... −1 0 1 ...;有负数也有正数" data-scene-en="steps:... −1 0 1 ...;negatives and positives"><div class="emoji">🌡️</div><div class="sym">ℤ</div><div class="name i18n" data-en="Integers">整数</div><div class="desc i18n" data-en="Natural numbers plus the negatives">自然数再加上负数</div><span class="ex">...−1,0,1...</span></div>
+      <div class="card" data-anim="pulseIn" data-scene="steps:1/2;0.75;能写成分数" data-scene-en="steps:1/2;0.75;can be written as fractions"><div class="emoji">🍰</div><div class="sym">ℚ</div><div class="name i18n" data-en="Rational numbers">有理数</div><div class="desc i18n" data-en="Numbers that can be written as fractions">能写成分数的数</div><span class="ex">1/2，0.75</span></div>
+      <div class="card" data-anim="pulseIn" data-scene="steps:π  √2  3;数轴上所有的数" data-scene-en="steps:π  √2  3;every number on the number line"><div class="emoji">🌈</div><div class="sym">ℝ</div><div class="name i18n" data-en="Real numbers">实数</div><div class="desc i18n" data-en="Every number on the number line">数轴上所有的数</div><span class="ex">π，√2，3</span></div>
+      </div>
+    </div>
+
+    <div class="group">
+      <h3>🧠 <span class="i18n" data-en="Logic symbols">逻辑符号</span></h3>
+      <div class="grid">
+      <div class="card" data-anim="pulseIn" data-scene="steps:{ };里面什么也没有;∅" data-scene-en="steps:{ };nothing inside;∅"><div class="emoji">🫙</div><div class="sym">∅</div><div class="name i18n" data-en="Empty set">空集</div><div class="desc i18n" data-en="A basket with nothing in it">里面什么也没有的篮子</div><span class="ex">{ }=∅</span></div>
+      <div class="card" data-anim="pulseIn" data-scene="venn:sub"><div class="emoji">🧺</div><div class="sym">⊂</div><div class="name i18n" data-en="Subset">子集</div><div class="desc i18n" data-en="One basket fits completely inside another">一个篮子完全装在另一个里面</div><span class="ex">{1,2}⊂{1,2,3}</span></div>
+      <div class="card" data-anim="shake" data-scene="steps:4 ∉ {1 2 3};4 不在篮子里" data-scene-en="steps:4 ∉ {1 2 3};4 is not in the basket"><div class="emoji">🙅</div><div class="sym">∉</div><div class="name i18n" data-en="Not in">不属于</div><div class="desc i18n" data-en="This thing is not in the group">这个东西不在这一堆里</div><span class="ex">4∉{1,2,3}</span></div>
+      <div class="card" data-anim="pulseIn" data-scene="steps:因为 x + 2 = 5" data-scene-en="steps:because x + 2 = 5"><div class="emoji">🤔</div><div class="sym">∵</div><div class="name i18n" data-en="Because">因为</div><div class="desc i18n" data-en="Gives the reason">说出原因</div><span class="ex">∵ x+2=5</span></div>
+      <div class="card" data-anim="pulseIn" data-scene="steps:所以 x = 3" data-scene-en="steps:therefore x = 3"><div class="emoji">💡</div><div class="sym">∴</div><div class="name i18n" data-en="Therefore">所以</div><div class="desc i18n" data-en="Gives the result">得出结果</div><span class="ex">∴ x=3</span></div>
+      <div class="card" data-anim="pulseIn" data-scene="steps:x &gt; 1 ∧ x &lt; 3;两个都要对;x = 2" data-scene-en="steps:x &gt; 1 ∧ x &lt; 3;both must be true;x = 2"><div class="emoji">🤝</div><div class="sym">∧</div><div class="name i18n" data-en="And">且</div><div class="desc i18n" data-en="Both conditions must be true">两个条件都要对</div><span class="ex">x&gt;1 ∧ x&lt;3</span></div>
+      <div class="card" data-anim="pulseIn" data-scene="steps:x &lt; 1 ∨ x &gt; 3;对一个就行;x = 5" data-scene-en="steps:x &lt; 1 ∨ x &gt; 3;one is enough;x = 5"><div class="emoji">🔀</div><div class="sym">∨</div><div class="name i18n" data-en="Or">或</div><div class="desc i18n" data-en="At least one condition is true">两个条件对一个就行</div><span class="ex">x&lt;1 ∨ x&gt;3</span></div>
+      </div>
+    </div>
+
+    <div class="group">
+      <h3>📈 <span class="i18n" data-en="Functions &amp; more">函数与更多</span></h3>
+      <div class="grid">
+      <div class="card" data-anim="pulseIn" data-scene="fx:2,1,3"><div class="emoji">🏭</div><div class="sym">f(x)</div><div class="name i18n" data-en="Function">函数</div><div class="desc i18n" data-en="A machine: put one number in, get one number out">放进一个数，出来一个数的机器</div><span class="ex">f(x)=2x+1，f(3)=7</span></div>
+      <div class="card" data-anim="grow" data-scene="steps:4!;=4×3×2×1;=24"><div class="emoji">🎢</div><div class="sym">!</div><div class="name i18n" data-en="Factorial">阶乘</div><div class="desc i18n" data-en="Multiply from 1 up to the number">从1乘到这个数</div><span class="ex">4!=1×2×3×4=24</span></div>
+      <div class="card" data-anim="pulseIn" data-scene="vol:3,3,3"><div class="emoji">🧊</div><div class="sym">∛</div><div class="name i18n" data-en="Cube root">立方根</div><div class="desc i18n" data-en="The number that, multiplied 3 times, gives it">自己乘三次等于它的数</div><span class="ex">∛27=3</span></div>
+      <div class="card" data-anim="pulseIn" data-scene="steps:log₁₀ 100;10 × 10 = 100;乘了 2 次;=2" data-scene-en="steps:log₁₀ 100;10 × 10 = 100;2 tens;=2"><div class="emoji">🔍</div><div class="sym">log</div><div class="name i18n" data-en="Logarithm">对数</div><div class="desc i18n" data-en="Asks: how many 10s multiply to make it?">问：几个10相乘能得到它？</div><span class="ex">log₁₀100=2</span></div>
+      <div class="card" data-anim="grow" data-scene="steps:3 × 10³;=3 × 1000;=3000"><div class="emoji">🔬</div><div class="sym">×10ⁿ</div><div class="name i18n" data-en="Scientific notation">科学计数法</div><div class="desc i18n" data-en="Write very big or small numbers with powers of 10">用10的次方写很大或很小的数</div><span class="ex">3×10³=3000</span></div>
+      <div class="card" data-anim="steady" data-scene="tri:cong"><div class="emoji">🪞</div><div class="sym">≅</div><div class="name i18n" data-en="Congruent">全等</div><div class="desc i18n" data-en="Exactly the same shape and size">形状和大小完全一样</div><span class="ex">△ABC≅△DEF</span></div>
+      <div class="card" data-anim="wobble" data-scene="tri:sim"><div class="emoji">🔎</div><div class="sym">∼</div><div class="name i18n" data-en="Similar">相似</div><div class="desc i18n" data-en="Same shape, but the size can differ">形状一样，大小可以不同</div><span class="ex">△ABC∼△DEF</span></div>
+      <div class="card" data-anim="spin" data-scene="steps:半径 r;直径 d;d = 2 × r" data-scene-en="steps:radius r;diameter d;d = 2 × r"><div class="emoji">⭕</div><div class="sym">r d</div><div class="name i18n" data-en="Radius and diameter">半径与直径</div><div class="desc i18n" data-en="Radius goes from centre to edge; diameter is twice that">半径是圆心到边，直径是半径的2倍</div><span class="ex">d=2r</span></div>
+      </div>
+    </div>
+
+  </section>
+
+  <section class="level" data-lv="3">
+    <div class="level-banner"><span class="badge">🌌</span><span class="i18n" data-en="University level: the magic of change &amp; space">大学关卡：变化与空间的魔法</span></div>
+    <div class="grid">
+      <div class="card" data-scene="stairs:5"><div class="emoji">🤐</div><div class="sym">Σ</div><div class="name i18n" data-en="Sum">求和</div><div class="desc i18n" data-en="Add a whole string of numbers together">把一串数字全部加起来</div><span class="ex">Σ(1~5)=1+2+3+4+5=15</span></div>
+      <div class="card" data-scene="steps:1×2×3×4;=2×3×4;=24"><div class="emoji">✖️</div><div class="sym">Π</div><div class="name i18n" data-en="Product">求积</div><div class="desc i18n" data-en="Multiply a whole string of numbers together">把一串数字全部乘起来</div><span class="ex">Π(1~4)=1×2×3×4=24</span></div>
+      <div class="card" data-scene="lim:"><div class="emoji">🐌</div><div class="sym">lim</div><div class="name i18n" data-en="Limit">极限</div><div class="desc i18n" data-en="Getting closer and closer, but never arriving">越来越靠近，但还没到达</div><span class="ex">lim(x→0)x=0</span></div>
+      <div class="card" data-scene="deriv:"><div class="emoji">🔬</div><div class="sym">dy/dx</div><div class="name i18n" data-en="Derivative">导数</div><div class="desc i18n" data-en="How fast something is changing right now">看某一刻变化得有多快</div><span class="ex">d/dx(x²)=2x</span></div>
+      <div class="card" data-scene="integ:"><div class="emoji">🧩</div><div class="sym">∫</div><div class="name i18n" data-en="Integral">积分</div><div class="desc i18n" data-en="Add up lots of tiny slices to get an area">把很多小块加起来，算出面积</div><span class="ex">∫2x dx=x²</span></div>
+      <div class="card" data-scene="nl:2,5,Δx = 5 − 2 = 3"><div class="emoji">📊</div><div class="sym">Δ</div><div class="name i18n" data-en="Delta">Delta</div><div class="desc i18n" data-en="The later number minus the earlier number">后来的数减去原来的数</div><span class="ex">Δx=5−2=3</span></div>
+      <div class="card" data-scene="mat:"><div class="emoji">🏐</div><div class="sym">矩阵</div><div class="name i18n" data-en="Matrix">Matrix</div><div class="desc i18n" data-en="Numbers arranged in a grid">把数字排成一个表格</div><span class="ex">A=[[1,2],[3,4]]</span></div>
+      <div class="card" data-scene="coin:"><div class="emoji">🎲</div><div class="sym">P(A)</div><div class="name i18n" data-en="Probability">概率</div><div class="desc i18n" data-en="How likely something is to happen">这件事发生的机会有多大</div><span class="ex">P(A)=0.5</span></div>
+    </div>
+  
+    <div class="group">
+      <h3>🚀 <span class="i18n" data-en="Advanced tools">高阶工具</span></h3>
+      <div class="grid">
+      <div class="card" data-anim="pulseIn" data-scene="deriv:"><div class="emoji">🌄</div><div class="sym">∂</div><div class="name i18n" data-en="Partial derivative">偏导数</div><div class="desc i18n" data-en="Rate of change in just one variable">只看一个变量的变化速度</div><span class="ex">∂/∂x(3x+2y)=3</span></div>
+      <div class="card" data-anim="grow" data-scene="steps:e ≈ 2.718;增长和复利常用" data-scene-en="steps:e ≈ 2.718;used in growth and interest"><div class="emoji">🌱</div><div class="sym">e</div><div class="name i18n" data-en="Euler number e">自然常数 e</div><div class="desc i18n" data-en="About 2.718, common in growth and interest">约2.718，增长和复利常用</div><span class="ex">e≈2.718</span></div>
+      <div class="card" data-anim="pulseIn" data-scene="steps:ln e;e 的几次方等于 e;=1" data-scene-en="steps:ln e;e to what power is e;=1"><div class="emoji">🧮</div><div class="sym">ln</div><div class="name i18n" data-en="Natural logarithm">自然对数</div><div class="desc i18n" data-en="The logarithm with base e">以e为底的对数</div><span class="ex">ln e=1</span></div>
+      <div class="card" data-anim="pulseIn" data-scene="mat:det"><div class="emoji">🔢</div><div class="sym">det</div><div class="name i18n" data-en="Determinant">行列式</div><div class="desc i18n" data-en="One number worked out from a square grid">从方阵算出一个数</div><span class="ex">|1 2; 3 4|=1×4−2×3=−2</span></div>
+      <div class="card" data-anim="wobble" data-scene="mat:t"><div class="emoji">🔁</div><div class="sym">Aᵀ</div><div class="name i18n" data-en="Transpose">转置</div><div class="desc i18n" data-en="Swap the rows and columns of a matrix">把矩阵的行和列换位置</div><span class="ex">[[1,2],[3,4]]ᵀ=[[1,3],[2,4]]</span></div>
+      <div class="card" data-anim="shake" data-scene="vec:"><div class="emoji">➡️</div><div class="sym">→v</div><div class="name i18n" data-en="Vector">向量</div><div class="desc i18n" data-en="A quantity with both size and direction">有大小也有方向的量</div><span class="ex">v=(3,4)，|v|=5</span></div>
+      <div class="card" data-anim="pulseIn" data-scene="steps:数据靠得近;σ 小;数据分得开;σ 大" data-scene-en="steps:data close together;σ small;data spread out;σ large"><div class="emoji">🎯</div><div class="sym">σ</div><div class="name i18n" data-en="Standard deviation">标准差</div><div class="desc i18n" data-en="How spread out the data is">数据分散得有多开</div><span class="ex">σ=√Var</span></div>
+      <div class="card" data-anim="pulseIn" data-scene="dice:"><div class="emoji">🎲</div><div class="sym">E(X)</div><div class="name i18n" data-en="Expected value">期望</div><div class="desc i18n" data-en="What you get on average each time">平均下来每次能得到多少</div><span class="ex i18n" data-en="Dice roll: E = 3.5">掷骰子 E=3.5</span></div>
+      <div class="card" data-anim="pulseIn" data-scene="steps:i × i = −1;i² = −1"><div class="emoji">🪄</div><div class="sym">i</div><div class="name i18n" data-en="Imaginary unit">虚数单位</div><div class="desc i18n" data-en="The &quot;number&quot; whose square is −1">平方等于−1的&quot;数&quot;</div><span class="ex">i²=−1</span></div>
+      <div class="card" data-anim="pulseIn" data-scene="steps:4个里挑2个;一共 6 种;C(4 2) = 6" data-scene-en="steps:choose 2 of 4;6 ways;C(4 2) = 6"><div class="emoji">🎒</div><div class="sym">C(n,k)</div><div class="name i18n" data-en="Combination">组合数</div><div class="desc i18n" data-en="Ways to choose k things out of n">从n个里挑k个，有几种挑法</div><span class="ex">C(4,2)=6</span></div>
+      <div class="card" data-anim="pulseIn" data-scene="steps:17 ÷ 5 = 3 余 2;所以 17 ≡ 2 (mod 5)" data-scene-en="steps:17 ÷ 5 = 3 remainder 2;so 17 ≡ 2 (mod 5)"><div class="emoji">⏰</div><div class="sym">≡ mod</div><div class="name i18n" data-en="Congruence">同余</div><div class="desc i18n" data-en="Same remainder when divided by the same number">除以同一个数，余数一样</div><span class="ex">17≡2 (mod 5)</span></div>
+      <div class="card" data-anim="pulseIn" data-scene="integ:"><div class="emoji">🌊</div><div class="sym">∬</div><div class="name i18n" data-en="Double integral">二重积分</div><div class="desc i18n" data-en="Add up all the tiny pieces over a whole region">把整块区域里的小块都加起来</div><span class="ex i18n" data-en="∬ 1 dA = area">∬1 dA=面积</span></div>
+      </div>
+    </div>
+
+  </section>
+
+
+  <section class="level" data-lv="4">
+    <div class="level-banner"><span class="badge">🔭</span><span class="i18n" data-en="Science level: space, area &amp; volume">科学关卡：宇宙、面积与体积</span></div>
+
+    <div class="group">
+      <h3>🚀 <span class="i18n" data-en="The universe">宇宙</span></h3>
+      <div class="grid">
+      <div class="card" data-anim="grow" data-scene="sun:太阳 ∈ 恒星" data-scene-en="sun:Sun ∈ stars"><div class="emoji">☀️</div><div class="sym">☀</div><div class="name i18n" data-en="Sun">太阳</div><div class="desc i18n" data-en="The star closest to us, giving Earth light and heat">离我们最近的恒星，给地球光和热</div><span class="ex i18n" data-en="Sun ∈ stars">太阳∈恒星</span></div>
+      <div class="card" data-anim="spin" data-scene="orbit:earth,1年≈365天" data-scene-en="orbit:earth,1 year ≈ 365 days"><div class="emoji">🌍</div><div class="sym">🌍</div><div class="name i18n" data-en="Earth">地球</div><div class="desc i18n" data-en="The planet we live on, going around the Sun">我们住的星球，绕着太阳转</div><span class="ex i18n" data-en="1 year ≈ 365 days">1年≈365天</span></div>
+      <div class="card" data-anim="wobble" data-scene="orbit:moon,1个月≈30天" data-scene-en="orbit:moon,1 month ≈ 30 days"><div class="emoji">🌙</div><div class="sym">☾</div><div class="name i18n" data-en="Moon">月亮</div><div class="desc i18n" data-en="Earth's little companion that circles around it">绕着地球转的小伙伴</div><span class="ex i18n" data-en="1 month ≈ 30 days">1个月≈30天</span></div>
+      <div class="card" data-anim="pulseIn" data-scene="twinkle:太阳 夜空里的星星" data-scene-en="twinkle:the Sun and the night stars"><div class="emoji">⭐</div><div class="sym">★</div><div class="name i18n" data-en="Star">恒星</div><div class="desc i18n" data-en="A giant ball that makes its own light and heat">自己会发光发热的大火球</div><span class="ex i18n" data-en="The Sun, the stars at night">太阳、夜空里的星星</span></div>
+      <div class="card" data-anim="spin" data-scene="orbit:planets,8个行星" data-scene-en="orbit:planets,8 planets"><div class="emoji">🪐</div><div class="sym">♄</div><div class="name i18n" data-en="Planet">行星</div><div class="desc i18n" data-en="Big balls going around a star; the Solar System has 8">绕着恒星转的大球，太阳系有8个</div><span class="ex i18n" data-en="8 planets">8个行星</span></div>
+      <div class="card" data-anim="pulseIn" data-scene="galaxy:1000亿+颗恒星" data-scene-en="galaxy:100+ billion stars"><div class="emoji">🌌</div><div class="sym">🌌</div><div class="name i18n" data-en="Milky Way">银河系</div><div class="desc i18n" data-en="A huge galaxy of over a hundred billion stars, with our Sun inside">有上千亿颗恒星的大星系，太阳也在里面</div><span class="ex i18n" data-en="100+ billion stars">1000亿+颗恒星</span></div>
+      <div class="card" data-anim="shake" data-scene="light:⭐,1光年≈9.46万亿千米" data-scene-en="light:⭐,1 light-year ≈ 9.46 trillion km"><div class="emoji">💫</div><div class="sym">ly</div><div class="name i18n" data-en="Light-year">光年</div><div class="desc i18n" data-en="How far light travels in one year, used to measure faraway stars">光跑一年的距离，用来量很远的星星</div><span class="ex i18n" data-en="1 light-year ≈ 9.46 trillion km">1光年≈9.46万亿千米</span></div>
+      <div class="card" data-anim="spin" data-scene="orbit:au,1AU≈1.5亿千米" data-scene-en="orbit:au,1 AU ≈ 150 million km"><div class="emoji">🛰️</div><div class="sym">AU</div><div class="name i18n" data-en="Astronomical unit">天文单位</div><div class="desc i18n" data-en="The distance from Earth to the Sun, used for measuring inside the Solar System">地球到太阳的距离，用来量太阳系里的距离</div><span class="ex i18n" data-en="1 AU ≈ 150 million km">1AU≈1.5亿千米</span></div>
+      <div class="card" data-anim="shake" data-scene="light:🌍,c≈30万千米/秒" data-scene-en="light:🌍,c ≈ 300000 km/s"><div class="emoji">⚡</div><div class="sym">c</div><div class="name i18n" data-en="Speed of light">光速</div><div class="desc i18n" data-en="Light is the fastest thing in the universe">光是宇宙里跑得最快的东西</div><span class="ex i18n" data-en="c ≈ 300,000 km/s">c≈30万千米/秒</span></div>
+      <div class="card" data-anim="shake" data-scene="light:🌍,太阳→地球≈8光分" data-scene-en="light:🌍,Sun → Earth ≈ 8 light-minutes"><div class="emoji">🕗</div><div class="sym">光分</div><div class="name i18n" data-en="Light-minute">光分</div><div class="desc i18n" data-en="How far light travels in one minute">光跑一分钟的距离</div><span class="ex i18n" data-en="Sun → Earth ≈ 8 light-minutes">太阳→地球≈8光分</span></div>
+      <div class="card" data-anim="pulseIn" data-scene="light:⭐,1pc≈3.26光年" data-scene-en="light:⭐,1 pc ≈ 3.26 light-years"><div class="emoji">🔭</div><div class="sym">pc</div><div class="name i18n" data-en="Parsec">秒差距</div><div class="desc i18n" data-en="A big distance unit astronomers often use">天文学家常用的大距离单位</div><span class="ex i18n" data-en="1 pc ≈ 3.26 light-years">1pc≈3.26光年</span></div>
+      <div class="card" data-anim="pulseIn" data-scene="light:🌟,≈4.2光年" data-scene-en="light:🌟,≈ 4.2 light-years"><div class="emoji">🌟</div><div class="sym">比邻星</div><div class="name i18n" data-en="Proxima Centauri">比邻星</div><div class="desc i18n" data-en="The star closest to our Sun">离太阳最近的恒星</div><span class="ex i18n" data-en="≈ 4.2 light-years">≈4.2光年</span></div>
+      <div class="card" data-anim="grow" data-scene="steps:太阳;≈ 2×10³⁰ kg;地球的约33万倍" data-scene-en="steps:the Sun;≈ 2×10³⁰ kg;about 330000 Earths"><div class="emoji">⚖️</div><div class="sym">M☉</div><div class="name i18n" data-en="Solar mass">太阳质量</div><div class="desc i18n" data-en="Using the weight of the Sun as a measuring stick">把太阳的重量当作一把秤</div><span class="ex i18n" data-en="1 M☉ ≈ 2×10³⁰ kg">1M☉≈2×10³⁰kg</span></div>
+      <div class="card" data-anim="steady" data-scene="steps:地球半径 ≈ 6400 km;太阳半径 ≈ 70万 km;太阳大得多" data-scene-en="steps:Earth radius ≈ 6400 km;Sun radius ≈ 700000 km;the Sun is much bigger"><div class="emoji">📏</div><div class="sym">R⊕ R☉</div><div class="name i18n" data-en="Radius of Earth and Sun">天体半径</div><div class="desc i18n" data-en="Using Earth and the Sun as size rulers">用地球和太阳的大小来量</div><span class="ex i18n" data-en="R⊕ ≈ 6,400 km, R☉ ≈ 700,000 km">R⊕≈6400km，R☉≈70万km</span></div>
+      <div class="card" data-anim="pulseIn" data-scene="uni:直径≈930亿光年" data-scene-en="uni:diameter ≈ 93 billion light-years"><div class="emoji">🌌</div><div class="sym">观测宇宙</div><div class="name i18n" data-en="Observable universe">可观测宇宙</div><div class="desc i18n" data-en="The part of the universe we can see">我们能看到的那部分宇宙</div><span class="ex i18n" data-en="Diameter ≈ 93 billion light-years">直径≈930亿光年</span></div>
+      <div class="card" data-anim="wobble" data-scene="uni:≈138亿年" data-scene-en="uni:≈ 13.8 billion years"><div class="emoji">🕰️</div><div class="sym">Gyr</div><div class="name i18n" data-en="Age of the universe">宇宙年龄</div><div class="desc i18n" data-en="How long the universe has existed">宇宙已经存在了多久</div><span class="ex i18n" data-en="≈ 13.8 billion years">≈138亿年</span></div>
+      </div>
+    </div>
+
+    <div class="group">
+      <h3>🟦 <span class="i18n" data-en="Area &amp; volume">面积与体积</span></h3>
+      <div class="grid">
+      <div class="card" data-anim="grow" data-scene="mul:3,3"><div class="emoji">🟦</div><div class="sym">m²</div><div class="name i18n" data-en="Area">面积</div><div class="desc i18n" data-en="How much flat space a shape covers">一块平面有多大</div><span class="ex i18n" data-en="1 m × 1 m = 1 m²">1m×1m=1m²</span></div>
+      <div class="card" data-anim="grow" data-scene="mul:3,4"><div class="emoji">▭</div><div class="sym">长×宽</div><div class="name i18n" data-en="Rectangle area">长方形面积</div><div class="desc i18n" data-en="Length times width">长乘以宽</div><span class="ex i18n" data-en="3×4=12">3×4=12</span></div>
+      <div class="card" data-anim="grow" data-scene="steps:底 × 高;再 ÷ 2;4 × 3 ÷ 2 = 6" data-scene-en="steps:base × height;then ÷ 2;4 × 3 ÷ 2 = 6"><div class="emoji">🔺</div><div class="sym">底×高÷2</div><div class="name i18n" data-en="Triangle area">三角形面积</div><div class="desc i18n" data-en="Base times height, then divide by 2">底乘高，再除以2</div><span class="ex i18n" data-en="4×3÷2=6">4×3÷2=6</span></div>
+      <div class="card" data-anim="spin" data-scene="steps:π × r × r;3.14 × 2 × 2;= 12.56"><div class="emoji">⭕</div><div class="sym">πr²</div><div class="name i18n" data-en="Circle area">圆的面积</div><div class="desc i18n" data-en="Pi times radius times radius">π乘半径再乘半径</div><span class="ex i18n" data-en="3.14×2×2=12.56">3.14×2×2=12.56</span></div>
+      <div class="card" data-anim="grow" data-scene="vol:2,3,4"><div class="emoji">🧊</div><div class="sym">cm³</div><div class="name i18n" data-en="Volume">体积</div><div class="desc i18n" data-en="How much space a solid thing takes up">立体的东西占了多大空间</div><span class="ex i18n" data-en="2×3×4=24">2×3×4=24</span></div>
+      </div>
+    </div>
+  </section>
+  <section class="level" data-lv="5">
+    <div class="level-banner"><span class="badge">📏</span><span class="i18n" data-en="Units level: measure the world">单位关卡：量一量世界</span></div>
+
+    <div class="group">
+      <h3>📏 <span class="i18n" data-en="Length units">长度单位</span></h3>
+      <div class="grid">
+      <div class="card" data-anim="steady" data-scene="steps:1 m = 100 cm;1 cm = 10 mm;1 km = 1000 m"><div class="emoji">📏</div><div class="sym">mm cm m km</div><div class="name i18n" data-en="Length (metric)">长度（公制）</div><div class="desc i18n" data-en="Metres, centimetres and kilometres for measuring length">米、厘米、千米，量长短</div><span class="ex i18n" data-en="1 m = 100 cm, 1 cm = 10 mm, 1 km = 1000 m">1m=100cm，1cm=10mm，1km=1000m</span></div>
+      <div class="card" data-anim="steady" data-scene="steps:1 in;=2.54 cm"><div class="emoji">📎</div><div class="sym">in</div><div class="name i18n" data-en="Inch">英寸 inch</div><div class="desc i18n" data-en="A small length used in the US and UK, about a thumb wide">美国英国常用的小长度，约一个拇指宽</div><span class="ex i18n" data-en="1 in = 2.54 cm">1 in = 2.54 cm</span></div>
+      <div class="card" data-anim="steady" data-scene="steps:1 ft;=12 in;≈ 30 cm"><div class="emoji">🦶</div><div class="sym">ft</div><div class="name i18n" data-en="Foot / feet">英尺 foot / feet</div><div class="desc i18n" data-en="Imperial length, originally the length of a foot">英制长度，原本是一只脚的长度</div><span class="ex i18n" data-en="1 ft = 12 in ≈ 30 cm">1 ft = 12 in ≈ 30 cm</span></div>
+      <div class="card" data-anim="steady" data-scene="steps:1 yd;=3 ft"><div class="emoji">🏈</div><div class="sym">yd</div><div class="name i18n" data-en="Yard">码 yard</div><div class="desc i18n" data-en="A length often used on football fields">橄榄球场常用的长度单位</div><span class="ex i18n" data-en="1 yd = 3 ft">1 yd = 3 ft</span></div>
+      <div class="card" data-anim="steady" data-scene="steps:1 mi;≈ 1.6 km"><div class="emoji">🛣️</div><div class="sym">mi</div><div class="name i18n" data-en="Mile">英里 mile</div><div class="desc i18n" data-en="Imperial unit for long distances">英制的远距离单位</div><span class="ex i18n" data-en="1 mi ≈ 1.6 km">1 mi ≈ 1.6 km</span></div>
+      </div>
+    </div>
+    <div class="group">
+      <h3>⚖️ <span class="i18n" data-en="Weight units">重量单位</span></h3>
+      <div class="grid">
+      <div class="card" data-anim="steady" data-scene="steps:1 kg;=1000 g"><div class="emoji">⚖️</div><div class="sym">kg g</div><div class="name i18n" data-en="Kilogram, gram">千克、克</div><div class="desc i18n" data-en="For measuring how heavy things are">量东西有多重</div><span class="ex i18n" data-en="1 kg = 1000 g">1kg=1000g</span></div>
+      <div class="card" data-anim="steady" data-scene="steps:1 t;=1000 kg"><div class="emoji">🚛</div><div class="sym">t</div><div class="name i18n" data-en="Tonne">吨 tonne</div><div class="desc i18n" data-en="For very heavy things, like big trucks">很重的东西用吨，比如大卡车</div><span class="ex i18n" data-en="1 t = 1000 kg">1 t = 1000 kg</span></div>
+      <div class="card" data-anim="steady" data-scene="steps:1 lb;≈ 454 g"><div class="emoji">🏋️</div><div class="sym">lb</div><div class="name i18n" data-en="Pound">磅 pound</div><div class="desc i18n" data-en="Imperial unit of weight">英制重量单位</div><span class="ex i18n" data-en="1 lb ≈ 454 g">1 lb ≈ 454 g</span></div>
+      <div class="card" data-anim="steady" data-scene="steps:16 oz;=1 lb"><div class="emoji">🥫</div><div class="sym">oz</div><div class="name i18n" data-en="Ounce">盎司 ounce</div><div class="desc i18n" data-en="A small imperial unit of weight">英制的小重量单位</div><span class="ex i18n" data-en="16 oz = 1 lb">16 oz = 1 lb</span></div>
+      </div>
+    </div>
+    <div class="group">
+      <h3>🥛 <span class="i18n" data-en="Liquid volume units">容量单位</span></h3>
+      <div class="grid">
+      <div class="card" data-anim="steady" data-scene="steps:1 L;=1000 mL"><div class="emoji">🥛</div><div class="sym">L</div><div class="name i18n" data-en="Litre">升 litre</div><div class="desc i18n" data-en="For measuring how much water or drink">量水、饮料有多少</div><span class="ex i18n" data-en="1 L = 1000 mL">1 L = 1000 mL</span></div>
+      <div class="card" data-anim="steady" data-scene="steps:1 mL;=1 cm³"><div class="emoji">💧</div><div class="sym">mL</div><div class="name i18n" data-en="Millilitre">毫升 millilitre</div><div class="desc i18n" data-en="A tiny amount, about a sip of water">很小的容量，一小口水</div><span class="ex i18n" data-en="1 mL = 1 cm³">1 mL = 1 cm³</span></div>
+      <div class="card" data-anim="steady" data-scene="steps:1 gal;≈ 3.8 L"><div class="emoji">🛢️</div><div class="sym">gal</div><div class="name i18n" data-en="Gallon">加仑 gallon</div><div class="desc i18n" data-en="A big imperial / US unit of volume">英制、美制的大容量单位</div><span class="ex i18n" data-en="1 gal ≈ 3.8 L">1 gal ≈ 3.8 L</span></div>
+      </div>
+    </div>
+    <div class="group">
+      <h3>🌡️ <span class="i18n" data-en="Temperature units">温度单位</span></h3>
+      <div class="grid">
+      <div class="card" data-anim="wobble" data-scene="thermo:水 0℃ 结冰 100℃ 沸腾" data-scene-en="thermo:water: freezes 0℃ boils 100℃"><div class="emoji">🌡️</div><div class="sym">℃</div><div class="name i18n" data-en="Celsius">摄氏度 Celsius</div><div class="desc i18n" data-en="A unit for how hot or cold">量冷热的单位</div><span class="ex i18n" data-en="Water freezes at 0℃, boils at 100℃">水0℃结冰，100℃沸腾</span></div>
+      <div class="card" data-anim="wobble" data-scene="thermo:0℃ = 273.15 K"><div class="emoji">🥶</div><div class="sym">K</div><div class="name i18n" data-en="Kelvin">开尔文</div><div class="desc i18n" data-en="The temperature unit scientists use; 0 K is the coldest possible">科学家用的温度单位，0K是最冷的温度</div><span class="ex i18n" data-en="0℃ = 273.15 K">0℃=273.15K</span></div>
+      <div class="card" data-anim="wobble" data-scene="thermo:0℃ = 32℉ 100℃ = 212℉"><div class="emoji">♨️</div><div class="sym">℉</div><div class="name i18n" data-en="Fahrenheit">华氏度</div><div class="desc i18n" data-en="A temperature unit used in the USA and some other places">美国等地常用的温度单位</div><span class="ex i18n" data-en="0℃ = 32℉, 100℃ = 212℉">0℃=32℉，100℃=212℉</span></div>
+      <div class="card" data-anim="steady" data-scene="steps:1 ft = 12 in;1 in = 2.54 cm;1 mi = 5280 ft"><div class="emoji">🦶</div><div class="sym">ft in mi</div><div class="name i18n" data-en="Imperial length">英制长度</div><div class="desc i18n" data-en="Feet, inches and miles, length units used in the USA">英尺、英寸、英里，美国常用的长度单位</div><span class="ex i18n" data-en="1 ft = 12 in, 1 in = 2.54 cm">1ft=12in，1in=2.54cm</span></div>
+      <div class="card" data-anim="steady" data-scene="steps:1 lb;=16 oz;≈ 0.45 kg"><div class="emoji">🏋️</div><div class="sym">lb oz</div><div class="name i18n" data-en="Pounds and ounces">英制重量</div><div class="desc i18n" data-en="Pounds and ounces, weight units used in the USA">磅和盎司，美国常用的重量单位</div><span class="ex i18n" data-en="1 lb = 16 oz, 1 lb ≈ 0.45 kg">1lb=16oz，1lb≈0.45kg</span></div>
+      <div class="card" data-anim="steady" data-scene="steps:1 gal;≈ 3.8 L"><div class="emoji">⛽</div><div class="sym">gal</div><div class="name i18n" data-en="Gallon">加仑</div><div class="desc i18n" data-en="A big liquid unit used in the USA">美国常用的大容量单位</div><span class="ex i18n" data-en="1 gal ≈ 3.8 L">1gal≈3.8L</span></div>
+      <div class="card" data-anim="wobble" data-scene="thermo:0℃ = 273.15 K"><div class="emoji">🧊</div><div class="sym">K</div><div class="name i18n" data-en="Kelvin">开尔文 Kelvin</div><div class="desc i18n" data-en="The scale scientists use; 0 K is the coldest possible">科学家用的温度，0 K 是最冷的温度</div><span class="ex i18n" data-en="0℃ ≈ 273 K">0℃ ≈ 273 K</span></div>
+      <div class="card" data-anim="wobble" data-scene="thermo:0℃ = 32℉ 100℃ = 212℉"><div class="emoji">🇺🇸</div><div class="sym">℉</div><div class="name i18n" data-en="Fahrenheit">华氏度 Fahrenheit</div><div class="desc i18n" data-en="The temperature unit used in the US">美国常用的温度单位</div><span class="ex i18n" data-en="0℃ = 32℉, 100℃ = 212℉">0℃=32℉，100℃=212℉</span></div>
+      </div>
+    </div>
+    <div class="group">
+      <h3>⏱️ <span class="i18n" data-en="Time and speed units">时间与速度单位</span></h3>
+      <div class="grid">
+      <div class="card" data-anim="steady" data-scene="steps:1 h;=60 min;1 min = 60 s"><div class="emoji">⏱️</div><div class="sym">h min s</div><div class="name i18n" data-en="Hour, minute, second">时、分、秒</div><div class="desc i18n" data-en="For measuring how much time passed">量时间过了多久</div><span class="ex i18n" data-en="1 h = 60 min, 1 min = 60 s">1h=60min，1min=60s</span></div>
+      <div class="card" data-anim="steady" data-scene="steps:1 s;=1000 ms"><div class="emoji">⚡</div><div class="sym">ms</div><div class="name i18n" data-en="Millisecond">毫秒 millisecond</div><div class="desc i18n" data-en="One thousandth of a second, even a blink is longer">千分之一秒，眨眼都比它长</div><span class="ex i18n" data-en="1 s = 1000 ms">1 s = 1000 ms</span></div>
+      <div class="card" data-anim="steady" data-scene="steps:1周 = 7天;1年 ≈ 365天" data-scene-en="steps:1 week = 7 days;1 year ≈ 365 days"><div class="emoji">📅</div><div class="sym">天 周 年</div><div class="name i18n" data-en="Calendar units">日历单位</div><div class="desc i18n" data-en="Days, weeks and years of the calendar">一周7天，一年12个月</div><span class="ex i18n" data-en="1 week = 7 days, 1 year ≈ 365 days">1周=7天，1年≈365天</span></div>
+      <div class="card" data-anim="steady" data-scene="car:1 m/s = 3.6 km/h"><div class="emoji">🚗</div><div class="sym">km/h m/s</div><div class="name i18n" data-en="Speed units">速度单位</div><div class="desc i18n" data-en="How far you go in one hour or one second">一小时或一秒钟跑多远</div><span class="ex i18n" data-en="1 m/s = 3.6 km/h">1 m/s = 3.6 km/h</span></div>
+      <div class="card" data-anim="steady" data-scene="steps:60 mph;≈ 97 km/h"><div class="emoji">🏎️</div><div class="sym">mph</div><div class="name i18n" data-en="Miles per hour">英里每小时</div><div class="desc i18n" data-en="A speed unit used in the US">美国常用的速度单位</div><span class="ex i18n" data-en="60 mph ≈ 97 km/h">60 mph ≈ 97 km/h</span></div>
+      </div>
+    </div>
+    <div class="group">
+      <h3>⚡ <span class="i18n" data-en="Force and electricity units">力与电的单位</span></h3>
+      <div class="grid">
+      <div class="card" data-anim="steady" data-scene="push:1kg 的东西受重力≈9.8N" data-scene-en="push:a 1 kg object feels gravity ≈ 9.8 N"><div class="emoji">💪</div><div class="sym">N</div><div class="name i18n" data-en="Newton">牛顿 newton</div><div class="desc i18n" data-en="The unit of force">力的单位</div><span class="ex i18n" data-en="1 N ≈ the weight of a 100 g apple">1 N ≈ 托起100g苹果的力</span></div>
+      <div class="card" data-anim="steady" data-scene="steps:1 J;≈ 把100g苹果举高1m" data-scene-en="steps:1 J;≈ lifting a 100 g apple up 1 m"><div class="emoji">🍎</div><div class="sym">J</div><div class="name i18n" data-en="Joule">焦耳 joule</div><div class="desc i18n" data-en="The unit of energy">能量的单位</div><span class="ex i18n" data-en="1 J ≈ lifting a 100 g apple 1 m">1 J ≈ 把100g苹果举高1m</span></div>
+      <div class="card" data-anim="steady" data-scene="steps:1 W;=1 J ÷ 1 s"><div class="emoji">💡</div><div class="sym">W</div><div class="name i18n" data-en="Watt">瓦特 watt</div><div class="desc i18n" data-en="The unit of power, how fast energy is used">功率的单位，用电快不快</div><span class="ex i18n" data-en="1 W = 1 J ÷ 1 s">1 W = 1 J ÷ 1 s</span></div>
+      <div class="card" data-anim="steady" data-scene="steps:1 Pa;=1 N ÷ 1 m²"><div class="emoji">🎈</div><div class="sym">Pa</div><div class="name i18n" data-en="Pascal">帕斯卡 pascal</div><div class="desc i18n" data-en="The unit of pressure, how hard something pushes">压强的单位，压得有多用力</div><span class="ex i18n" data-en="1 Pa = 1 N ÷ 1 m²">1 Pa = 1 N ÷ 1 m²</span></div>
+      <div class="card" data-anim="steady" data-scene="wave:50 Hz = 每秒50次" data-scene-en="wave:50 Hz = 50 times per second"><div class="emoji">🎵</div><div class="sym">Hz</div><div class="name i18n" data-en="Hertz">赫兹 hertz</div><div class="desc i18n" data-en="The unit of frequency, how many times per second">频率的单位，每秒几次</div><span class="ex i18n" data-en="50 Hz = 50 times per second">50 Hz = 每秒50次</span></div>
+      <div class="card" data-anim="shake" data-scene="steps:一节干电池;≈ 1.5 V" data-scene-en="steps:one AA battery;≈ 1.5 V"><div class="emoji">🔋</div><div class="sym">V</div><div class="name i18n" data-en="Volt">伏特 volt</div><div class="desc i18n" data-en="The unit of voltage, the push behind electricity">电压的单位，电的推力</div><span class="ex i18n" data-en="One AA battery ≈ 1.5 V">一节干电池 ≈ 1.5 V</span></div>
+      <div class="card" data-anim="steady" data-scene="steps:1 A;=1 C ÷ 1 s"><div class="emoji">🔌</div><div class="sym">A</div><div class="name i18n" data-en="Ampere">安培 ampere</div><div class="desc i18n" data-en="The unit of electric current, how much electricity flows">电流的单位，电流动得多快</div><span class="ex i18n" data-en="1 A = 1 C ÷ 1 s">1 A = 1 C ÷ 1 s</span></div>
+      </div>
+    </div>
+
+    <div class="group">
+      <h3>⚡ <span class="i18n" data-en="More units">更多单位</span></h3>
+      <div class="grid">
+      <div class="card" data-anim="shake" data-scene="car:1 m/s = 3.6 km/h"><div class="emoji">🚗</div><div class="sym">m/s km/h</div><div class="name i18n" data-en="Speed units">速度单位</div><div class="desc i18n" data-en="For measuring how fast something moves">量东西跑得多快</div><span class="ex i18n" data-en="1 m/s = 3.6 km/h">1m/s=3.6km/h</span></div>
+      <div class="card" data-anim="shake" data-scene="push:1kg 的东西受重力≈9.8N" data-scene-en="push:a 1 kg object feels gravity ≈ 9.8 N"><div class="emoji">💪</div><div class="sym">N</div><div class="name i18n" data-en="Newton">牛顿</div><div class="desc i18n" data-en="For measuring the size of a push or pull">量推力和拉力的大小</div><span class="ex i18n" data-en="A 1 kg object feels gravity of about 9.8 N">1kg的东西受重力≈9.8N</span></div>
+      <div class="card" data-anim="grow" data-scene="steps:1 kJ;=1000 J"><div class="emoji">🔋</div><div class="sym">J kJ</div><div class="name i18n" data-en="Joule">焦耳</div><div class="desc i18n" data-en="For measuring how much energy">量能量的大小</div><span class="ex i18n" data-en="1 kJ = 1000 J">1kJ=1000J</span></div>
+      <div class="card" data-anim="grow" data-scene="steps:1 kW;=1000 W"><div class="emoji">💡</div><div class="sym">W kW</div><div class="name i18n" data-en="Watt">瓦特</div><div class="desc i18n" data-en="For measuring how fast energy is used, like bulbs and appliances">量用能量有多快，比如电灯和电器</div><span class="ex i18n" data-en="1 kW = 1000 W">1kW=1000W</span></div>
+      <div class="card" data-anim="shake" data-scene="steps:1 A;=1000 mA"><div class="emoji">⚡</div><div class="sym">V A</div><div class="name i18n" data-en="Volt and Amp">伏特与安培</div><div class="desc i18n" data-en="Volts measure the push of electricity, amps measure the flow">伏特量电的推力，安培量电的流量</div><span class="ex i18n" data-en="1 A = 1000 mA">1A=1000mA</span></div>
+      <div class="card" data-anim="wobble" data-scene="wave:1 kHz = 1000 Hz"><div class="emoji">🔊</div><div class="sym">Hz kHz</div><div class="name i18n" data-en="Hertz">赫兹</div><div class="desc i18n" data-en="How many times something repeats in one second">量一秒钟重复了几次</div><span class="ex i18n" data-en="1 kHz = 1000 Hz">1kHz=1000Hz</span></div>
+      <div class="card" data-anim="steady" data-scene="steps:水 ≈ 1 g/cm³;石头更重" data-scene-en="steps:water ≈ 1 g/cm³;stone is heavier"><div class="emoji">🪨</div><div class="sym">g/cm³</div><div class="name i18n" data-en="Density">密度</div><div class="desc i18n" data-en="How heavy something is for its size">同样大小的东西有多重</div><span class="ex i18n" data-en="Water ≈ 1 g/cm³">水≈1g/cm³</span></div>
+      </div>
+    </div>
+
+    <div class="group">
+      <h3>📐 <span class="i18n" data-en="Area and volume units">面积与体积的单位</span></h3>
+      <div class="grid">
+      <div class="card" data-anim="grow" data-scene="steps:1 m² = 10000 cm²;1 ha = 10000 m²"><div class="emoji">🌾</div><div class="sym">cm² m² ha</div><div class="name i18n" data-en="Area units">面积单位</div><div class="desc i18n" data-en="Square centimetres, square metres and hectares for measuring area">平方厘米、平方米、公顷，量面积的单位</div><span class="ex i18n" data-en="1 m² = 10000 cm², 1 ha = 10000 m²">1m²=10000cm²，1ha=10000m²</span></div>
+      <div class="card" data-anim="grow" data-scene="steps:1 m² = 10000 cm²"><div class="emoji">🟦</div><div class="sym">cm² m² km²</div><div class="name i18n" data-en="Area units">面积单位</div><div class="desc i18n" data-en="The length unit squared gives the area unit">长度单位再平方，就是面积单位</div><span class="ex i18n" data-en="1 m² = 10000 cm²">1m²=10000cm²</span></div>
+      <div class="card" data-anim="grow" data-scene="steps:1 ha;=10000 m²"><div class="emoji">🌾</div><div class="sym">ha</div><div class="name i18n" data-en="Hectare">公顷 hectare</div><div class="desc i18n" data-en="For measuring fields and parks">量农田、公园有多大</div><span class="ex i18n" data-en="1 ha = 10000 m²">1 ha = 10000 m²</span></div>
+      <div class="card" data-anim="grow" data-scene="steps:1 acre;≈ 4047 m²"><div class="emoji">🚜</div><div class="sym">acre</div><div class="name i18n" data-en="Acre">英亩 acre</div><div class="desc i18n" data-en="A big imperial unit of area">英制的大面积单位</div><span class="ex i18n" data-en="1 acre ≈ 4047 m²">1 acre ≈ 4047 m²</span></div>
+      <div class="card" data-anim="grow" data-scene="steps:1 m³;=1000 L"><div class="emoji">📦</div><div class="sym">m³</div><div class="name i18n" data-en="Cubic metre">立方米</div><div class="desc i18n" data-en="Space taken up by big things">大东西占的空间</div><span class="ex i18n" data-en="1 m³ = 1000 L">1 m³ = 1000 L</span></div>
+      </div>
+    </div>
+
+  </section>
+
+</main>
+
+<script>
+function showLevel(n){ document.body.dataset.level=n;
+  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active', t.dataset.lv==n));
+  document.querySelectorAll('.level').forEach(l=>l.classList.toggle('active', l.dataset.lv==n));
+}
+function setFont(f){
+  document.body.dataset.font = f;
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.toggle('active', b.dataset.f===f));
+}
+let currentLang='zh', introFont='round', introLang='zh', subject='math';
+function setSubject(s){
+  subject=s; document.body.dataset.subject=s;
+  document.querySelectorAll('.sbtn').forEach(b=>b.classList.toggle('active', b.dataset.s===s));
+  showLevel({math:1,science:4,units:5}[s]); bgSet(s);
+}
+document.querySelectorAll('.i18n').forEach(el=>{ el.dataset.zh = el.textContent; });
+function setLang(lang){
+  currentLang = lang;
+  document.querySelectorAll('.i18n').forEach(el=>{
+    el.textContent = (lang==='en' && el.dataset.en) ? el.dataset.en : el.dataset.zh;
+  });
+  document.documentElement.lang = lang==='en' ? 'en' : 'zh-CN'; if(typeof bgLabel==='function') bgLabel();
+  document.querySelectorAll('.lbtn').forEach(b=>b.classList.toggle('active', b.dataset.l===lang));
+}
+function pickIntroFont(f,btn){
+  introFont=f; setFont(f);
+  document.querySelectorAll('#intro-font-group .intro-fbtn').forEach(b=>b.classList.toggle('active', b===btn));
+}
+function pickIntroLang(l,btn){
+  introLang=l; setLang(l);
+  document.querySelectorAll('#intro-lang-group .intro-fbtn').forEach(b=>b.classList.toggle('active', b===btn));
+}
+
+function startApp(){
+  setFont(introFont); setLang(introLang);
+  const io=document.getElementById('intro-overlay'); if(RM){ io.style.display='none'; } else { io.style.transition='opacity .45s'; io.style.opacity='0'; io.style.pointerEvents='none'; setTimeout(()=>{ io.style.display='none'; },480); }
+}
+
+const RM = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+let stageTimers=[], modalCard=null, pieRaf=null;
+function st(fn,ms){ stageTimers.push(setTimeout(fn, RM?0:ms)); }
+function clearStage(){
+  stageTimers.forEach(clearTimeout); stageTimers=[]; if(pieRaf) cancelAnimationFrame(pieRaf);
+  const s=document.getElementById('m-scene'), b=document.getElementById('m-burst');
+  if(s) s.innerHTML=''; if(b) b.innerHTML='';
+}
+function mk(sc,txt,x,y,size){ const s=document.createElement('span'); s.className='sc-item'; s.textContent=txt; s.style.left=x+'px'; s.style.top=y+'px'; if(size) s.style.fontSize=size+'px'; sc.appendChild(s); return s; }
+function mv(el,x,y,delay,dur){ el.style.transition = RM?'none':('left '+(dur||900)+'ms ease, top '+(dur||900)+'ms ease'); el.style.transitionDelay=(RM?0:(delay||0))+'ms'; el.style.left=x+'px'; el.style.top=y+'px'; }
+function pop(el,delay){ el.style.transform='scale(0)'; st(()=>{ el.style.transition=RM?'none':'transform 350ms cubic-bezier(.3,1.7,.5,1)'; el.style.transform='scale(1)'; },60+(delay||0)); }
+function label(sc,txt){ let l=sc.querySelector('.sc-label'); if(!l){ l=document.createElement('div'); l.className='sc-label'; sc.appendChild(l); } l.textContent=txt; if(!RM){ l.style.animation='none'; void l.offsetWidth; l.style.animation='lblPop .35s ease'; } return l; }
+const SCENES={
+  add(sc,W,H,a,b){ const n=a+b,g=30,x0=(W-n*g)/2,y=H/2-22,it=[];
+    for(let i=0;i<n;i++){ const x=i<a?14+i*g:W-14-(n-i)*g; it.push(mk(sc,'🍎',x,y-34)); }
+    label(sc,a+' + '+b);
+    st(()=>it.forEach((e,i)=>mv(e,x0+i*g,y,i*70,800)),600);
+    st(()=>label(sc,a+' + '+b+' = '+n),2100); },
+  sub(sc,W,H,a,b){ const g=30,x0=(W-a*g)/2,y=H/2-22,it=[];
+    for(let i=0;i<a;i++){ it.push(mk(sc,'🍪',x0+i*g,y)); pop(it[i],i*60); }
+    label(sc,a+' − '+b);
+    st(()=>{ for(let i=a-b;i<a;i++){ const e=it[i]; e.style.transition=RM?'none':'transform 700ms ease, opacity 700ms'; e.style.transitionDelay=((i-(a-b))*150)+'ms'; e.style.transform='translateY(-46px) rotate(25deg) scale(.6)'; e.style.opacity='0'; } },900);
+    st(()=>label(sc,a+' − '+b+' = '+(a-b)),2200); },
+  mul(sc,W,H,a,b){ const gx=36,gy=34,x0=(W-b*gx)/2,y0=(H-34-a*gy)/2+4;
+    for(let r=0;r<a;r++) for(let c=0;c<b;c++){ const e=mk(sc,'🍬',x0+c*gx,y0+r*gy); pop(e,(r*b+c)*90); }
+    label(sc,a+' × '+b); st(()=>label(sc,a+' × '+b+' = '+(a*b)),(a*b)*90+500); },
+  div(sc,W,H,a,b){ const g=30,s=a/b,x0=(W-a*g)/2,y=H/2-26,it=[];
+    for(let i=0;i<a;i++){ it.push(mk(sc,'🍕',x0+i*g,y)); pop(it[i],i*50); }
+    label(sc,a+' ÷ '+b);
+    st(()=>{ it.forEach((e,i)=>{ const k=Math.floor(i/s),j=i%s,cx=W*(k+.5)/b; mv(e,cx-(s*g)/2+j*g,y-4,i*60,800); });
+      for(let k=0;k<b;k++){ const cx=W*(k+.5)/b,bx=document.createElement('div'); bx.className='sc-box'; bx.style.left=(cx-(s*g)/2-8)+'px'; bx.style.top=(y-14)+'px'; bx.style.width=(s*g+16)+'px'; bx.style.height='50px'; sc.appendChild(bx); st(()=>{bx.style.opacity='1'},900); } },1000);
+    st(()=>label(sc,a+' ÷ '+b+' = '+s),2600); },
+  bal(sc,W,H,kind){ const L=kind==='eq'?3:2,R=kind==='eq'?3:4;
+    const beam=document.createElement('div'); beam.className='sc-beam'; const post=document.createElement('div'); post.className='sc-post'; sc.appendChild(post); sc.appendChild(beam);
+    for(let i=0;i<L;i++){ const s=document.createElement('span'); s.className='sc-item'; s.textContent='🍎'; s.style.left=(8+i*28)+'px'; s.style.top='-34px'; beam.appendChild(s); }
+    for(let i=0;i<R;i++){ const s=document.createElement('span'); s.className='sc-item'; s.textContent='🍎'; s.style.right=(8+i*28)+'px'; s.style.top='-34px'; beam.appendChild(s); }
+    beam.style.transform=kind==='eq'?'rotate(-14deg)':'rotate(0deg)';
+    st(()=>{ beam.style.transition=RM?'none':(kind==='eq'?'transform 1500ms cubic-bezier(.3,1.8,.5,1)':'transform 1000ms ease'); beam.style.transform=kind==='eq'?'rotate(0deg)':'rotate(11deg)'; },200);
+    label(sc,''); st(()=>label(sc,kind==='eq'?'3 = 3':'2 ≠ 4'),1300); },
+  cmp(sc,W,H,a,b){ const y=H/2-30;
+    for(let i=0;i<a;i++){ const e=mk(sc,'🍎',6+i*28,y); pop(e,i*80); }
+    for(let i=0;i<b;i++){ const e=mk(sc,'🍎',W-6-(b-i)*28,y); pop(e,i*80+200); }
+    const big=document.createElement('div'); big.className='sc-big'; big.textContent=a>b?'>':a<b?'<':'='; sc.appendChild(big);
+    st(()=>{ big.style.transition=RM?'none':'transform 450ms cubic-bezier(.3,1.7,.5,1)'; big.style.transform='translateX(-50%) scale(1)'; },900);
+    st(()=>{ big.style.transform='translateX(-50%) scale(1.3)'; },1500); st(()=>{ big.style.transform='translateX(-50%) scale(1)'; },1800);
+    label(sc,a+(a>b?' > ':a<b?' < ':' = ')+b); },
+  pie(sc,W,H,p){ const d=document.createElement('div'); d.className='sc-pie'; sc.appendChild(d); let t0=null; const target=p*3.6;
+    function step(ts){ if(t0===null) t0=ts; const k=RM?1:Math.min(1,(ts-t0)/1100), ang=target*k;
+      d.style.background='conic-gradient(var(--lv1) 0deg '+ang+'deg, rgba(0,0,0,.1) '+ang+'deg 360deg)'; if(k<1) pieRaf=requestAnimationFrame(step); }
+    pieRaf=requestAnimationFrame(step); label(sc,p+'% = '+(p/100)); },
+  ratio(sc,W,H,a,b){ const g=30,m=Math.max(a,b),x0=(W-m*g)/2;
+    for(let i=0;i<a;i++){ const e=mk(sc,'🍎',x0+i*g,18); pop(e,i*90); }
+    for(let i=0;i<b;i++){ const e=mk(sc,'🍊',x0+i*g,64); pop(e,a*90+i*90); }
+    label(sc,a+' : '+b); },
+  square(sc,W,H,n){ const g=22,x0=(W-n*g)/2,y0=(H-30-n*g)/2+2;
+    for(let r=0;r<n;r++) for(let c=0;c<n;c++){ const e=mk(sc,'🟦',x0+c*g,y0+r*g,18); pop(e,(r*n+c)*40); }
+    label(sc,n+'² = '+n+' × '+n); st(()=>label(sc,n+'² = '+n+' × '+n+' = '+(n*n)),n*n*40+500); },
+  roll(sc,W,H){ const d=44,C=Math.round(Math.PI*d),line=document.createElement('div'),w=document.createElement('div');
+    line.className='sc-line'; w.className='sc-wheel'; sc.appendChild(line); sc.appendChild(w); label(sc,'C = π × d ≈ 3.14 × d');
+    st(()=>{ const t=RM?'none':'transform 1800ms linear'; w.style.transition=t; line.style.transition=RM?'none':'width 1800ms linear';
+      w.style.transform='translateX('+C+'px) rotate(360deg)'; line.style.width=C+'px'; },300); }
+};
+
+function box(sc,cls,css,txt){ const d=document.createElement('div'); d.className=cls; if(css) d.style.cssText=css; if(txt!==undefined) d.textContent=txt; sc.appendChild(d); return d; }
+function svg(sc,inner){ sc.insertAdjacentHTML('beforeend','<svg viewBox="0 0 300 120" style="position:absolute;left:0;top:0;width:100%;height:120px;overflow:visible" fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">'+inner+'</svg>'); return sc.lastElementChild; }
+function draw(p,delay,dur){ p.setAttribute('pathLength','1'); p.style.strokeDasharray='1'; p.style.strokeDashoffset='1'; st(()=>{ p.style.transition=RM?'none':'stroke-dashoffset '+(dur||900)+'ms ease'; p.style.strokeDashoffset='0'; },60+(delay||0)); }
+Object.assign(SCENES,{
+  steps(sc,W,H,t){ const L=String(t).split(';'); let T0=250;
+    const pen=box(sc,'sc-pen','left:0;top:0','✏️'); pen.style.opacity='0';
+    L.forEach((s,i)=>{ const y=8+i*30, d=box(sc,'sc-step','top:'+y+'px'), sp=document.createElement('span'); d.appendChild(sp); const ch=[...s], t0=T0, last=i===L.length-1;
+      ch.forEach((c,j)=>st(()=>{ sp.textContent=ch.slice(0,j+1).join(''); pen.style.opacity='1'; pen.style.top=(y+8)+'px'; pen.style.left=(sp.offsetLeft+sp.offsetWidth+2)+'px'; },t0+j*38));
+      T0+=ch.length*38+260;
+      if(last) st(()=>{ sp.classList.add('hl'); pen.textContent='✅'; pen.style.animation=RM?'none':'lblPop .4s ease'; },T0-120);
+    }); },
+  nl(sc,W,H,a,b,txt){ const x0=22,g=(W-44)/10,X=v=>x0+(v+5)*g; box(sc,'sc-nline','left:'+x0+'px;width:'+(W-44)+'px;top:78px');
+    for(let v=-5;v<=5;v++){ box(sc,'sc-tick','left:'+(X(v)-1)+'px;top:72px'); box(sc,'sc-num','left:'+(X(v)-12)+'px;top:86px',(v<0?'−':'')+Math.abs(v)); }
+    const dot=mk(sc,'🔴',X(a)-11,42,22), dir=b>a?1:-1, n=Math.abs(b-a); label(sc,'');
+    for(let i=1;i<=n;i++){ st(()=>{ dot.style.transition=RM?'none':'left 260ms ease, transform 130ms'; dot.style.left=(X(a+dir*i)-11)+'px'; dot.style.transform='translateY(-16px)'; st(()=>{ dot.style.transform='none'; },140); },500+i*340); }
+    st(()=>label(sc,txt),500+n*340+450); },
+  root(sc,W,H,n){ const g=26,x0=(W-n*g)/2,y0=22;
+    for(let r=0;r<n;r++) for(let c=0;c<n;c++){ const e=mk(sc,'🟦',x0+c*g,y0+r*g,22); pop(e,(r*n+c)*60); }
+    const br=box(sc,'sc-brace','left:'+x0+'px;top:'+(y0-8)+'px;width:0'); label(sc,'√'+(n*n));
+    st(()=>{ br.style.transition=RM?'none':'width 700ms'; br.style.width=(n*g)+'px'; },n*n*60+300);
+    st(()=>label(sc,'√'+(n*n)+' = '+n),n*n*60+1100); },
+  vol(sc,W,H,a,b,c){ const g=18,k=9,x0=(W-b*g-c*k)/2,y0=26+c*k; let i=0;
+    for(let z=0;z<c;z++) for(let r=0;r<a;r++) for(let q=0;q<b;q++){ const e=mk(sc,'🧊',x0+q*g+z*k,y0+r*g-z*k,16); pop(e,(i++)*40); }
+    label(sc,a+' × '+b+' × '+c); st(()=>label(sc,a+' × '+b+' × '+c+' = '+(a*b*c)),i*40+500); },
+  ang(sc,W,H,deg,txt){ const s=svg(sc,'<line x1="70" y1="100" x2="240" y2="100" style="stroke:var(--ink)"/><line class="r2" x1="70" y1="100" x2="240" y2="100" style="stroke:var(--lv2);transform-origin:70px 100px;transform:rotate(0deg)"/>'+(deg===90?'<path class="sq" d="M92 100 L92 78 L70 78" style="stroke:var(--lv4);opacity:0"/>':'')); const l=s.querySelector('.r2'); label(sc,'');
+    st(()=>{ l.style.transition=RM?'none':'transform 1200ms ease'; l.style.transform='rotate(-'+deg+'deg)'; const q=s.querySelector('.sq'); if(q){ q.style.transition=RM?'none':'opacity 400ms 1000ms'; q.style.opacity='1'; } },400);
+    st(()=>label(sc,txt),1700); },
+  par(sc,W,H){ const s=svg(sc,'<path class="p1" d="M40 45 L260 45" style="stroke:var(--lv2)"/><path class="p2" d="M40 90 L260 90" style="stroke:var(--lv4)"/>'); label(sc,''); draw(s.querySelector('.p1'),0,900); draw(s.querySelector('.p2'),500,900); st(()=>label(sc,'AB ∥ CD'),1700); },
+  tri(sc,W,H,k){ label(sc,'');
+    if(k==='cong'){ const s=svg(sc,'<path class="t1" d="M30 100 L130 100 L80 30 Z" style="stroke:var(--lv2)"/><g class="g2" style="transform:translateX(140px)"><path class="t2" d="M30 100 L130 100 L80 30 Z" style="stroke:var(--lv4)"/></g>'); draw(s.querySelector('.t1'),0,700); draw(s.querySelector('.t2'),400,700); const g=s.querySelector('.g2'); st(()=>{ g.style.transition=RM?'none':'transform 1200ms ease'; g.style.transform='translateX(0)'; },1500); st(()=>label(sc,'△ABC ≅ △DEF'),2800); }
+    else if(k==='sim'){ const s=svg(sc,'<path class="t1" d="M120 100 L260 100 L190 30 Z" style="stroke:var(--lv2)"/><path class="t2" d="M20 100 L90 100 L55 65 Z" style="stroke:var(--lv4)"/>'); draw(s.querySelector('.t1'),0,800); draw(s.querySelector('.t2'),700,700); st(()=>label(sc,'△ABC ∼ △DEF'),1800); }
+    else{ const s=svg(sc,'<path class="t1" d="M60 100 L240 100 L150 25 Z" style="stroke:var(--lv2)"/>'); draw(s.querySelector('.t1'),0,1000); st(()=>label(sc,'△ABC'),1200); } },
+  venn(sc,W,H,k){ label(sc,'');
+    if(k==='sub'){ const D=110; box(sc,'sc-circ','left:'+(W/2-D/2)+'px;top:6px;width:'+D+'px;height:'+D+'px;background:rgba(76,147,232,.3)'); const sm=box(sc,'sc-circ','left:10px;top:34px;width:48px;height:48px;background:rgba(63,181,122,.5)');
+      st(()=>mv(sm,W/2-28,34,0,1000),500); const ns=[['1',W/2-20],['2',W/2-2],['3',W/2+34]].map(([t,x])=>{ const e=mk(sc,t,x,46,16); e.style.opacity='0'; return e; });
+      st(()=>ns.forEach(e=>{ e.style.transition=RM?'none':'opacity .4s'; e.style.opacity='1'; }),1500); st(()=>label(sc,'{1,2} ⊂ {1,2,3}'),1900); return; }
+    const D=92,L0=8,R0=W-8-D,L1=W/2-D+22,R1=W/2-22;
+    const a=box(sc,'sc-circ','left:'+L0+'px;top:12px;width:'+D+'px;height:'+D+'px;background:rgba(63,181,122,.42)'), b=box(sc,'sc-circ','left:'+R0+'px;top:12px;width:'+D+'px;height:'+D+'px;background:rgba(76,147,232,.42)');
+    st(()=>{ mv(a,L1,12,0,1100); mv(b,R1,12,0,1100); },500);
+    const n3=(t,x,y)=>{ const e=mk(sc,t,x,y,18); e.style.fontWeight='800'; e.style.opacity='0'; return e; };
+    const n1=n3('1',L1+14,44), n2=n3('2',W/2-10,34), nn3=n3('3',W/2-10,58), n4=n3('4',R1+D-30,44);
+    st(()=>[n1,n2,nn3,n4].forEach(e=>{ e.style.transition=RM?'none':'opacity .4s, transform .3s'; e.style.opacity='1'; }),1700);
+    st(()=>(k==='int'?[n2,nn3]:[n1,n2,nn3,n4]).forEach(e=>{ e.style.transform='scale(1.6)'; }),2200);
+    st(()=>label(sc,k==='int'?'{1,2,3} ∩ {2,3,4} = {2,3}':'{1,2,3} ∪ {2,3,4} = {1,2,3,4}'),2300); },
+  fx(sc,W,H,a,b,x){ const bx=box(sc,'sc-mach','left:'+(W/2-45)+'px;top:24px','f(x)'), inp=box(sc,'sc-tok','left:10px;top:44px',x), out=box(sc,'sc-tok','left:'+(W/2+10)+'px;top:44px',a*x+b); out.style.opacity='0'; label(sc,'f(x) = '+a+'x + '+b);
+    st(()=>mv(inp,W/2-10,44,0,700),400); st(()=>{ inp.style.opacity='0'; bx.style.transform='scale(1.12)'; },1100);
+    st(()=>{ bx.style.transform='scale(1)'; out.style.transition=RM?'none':'left 700ms ease, opacity 300ms'; out.style.opacity='1'; out.style.left=(W-50)+'px'; },1300);
+    st(()=>label(sc,'f('+x+') = '+a+'×'+x+'+'+b+' = '+(a*x+b)),2200); },
+  stairs(sc,W,H,n){ const g=30,x0=(W-n*g)/2; label(sc,''); let sum=0,txt='';
+    for(let i=1;i<=n;i++){ sum+=i; txt+=(i>1?' + ':'')+i; const s2=sum,t2=txt; for(let j=0;j<i;j++){ const e=mk(sc,'🟧',x0+(i-1)*g,100-j*22-12,20); pop(e,(i-1)*350+j*60); } st(()=>label(sc,t2+' = '+s2),(i-1)*350+i*60+200); } },
+  lim(sc,W,H){ const x0=24,x1=W-40; box(sc,'sc-vline','left:'+x1+'px;top:20px;height:70px'); const dot=mk(sc,'🔵',x0,50,22); label(sc,'x = 0'); const fr=[.5,.75,.875,.94,.97],tx=['x = 0.5','x = 0.75','x = 0.875','x = 0.94','x ≈ 1'];
+    fr.forEach((f,i)=>st(()=>{ mv(dot,x0+(x1-x0-18)*f,50,0,380); label(sc,tx[i]); },400+i*520)); st(()=>label(sc,'lim  x → 1'),400+fr.length*520+200); },
+  deriv(sc,W,H){ const P0=[50,15],P1=[150,175],P2=[250,15]; const B=t=>[0,1].map(i=>(1-t)*(1-t)*P0[i]+2*t*(1-t)*P1[i]+t*t*P2[i]), D=t=>[0,1].map(i=>2*(1-t)*(P1[i]-P0[i])+2*t*(P2[i]-P1[i]));
+    const s=svg(sc,'<path class="cv" d="M50 15 Q150 175 250 15" style="stroke:var(--lv2)"/><line class="tg" x1="0" y1="0" x2="0" y2="0" style="stroke:var(--lv4)"/><circle class="pt" r="6" cx="50" cy="15" style="fill:var(--lv4);stroke:none"/>'); label(sc,'');
+    draw(s.querySelector('.cv'),0,900); const tg=s.querySelector('.tg'),pt=s.querySelector('.pt');
+    [[.15,'dy/dx < 0'],[.5,'dy/dx = 0'],[.85,'dy/dx > 0']].forEach(([t,tx],i)=>st(()=>{ const [x,y]=B(t),[dx,dy]=D(t),n=Math.hypot(dx,dy),ux=dx/n*38,uy=dy/n*38; tg.setAttribute('x1',x-ux); tg.setAttribute('y1',y-uy); tg.setAttribute('x2',x+ux); tg.setAttribute('y2',y+uy); pt.setAttribute('cx',x); pt.setAttribute('cy',y); label(sc,tx); },1100+i*800)); },
+  integ(sc,W,H){ const n=14,w=16,x0=(W-n*(w+2))/2; box(sc,'sc-nline','left:'+x0+'px;width:'+(n*(w+2))+'px;top:112px'); label(sc,'');
+    for(let i=0;i<n;i++){ const h=10+i*6,b=box(sc,'sc-bar','left:'+(x0+i*(w+2))+'px;top:112px;width:'+w+'px;height:0'); st(()=>{ b.style.transition=RM?'none':'height 300ms ease, top 300ms ease'; b.style.height=h+'px'; b.style.top=(112-h)+'px'; },200+i*110); }
+    st(()=>label(sc,'∫ f(x) dx ≈ Σ f(x) · Δx'),200+n*110+400); },
+  inf(sc,W,H){ const s=svg(sc,'<path class="lm" d="M150 60 C190 8 262 8 262 60 C262 112 190 112 150 60 C110 8 38 8 38 60 C38 112 110 112 150 60 Z" style="stroke:var(--lv3);stroke-width:6"/>'); label(sc,''); draw(s.querySelector('.lm'),0,2000); st(()=>label(sc,'∞'),2300); },
+  vec(sc,W,H){ const s=svg(sc,'<path class="ax" d="M60 108 L60 10 M52 100 L210 100" style="stroke:var(--ink);stroke-width:2"/><path class="vv" d="M60 100 L120 20 M120 20 L108 25 M120 20 L118 33" style="stroke:var(--lv3)"/>'); label(sc,''); draw(s.querySelector('.ax'),0,500); draw(s.querySelector('.vv'),500,900); st(()=>label(sc,'v = (3 4)    |v| = 5'),1600); },
+  mat(sc,W,H,k){ const x0=W/2-52,y0=12,s=56,v=[1,2,3,4],pos=[[0,0],[1,0],[0,1],[1,1]];
+    const cs=v.map((t,i)=>{ const e=box(sc,'sc-cell','left:'+(x0+pos[i][0]*s)+'px;top:'+(y0+pos[i][1]*s)+'px',t); e.style.transform='scale(0)'; st(()=>{ e.style.transition=RM?'none':'transform 350ms cubic-bezier(.3,1.7,.5,1), left 800ms ease, top 800ms ease, background .4s'; e.style.transform='scale(1)'; },100+i*200); return e; }); label(sc,'');
+    if(k==='t'){ st(()=>{ cs[1].style.left=x0+'px'; cs[1].style.top=(y0+s)+'px'; cs[2].style.left=(x0+s)+'px'; cs[2].style.top=y0+'px'; },1400); st(()=>label(sc,'Aᵀ'),2400); }
+    else if(k==='det'){ st(()=>{ cs[0].style.background=cs[3].style.background='var(--lv3)'; },1200); st(()=>{ cs[1].style.background=cs[2].style.background='var(--lv4)'; },1900); st(()=>label(sc,'1×4 − 2×3 = −2'),2400); }
+    else st(()=>label(sc,'[ 1 2 ; 3 4 ]'),1200); },
+  coin(sc,W,H){ const c=box(sc,'sc-coin','left:'+(W/2-30)+'px','🪙'); label(sc,'');
+    st(()=>{ c.style.transition=RM?'none':'transform 1800ms cubic-bezier(.2,.6,.3,1)'; c.style.transform='perspective(400px) translateY(-30px) rotateY(1440deg)'; },300);
+    st(()=>{ c.style.transition=RM?'none':'transform 400ms'; c.style.transform='perspective(400px) translateY(0) rotateY(1440deg)'; },2100); st(()=>label(sc,'P(A) = 1/2'),2500); },
+  dice(sc,W,H){ const f=['⚀','⚁','⚂','⚃','⚄','⚅'],d=box(sc,'sc-die','',f[0]); label(sc,''); for(let i=0;i<10;i++) st(()=>{ d.textContent=f[Math.floor(Math.random()*6)]; },200+i*150); st(()=>{ d.textContent='🎲'; label(sc,'(1+2+3+4+5+6) ÷ 6 = 3.5'); },2000); },
+  orbit(sc,W,H,kind,txt){ const cx=W/2,cy=62; label(sc,'');
+    const rot=(r,dur,emo,size)=>{ const w=box(sc,'sc-rot','left:'+cx+'px;top:'+cy+'px'); box(sc,'sc-ring','left:'+(cx-r)+'px;top:'+(cy-r)+'px;width:'+(2*r)+'px;height:'+(2*r)+'px'); const p=box(w,'sc-item','left:'+(r-size/2)+'px;top:'+(-size/2)+'px;font-size:'+size+'px',emo); if(!RM) w.style.animation='m-spin '+dur+'s linear 1 both'; return p; };
+    if(kind==='au'){ mk(sc,'🌞',16,cy-18,36); mk(sc,'🌍',W-48,cy-12,26); const ln=box(sc,'sc-dash','left:54px;top:'+cy+'px;width:0'), t=box(sc,'sc-au','left:0;right:0;top:'+(cy-30)+'px','1 AU'); t.style.opacity='0';
+      st(()=>{ ln.style.transition=RM?'none':'width 1200ms ease'; ln.style.width=(W-48-54-6)+'px'; },400); st(()=>{ t.style.transition=RM?'none':'opacity .5s'; t.style.opacity='1'; },1500); st(()=>label(sc,txt),1700); return; }
+    if(kind==='moon'){ mk(sc,'🌍',cx-18,cy-18,36); rot(42,2.6,'🌙',18); }
+    else if(kind==='planets'){ mk(sc,'🌞',cx-14,cy-14,28); rot(22,1.6,'🟤',14); rot(34,2.4,'🟠',16); rot(46,3.2,'🌍',18); rot(56,4.2,'🔵',16); }
+    else { mk(sc,'🌞',cx-18,cy-18,36); rot(52,3.2,'🌍',22); }
+    st(()=>label(sc,txt),kind==='planets'?1200:900); },
+  light(sc,W,H,tg,txt){ mk(sc,'🌞',8,40,34); mk(sc,tg,W-44,44,28); box(sc,'sc-dash','left:46px;top:62px;width:'+(W-100)+'px'); const dot=mk(sc,'🟡',46,52,18); label(sc,'');
+    const pass=t=>st(()=>{ dot.style.transition='none'; dot.style.left='46px'; void dot.offsetWidth; dot.style.transition=RM?'none':'left 800ms linear'; dot.style.left=(W-70)+'px'; },t); pass(400); pass(1400); st(()=>label(sc,txt),2400); },
+  uni(sc,W,H,txt){ label(sc,''); for(let i=0;i<36;i++){ const e=mk(sc,['✦','·','✧','⭐'][i%4],W/2-6,56,[10,18,12,14][i%4]); e.style.opacity='0'; const x=10+Math.random()*(W-40),y=4+Math.random()*100;
+      st(()=>{ e.style.transition=RM?'none':'left 1400ms ease-out, top 1400ms ease-out, opacity 600ms'; e.style.left=x+'px'; e.style.top=y+'px'; e.style.opacity='1'; },100+Math.random()*500); } st(()=>label(sc,txt),1900); },
+  thermo(sc,W,H,txt){ box(sc,'sc-tube','left:'+(W/2-12)+'px;top:6px'); const f=box(sc,'sc-fill','left:'+(W/2-8)+'px;top:104px;height:0'); label(sc,'');
+    st(()=>{ f.style.transition=RM?'none':'height 1400ms ease, top 1400ms ease'; f.style.height='82px'; f.style.top='22px'; },300); st(()=>label(sc,txt),1800); },
+  car(sc,W,H,txt){ const b=mk(sc,'⚽',16,48,36); label(sc,''); st(()=>{ b.style.transition=RM?'none':'left 1800ms ease-in, transform 1800ms ease-in'; b.style.left=(W-60)+'px'; b.style.transform='rotate(720deg)'; },300); st(()=>label(sc,txt),2200); },
+  push(sc,W,H,txt){ const m=mk(sc,'💪',10,44,34),bx=mk(sc,'📦',110,44,40); label(sc,''); st(()=>mv(m,70,44,0,500),300); st(()=>{ mv(m,150,44,0,900); mv(bx,190,44,0,900); },900); st(()=>label(sc,txt),2000); },
+  wave(sc,W,H,txt){ let d='M25 60'; for(let x=25;x<=275;x+=5){ d+=' L'+x+' '+(60-30*Math.sin((x-25)/250*Math.PI*8)).toFixed(1); } const s=svg(sc,'<path class="wv" d="'+d+'" style="stroke:var(--lv2)"/>'); label(sc,''); draw(s.querySelector('.wv'),0,1800); st(()=>label(sc,txt),2000); }
+});
+
+Object.assign(SCENES,{
+  sun(sc,W,H,txt){ const cx=W/2,cy=58; const g=box(sc,'sc-glow','left:'+(cx-62)+'px;top:'+(cy-62)+'px;width:124px;height:124px'); if(!RM) g.style.animation='sunPulse 1.4s ease-in-out infinite alternate';
+    const s=mk(sc,'🌞',cx-27,cy-27,54); pop(s,0); label(sc,''); st(()=>label(sc,txt),900); },
+  twinkle(sc,W,H,txt){ label(sc,''); for(let i=0;i<18;i++){ const e=mk(sc,['⭐','✦','✧','🌟'][i%4],10+Math.random()*(W-40),4+Math.random()*100,[14,20,12,18][i%4]); e.style.opacity='0';
+      st(()=>{ e.style.opacity='1'; if(!RM) e.style.animation='starTw '+(.6+Math.random()*.9).toFixed(2)+'s ease-in-out '+(Math.random()*.5).toFixed(2)+'s infinite alternate'; },100+i*70); }
+    st(()=>label(sc,txt),1500); },
+  galaxy(sc,W,H,txt){ const cx=W/2,cy=58; const wrap=box(sc,'sc-rot','left:'+cx+'px;top:'+cy+'px'); const n=34;
+    for(let arm=0;arm<2;arm++) for(let i=1;i<=n;i++){ const th=i*.32+arm*Math.PI, r=i*1.55; const e=box(wrap,'sc-item','left:'+(Math.cos(th)*r-5)+'px;top:'+(Math.sin(th)*r*.62-5)+'px;font-size:'+(8+(i%3)*3)+'px','✦'); e.style.opacity='0';
+      st(()=>{ e.style.transition=RM?'none':'opacity 500ms'; e.style.opacity='1'; },80+i*40); }
+    if(!RM) wrap.style.animation='m-spin 14s linear 1 both'; mk(sc,'☀️',cx-9,cy-9,18); label(sc,''); st(()=>label(sc,txt),1700); }
+});
+function burst(){
+  const b=document.getElementById('m-burst'); const ic=['✨','⭐','💫','✨','🌟'];
+  for(let i=0;i<10;i++){ const s=document.createElement('span'); s.className='sc-particle'; s.textContent=ic[i%ic.length];
+    const ang=(i/10)*Math.PI*2, r=62+Math.random()*22; s.style.setProperty('--dx',Math.cos(ang)*r+'px'); s.style.setProperty('--dy',Math.sin(ang)*r+'px'); s.style.animationDelay=(Math.random()*120)+'ms'; b.appendChild(s); }
+}
+
+let modalName=null, modalArgs=[];
+const PARAMS={
+  add:{l:['a','b'],min:[1,1],max:[5,5]},
+  sub:{l:['a','b'],min:[3,1],max:[9,8],fix:u=>[u[0],Math.min(u[1],u[0]-1)]},
+  mul:{l:['a','b'],min:[1,1],max:[3,6]},
+  div:{l:['÷','='],min:[2,1],max:[3,3],to:a=>[a[1],a[0]/a[1]],from:u=>[u[0]*u[1],u[0]]},
+  cmp:{l:['a','b'],min:[1,1],max:[5,5]},
+  ratio:{l:['a','b'],min:[1,1],max:[6,6]},
+  square:{l:['n'],min:[2],max:[5]},
+  root:{l:['n'],min:[2],max:[4]},
+  vol:{l:['a','b','c'],min:[1,1,1],max:[3,4,4]},
+  pie:{l:['%'],min:[10],max:[100],step:[10]},
+  nl:{l:['→'],min:[-5],max:[5],to:a=>[a[1]],from:(u,a)=>[a[0],u[0],a[0]+' → '+u[0]]}
+};
+function toU(nm,a){ const P=PARAMS[nm]; return P.to?P.to(a):a.slice(0,P.l.length); }
+function fromU(nm,u,a){ const P=PARAMS[nm]; if(P.from) return P.from(u,a); const v=P.fix?P.fix(u):u; return v.concat(a.slice(u.length)); }
+function buildCtl(){
+  const c=document.getElementById('m-ctl'); c.innerHTML=''; const P=modalName&&PARAMS[modalName];
+  if(!P){ c.style.display='none'; return; }
+  c.style.display='flex'; const u=toU(modalName,modalArgs);
+  P.l.forEach((lab,i)=>{ const g=document.createElement('span'); g.className='ctl-g'; g.innerHTML='<b>'+lab+'</b><button onclick="adjParam('+i+',-1)">−</button><em>'+u[i]+'</em><button onclick="adjParam('+i+',1)">+</button>'; c.appendChild(g); });
+  const hint=document.createElement('span'); hint.className='ctl-hint'; hint.textContent=currentLang==='en'?'Try changing the numbers!':'试试改数字！'; c.appendChild(hint);
+}
+function rerunScene(){
+  const sc=document.getElementById('m-scene'); clearStage(); sc.style.display='block';
+  try{ SCENES[modalName](sc,sc.clientWidth||300,150,...modalArgs); }catch(err){}
+  buildCtl();
+}
+function adjParam(i,d){
+  const P=PARAMS[modalName]; if(!P) return;
+  const u=toU(modalName,modalArgs).slice(), step=(P.step&&P.step[i])||1;
+  u[i]=Math.max(P.min[i],Math.min(P.max[i],u[i]+d*step));
+  modalArgs=fromU(modalName,u,modalArgs); rerunScene();
+}
+function playStage(card){
+  modalCard=card; clearStage();
+  const em=document.getElementById('m-emoji'), sc=document.getElementById('m-scene');
+  em.textContent=card.querySelector('.emoji')?.textContent||'';
+  const spec=(currentLang==='en'&&card.dataset.sceneEn)?card.dataset.sceneEn:card.dataset.scene;
+  if(spec){
+    em.style.display='none'; sc.style.display='block';
+    const i0=spec.indexOf(':'), nm=spec.slice(0,i0), a=spec.slice(i0+1).split(',').map(x=>x===''?x:(isNaN(x)?x:Number(x)));
+    const W=sc.clientWidth||300, H=150;
+    modalName=nm; modalArgs=a; try{ SCENES[nm](sc,W,H,...a); }catch(err){ sc.style.display='none'; em.style.display='inline-block'; modalName=null; } buildCtl();
+  } else {
+    modalName=null; buildCtl(); sc.style.display='none'; em.style.display='inline-block'; em.style.animation='none'; void em.offsetWidth;
+    em.style.animation = RM ? 'none' : 'm-'+(card.dataset.anim||'pulseIn')+' .9s ease-in-out both';
+    if(!RM) burst();
+  }
+}
+function fillModalContent(card){
+  document.getElementById('m-emoji').textContent = card.querySelector('.emoji')?.textContent || '';
+  document.getElementById('m-sym').textContent = card.querySelector('.sym')?.textContent || '';
+  document.getElementById('m-name').textContent = card.querySelector('.name')?.textContent || '';
+  document.getElementById('m-desc').textContent = card.querySelector('.desc')?.textContent || '';
+  document.getElementById('m-ex').textContent = card.querySelector('.ex')?.textContent || '';
+  playStage(card);
+}
+function openModal(card){
+  document.getElementById('modal').classList.add('open');
+  fillModalContent(card);
+}
+function closeModal(){
+  document.getElementById('modal').classList.remove('open','play-mode');
+  stopPlayTimer(); clearStage(); document.querySelector('#modal .modal-box').classList.remove('slide');
+}
+document.querySelectorAll('.card').forEach(c=>c.addEventListener('click', ()=>openModal(c)));
+
+let playCards=[], playIndex=0, playTimer=null, isPaused=false;
+const PLAY_MS = 5500;
+function startPlay(){
+  playCards = Array.from(document.querySelectorAll({science:'.level[data-lv="4"] .card',units:'.level[data-lv="5"] .card',math:'.level:not([data-lv="4"]):not([data-lv="5"]) .card'}[subject]));
+  playIndex = 0; isPaused = false;
+  document.getElementById('modal').classList.add('open','play-mode');
+  document.getElementById('play-pause').textContent = '⏸';
+  showPlayCard();
+  scheduleNext();
+}
+function showPlayCard(){
+  fillModalContent(playCards[playIndex]);
+  const mb=document.querySelector('#modal .modal-box'); mb.classList.remove('slide'); void mb.offsetWidth; mb.classList.add('slide');
+  document.getElementById('play-count').textContent = (playIndex+1) + ' / ' + playCards.length;
+  document.getElementById('progress-bar').style.width = (100*(playIndex+1)/playCards.length) + '%';
+}
+function scheduleNext(){
+  stopPlayTimer();
+  if(isPaused) return;
+  playTimer = setTimeout(()=>{ playStep(1); }, PLAY_MS);
+}
+function stopPlayTimer(){ if(playTimer){ clearTimeout(playTimer); playTimer=null; } }
+function playStep(dir){
+  playIndex = (playIndex + dir + playCards.length) % playCards.length;
+  showPlayCard();
+  scheduleNext();
+}
+function togglePause(){
+  isPaused = !isPaused;
+  document.getElementById('play-pause').textContent = isPaused ? '▶️' : '⏸';
+  if(isPaused) stopPlayTimer(); else scheduleNext();
+}
+
+function getPool(){
+  return Array.from(document.querySelectorAll('.card')).map(c=>({
+    sym: c.querySelector('.sym').textContent,
+    name: c.querySelector('.name').textContent
+  }));
+}
+function shuffle(arr){
+  for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; }
+  return arr;
+}
+function randInt(min,max){ return Math.floor(Math.random()*(max-min+1))+min; }
+function mkQ(sym, prompt, correct, opts, explain){
+  let options;
+  if(opts){ options = [correct, ...opts.filter(x=>x!==correct)]; }
+  else{
+    const set = new Set([correct]); let tries=0;
+    while(set.size<4 && tries<25){ tries++; const val = correct + randInt(1,6)*(Math.random()<0.5?-1:1); if(val>=0) set.add(val); }
+    options = Array.from(set);
+  }
+  options = Array.from(new Set(options));
+  for(let k=1; options.length<4 && k<50; k++){
+    for(const v of [correct+k, correct-k]){ if(options.length<4 && v>=0 && !options.includes(v)) options.push(v); }
+  }
+  return { sym, prompt, correct, explain, options: shuffle(options.slice(0,4)) };
+}
+const T=(zh,en)=>currentLang==='en'?en:zh;
+const quizGenerators = [
+  ()=>{ const a=randInt(1,9), b=randInt(1,9); return mkQ('+', a+' + '+b+' = ?', a+b, null, T(a+'和'+b+'合起来就是'+(a+b), a+' and '+b+' together make '+(a+b))); },
+  ()=>{ const a=randInt(5,9), b=randInt(1,a-1); return mkQ('−', a+' − '+b+' = ?', a-b, null, T(a+'里面拿走'+b+'，剩下'+(a-b), 'Take '+b+' away from '+a+' and '+(a-b)+' is left')); },
+  ()=>{ const a=randInt(2,9), b=randInt(2,9); return mkQ('×', a+' × '+b+' = ?', a*b, null, T(a+'个'+b+'加起来，一共是'+(a*b), a+' groups of '+b+' add up to '+(a*b))); },
+  ()=>{ const b=randInt(2,5), q=randInt(2,9); return mkQ('÷', (b*q)+' ÷ '+b+' = ?', q, null, T((b*q)+'平均分成'+b+'份，每份是'+q, 'Share '+(b*q)+' equally into '+b+' parts, each part is '+q)); },
+  ()=>{ const pct=[10,20,25,50,75][randInt(0,4)]; const base=[4,8,10,12,20,40][randInt(0,5)]; const ans=Math.round(base*pct/100); return mkQ('%', T(base+'的'+pct+'% = ?', pct+'% of '+base+' = ?'), ans, null, base+'×'+pct+'÷100='+ans); },
+  ()=>{ const n=randInt(2,9); return mkQ('x²', n+'² = ?', n*n, null, T(n+'自己乘自己：'+n+'×'+n+'='+(n*n), n+' times itself: '+n+'×'+n+'='+(n*n))); },
+  ()=>{ const r=randInt(2,9); return mkQ('√x', '√'+(r*r)+' = ?', r, null, T(r+'×'+r+'='+(r*r)+'，所以√'+(r*r)+'='+r, r+'×'+r+'='+(r*r)+', so √'+(r*r)+'='+r)); },
+  ()=>{ const n=randInt(1,20); return mkQ('|x|', '|−'+n+'| = ?', n, null, T('绝对值只看离0有多远，−'+n+'离0有'+n+'那么远', 'Absolute value only looks at the distance from 0, and −'+n+' is '+n+' away')); },
+  ()=>{ const a=randInt(1,9), x=randInt(1,9); return mkQ('x y z', T('x + '+a+' = '+(a+x)+'，x = ?', 'x + '+a+' = '+(a+x)+', x = ?'), x, null, T((a+x)+'减去'+a+'，剩下的'+x+'就是x', (a+x)+' minus '+a+' leaves '+x+', so x is '+x)); },
+  ()=>{ const n=randInt(2,5); let s=0; for(let i=1;i<=n;i++)s+=i; return mkQ('Σ', '1+2+…+'+n+' = ?', s, null, T('把1到'+n+'依次加起来，一共是'+s, 'Add 1 up to '+n+' one by one to get '+s)); },
+  ()=>{ const n=randInt(2,4); let p=1; for(let i=1;i<=n;i++)p*=i; return mkQ('Π', '1×2×…×'+n+' = ?', p, null, T('把1到'+n+'依次乘起来，一共是'+p, 'Multiply 1 up to '+n+' one by one to get '+p)); },
+  ()=>mkQ('sin', 'sin30° = ?', 0.5, [0.5,0.25,1,0.75], T('这是一个固定值，sin30°永远等于0.5','This is a fixed value: sin30° is always 0.5')),
+  ()=>mkQ('P(A)', T('抛一次硬币，正面的概率 = ?','Flip a coin once. Probability of heads = ?'), 0.5, [0.5,0.25,1,0], T('硬币只有正反两面，机会各占一半','A coin has two sides, each with half the chance')),
+  ()=>mkQ('∩', T('{1,2,3}∩{2,3,4} 里有几个数？','How many numbers are in {1,2,3}∩{2,3,4}?'), 2, [2,1,3,4], T('两边都有的数字是2和3，一共2个','Both sets share 2 and 3, so there are 2')),
+  ()=>mkQ('∪', T('{1,2}∪{3,4} 里有几个数？','How many numbers are in {1,2}∪{3,4}?'), 4, [4,2,3,5], T('把两堆数字合在一起，一共4个数','Put both groups together and there are 4 numbers')),
+  ()=>{ const n=randInt(1,9), dec=[0.8,0.9,0.95][randInt(0,2)]; const v=Math.round((n+dec)*100)/100; const r=Math.round(v); return mkQ('≈', v+' ≈ ?', r, [r, r-1, r+1, n], T(v+'很接近'+r+'，四舍五入约等于'+r, v+' is very close to '+r+', so it rounds to about '+r)); },
+  ()=>{ const a=randInt(1,9), b=randInt(1,9)+10; return mkQ('><', T(a+' 和 '+b+'，哪个数比较大？', 'Which is bigger, '+a+' or '+b+'?'), b, [b,a,a+1,b-1], T(b+'比'+a+'大，所以'+b+'比较大', b+' is bigger than '+a)); },
+  ()=>{ const a=randInt(5,9), b=randInt(1,a-1); return mkQ('Δ', 'Δx = '+a+' − '+b+' = ?', a-b, null, T('后来的数减去原来的数：'+a+'−'+b+'='+(a-b), 'Later number minus earlier number: '+a+'−'+b+'='+(a-b))); },
+  ()=>{ const r=randInt(2,4), c=randInt(2,4); return mkQ('矩阵', T(r+'×'+c+'的矩阵，一共有几个数字？','How many numbers are in a '+r+'×'+c+' matrix?'), r*c, null, T(r+'行'+c+'列，一共'+r+'×'+c+'='+(r*c)+'个数字', r+' rows and '+c+' columns: '+r+'×'+c+'='+(r*c)+' numbers')); },
+  ()=>{ const d=[2,3,4,5][randInt(0,3)], n=randInt(1,d-1), base=d*randInt(2,6), ans=base/d*n; return mkQ('½', T(base+'的'+n+'/'+d+' = ?', n+'/'+d+' of '+base+' = ?'), ans, null, T(base+'平均分成'+d+'份，取'+n+'份：'+base+'÷'+d+'×'+n+'='+ans, 'Split '+base+' into '+d+' equal parts and take '+n+': '+base+'÷'+d+'×'+n+'='+ans)); },
+  ()=>{ const d=randInt(4,9), a=randInt(1,d-3), b=randInt(1,d-1-a); return mkQ('½', a+'/'+d+' + '+b+'/'+d+' = ?/'+d, a+b, null, T('分母相同，分母不变，分子相加：'+a+'+'+b+'='+(a+b), 'Same bottom number stays the same, add the tops: '+a+'+'+b+'='+(a+b))); },
+  ()=>{ const k=randInt(2,5), a=randInt(1,5), b=randInt(1,5); return mkQ('5:6', (a*k)+' : '+(b*k)+' = ? : '+b, a, null, T('两边同时除以'+k+'：'+(a*k)+'÷'+k+'='+a, 'Divide both sides by '+k+': '+(a*k)+'÷'+k+'='+a)); },
+  ()=>{ const a=randInt(1,6), b=randInt(1,6), m=randInt(2,4); return mkQ('5:6', a+' : '+b+' = '+(a*m)+' : ?', b*m, null, T('两边同时乘'+m+'：'+b+'×'+m+'='+(b*m), 'Multiply both sides by '+m+': '+b+'×'+m+'='+(b*m))); },
+  ()=>{ const a=randInt(2,6), k=randInt(2,5); return mkQ('倍数', T('一个数是'+a+'的'+k+'倍，这个数是多少？','A number is '+k+' times '+a+'. What is it?'), a*k, null, T(a+'的'+k+'倍就是'+a+'×'+k+'='+(a*k), k+' times '+a+' is '+a+'×'+k+'='+(a*k))); },
+  ()=>{ const a=randInt(1,9), b=randInt(0,9), c=randInt(0,9); const n=a*100+b*10+c; return mkQ('个十百', T(n+' 的十位数字是？','What is the tens digit of '+n+'?'), b, [b,a,c,(b+1)%10], T(n+'：百位是'+a+'，十位是'+b+'，个位是'+c, n+': hundreds '+a+', tens '+b+', ones '+c)); },
+  ()=>{ const n=randInt(2,9), a=n*10000; return mkQ('万', T(n+'万 = ?', n+' wan = ?'), a, [a,a/10,a*10,a/100], T('1万=10000，所以'+n+'万='+a, '1 wan = 10,000, so '+n+' wan = '+a)); },
+  ()=>{ const r1=x=>Math.round(x*10)/10; const a=randInt(1,5), b=randInt(1,4), s=r1((a+b)/10); return mkQ('.', r1(a/10)+' + '+r1(b/10)+' = ?', s, [s,r1(s+0.1),r1(s-0.1),r1(s*10)], T('小数点对齐再加：'+a+'+'+b+'='+(a+b)+'个0.1，就是'+s, 'Line up the decimal points: '+a+'+'+b+'='+(a+b)+' tenths, which is '+s)); },
+  ()=>{ const a=randInt(1,5), b=a+randInt(1,5); return mkQ('−3', a+' − '+b+' = ?', a-b, [a-b,b-a,a+b,-(a+b)], T('比0小：从'+a+'往回数'+b+'步，到了'+(a-b), 'Below zero: count back '+b+' from '+a+' and land on '+(a-b))); },
+  ()=>{ const a=randInt(1,6), b=randInt(1,6), c=randInt(2,5); return mkQ('( )', '('+a+' + '+b+') × '+c+' = ?', (a+b)*c, null, T('先算括号：'+a+'+'+b+'='+(a+b)+'，再乘'+c+'得'+((a+b)*c), 'Brackets first: '+a+'+'+b+'='+(a+b)+', then ×'+c+' gives '+((a+b)*c))); },
+  ()=>{ const d=randInt(3,9), q=randInt(2,8), r=randInt(1,d-1), n=d*q+r; return mkQ('…', T(n+' ÷ '+d+' 的余数 = ?','Remainder of '+n+' ÷ '+d+' = ?'), r, [r,q,d,0], T(d+'×'+q+'='+(d*q)+'，'+n+'−'+(d*q)+'='+r+'，剩下'+r, d+'×'+q+'='+(d*q)+', '+n+'−'+(d*q)+'='+r+', so '+r+' is left')); },
+  ()=>{ const n=randInt(2,9); return mkQ('1/x', T(n+' 乘它的倒数 = ?', n+' times its reciprocal = ?'), 1, [1,n,0,n*n], T('互为倒数的两个数，乘起来等于1','Two reciprocals always multiply to make 1')); },
+  ()=>{ const m=randInt(3,9), d=randInt(1,2); return mkQ('x̄', T((m-d)+'、'+m+'、'+(m+d)+' 的平均数 = ?','Average of '+(m-d)+', '+m+', '+(m+d)+' = ?'), m, null, T('加起来'+(3*m)+'，再÷3='+m, 'Add up to '+(3*m)+', then ÷3='+m)); },
+  ()=>{ const a=[20,30,40,50,60][randInt(0,4)]; return mkQ('°', T('直角是90°，一个角是'+a+'°，另一个角 = ? °','A right angle is 90°. One angle is '+a+'°. The other = ? °'), 90-a, null, T('90−'+a+'='+(90-a), '90−'+a+'='+(90-a))); },
+  ()=>{ const a=[30,40,50,60,70][randInt(0,4)], b=[20,30,40,50,60][randInt(0,4)]; return mkQ('°', T('三角形两个角是'+a+'°和'+b+'°，第三个角 = ? °','A triangle has angles '+a+'° and '+b+'°. The third = ? °'), 180-a-b, null, T('三角形内角和是180°：180−'+a+'−'+b+'='+(180-a-b), 'Angles in a triangle add up to 180°: 180−'+a+'−'+b+'='+(180-a-b))); },
+  ()=>{ const n=randInt(3,5); let f=1; for(let i=2;i<=n;i++)f*=i; return mkQ('!', n+'! = ?', f, [f,n*n,f+n,f*2], T('从1乘到'+n+'：结果是'+f, 'Multiply 1 up to '+n+': you get '+f)); },
+  ()=>{ const r=randInt(2,5); return mkQ('∛', '∛'+(r*r*r)+' = ?', r, null, T(r+'×'+r+'×'+r+'='+(r*r*r)+'，所以∛'+(r*r*r)+'='+r, r+'×'+r+'×'+r+'='+(r*r*r)+', so ∛'+(r*r*r)+'='+r)); },
+  ()=>{ const n=randInt(2,9), k=randInt(2,4), a=n*Math.pow(10,k); return mkQ('×10ⁿ', n+' × 10'+['²','³','⁴'][k-2]+' = ?', a, [a,a/10,a*10,n*k], T('10的'+k+'次方是'+Math.pow(10,k)+'，'+n+'×'+Math.pow(10,k)+'='+a, '10 to the power '+k+' is '+Math.pow(10,k)+', so '+n+'×'+Math.pow(10,k)+'='+a)); },
+  ()=>{ const k=randInt(1,3); return mkQ('log', 'log₁₀'+Math.pow(10,k)+' = ?', k, [k,k+1,k+2,Math.pow(10,k)], T('10要乘'+k+'次才能得到'+Math.pow(10,k), '10 multiplied '+k+' times makes '+Math.pow(10,k))); },
+  ()=>{ const a=randInt(2,5), b=randInt(1,5), x=randInt(2,6); return mkQ('f(x)', 'f(x)='+a+'x+'+b+T('，f('+x+') = ?', ', f('+x+') = ?'), a*x+b, null, T('把x换成'+x+'：'+a+'×'+x+'+'+b+'='+(a*x+b), 'Replace x with '+x+': '+a+'×'+x+'+'+b+'='+(a*x+b))); },
+  ()=>{ const c=[[4,2,6],[5,2,10],[6,2,15],[5,1,5],[6,3,20],[4,3,4]][randInt(0,5)]; return mkQ('C(n,k)', 'C('+c[0]+','+c[1]+') = ?', c[2], null, T('从'+c[0]+'个里挑'+c[1]+'个，一共'+c[2]+'种挑法', 'Choosing '+c[1]+' out of '+c[0]+' can be done in '+c[2]+' ways')); },
+  ()=>mkQ('i', 'i² = ?', -1, [-1,1,0,2], T('虚数单位i的平方定义为−1','The imaginary unit i is defined so that i² = −1')),
+  ()=>mkQ('E(X)', T('掷一个骰子，平均点数（期望）= ?','Roll one die. Average value (expected) = ?'), 3.5, [3.5,3,4,6], T('(1+2+3+4+5+6)÷6=3.5','(1+2+3+4+5+6)÷6=3.5')),
+  ()=>{ const a=randInt(1,5), b=randInt(1,5), c=randInt(1,5), d=randInt(1,5), v=a*d-b*c; return mkQ('det', '|'+a+' '+b+'; '+c+' '+d+'| = ?', v, [v,a*d+b*c,a*b-c*d,a*d], T('行列式=ad−bc：'+a+'×'+d+'−'+b+'×'+c+'='+v, 'Determinant = ad − bc: '+a+'×'+d+'−'+b+'×'+c+'='+v)); },
+  ()=>{ const a=randInt(2,5), b=randInt(2,5); return mkQ('∂', '∂/∂x ('+a+'x + '+b+'y) = ?', a, [a,b,a+b,a*b], T('只看x：y当成不变的数，答案是'+a, 'Only look at x: treat y as a constant, so the answer is '+a)); },
+  ()=>{ const a=randInt(2,6); return mkQ('dy/dx', T('x² 的导数 2x，当 x='+a+' 时 = ?','The derivative of x² is 2x. At x='+a+' it is ?'), 2*a, null, T('2×'+a+'='+(2*a), '2×'+a+'='+(2*a))); },
+];
+const sciGenerators = [
+  ()=>{ const l=randInt(2,9), w=randInt(2,9); return mkQ('▭', T('长'+l+'、宽'+w+'的长方形，面积 = ?','Rectangle with length '+l+' and width '+w+'. Area = ?'), l*w, null, T('面积=长×宽：'+l+'×'+w+'='+(l*w),'Area = length × width: '+l+'×'+w+'='+(l*w))); },
+  ()=>{ const b=2*randInt(2,6), hh=randInt(2,8), ans=b*hh/2; return mkQ('🔺', T('底'+b+'、高'+hh+'的三角形，面积 = ?','Triangle with base '+b+' and height '+hh+'. Area = ?'), ans, null, T('面积=底×高÷2：'+b+'×'+hh+'÷2='+ans,'Area = base × height ÷ 2: '+b+'×'+hh+'÷2='+ans)); },
+  ()=>{ const l=randInt(2,5), w=randInt(2,5), hh=randInt(2,5); return mkQ('cm³', T('长'+l+'、宽'+w+'、高'+hh+'的盒子，体积 = ?','A box with length '+l+', width '+w+', height '+hh+'. Volume = ?'), l*w*hh, null, T('体积=长×宽×高：'+l+'×'+w+'×'+hh+'='+(l*w*hh),'Volume = length × width × height: '+l+'×'+w+'×'+hh+'='+(l*w*hh))); },
+  ()=>mkQ('♄', T('太阳系有几个行星？','How many planets are in the Solar System?'), 8, [8,7,9,10], T('太阳系有8个行星，地球是其中之一','The Solar System has 8 planets, and Earth is one of them')),
+  ()=>mkQ('🌍', T('地球自转一圈大约是多少小时？','About how many hours does Earth take to spin once?'), 24, [24,12,60,365], T('地球自转一圈大约24小时，就是一天','Earth spins once in about 24 hours, which is one day')),
+  ()=>{ const n=randInt(2,9); return mkQ('□', T('边长'+n+'的正方形，面积 = ?','Square with side '+n+'. Area = ?'), n*n, null, T('正方形面积=边长×边长：'+n+'×'+n+'='+(n*n),'Square area = side × side: '+n+'×'+n+'='+(n*n))); },
+  ()=>{ const l=randInt(2,9), w=randInt(2,9); return mkQ('▭', T('长'+l+'、宽'+w+'的长方形，周长 = ?','Rectangle with length '+l+' and width '+w+'. Perimeter = ?'), 2*(l+w), null, T('周长=（长+宽）×2：（'+l+'+'+w+'）×2='+(2*(l+w)),'Perimeter = (length + width) × 2: ('+l+'+'+w+')×2='+(2*(l+w)))); },
+  ()=>{ const r=randInt(1,5); return mkQ('πr²', T('半径'+r+'的圆，π取3，面积 = ?','Circle with radius '+r+', using π = 3. Area = ?'), 3*r*r, null, T('面积=π×半径×半径：3×'+r+'×'+r+'='+(3*r*r),'Area = π × r × r: 3×'+r+'×'+r+'='+(3*r*r))); },
+  ()=>mkQ('🌍', T('地球绕太阳转一圈大约多少天？','About how many days does Earth take to go around the Sun?'), 365, [365,30,24,7], T('地球绕太阳一圈大约365天，就是一年','Earth goes around the Sun in about 365 days, which is one year')),
+  ()=>mkQ('♄', T('地球是太阳系第3颗行星，它后面还有几颗？','Earth is the 3rd planet in the Solar System. How many come after it?'), 5, [5,3,4,8], T('一共8颗，8−3=5','There are 8 in total, 8−3=5')),
+  ()=>{ const l=randInt(3,8), w=randInt(3,8); return mkQ('m²', T('房间长'+l+'米、宽'+w+'米，铺1平方米一块的地砖，要几块？','A room is '+l+' m long and '+w+' m wide. How many 1 m² tiles cover the floor?'), l*w, null, T('地砖数=面积：'+l+'×'+w+'='+(l*w),'Number of tiles = area: '+l+'×'+w+'='+(l*w))); },
+  ()=>{ const a=randInt(2,5), b=a+2*randInt(1,3), hh=randInt(2,6), ans=(a+b)*hh/2; return mkQ('⏢', T('梯形上底'+a+'、下底'+b+'、高'+hh+'，面积 = ?','Trapezoid with top '+a+', bottom '+b+', height '+hh+'. Area = ?'), ans, null, T('面积=（上底+下底）×高÷2：（'+a+'+'+b+'）×'+hh+'÷2='+ans,'Area = (top + bottom) × height ÷ 2: ('+a+'+'+b+')×'+hh+'÷2='+ans)); },
+  ()=>{ const n=randInt(2,5); return mkQ('cm³', T('棱长'+n+'的正方体，体积 = ?','Cube with edge '+n+'. Volume = ?'), n*n*n, null, T('体积=棱长×棱长×棱长：'+n+'×'+n+'×'+n+'='+(n*n*n),'Volume = edge × edge × edge: '+n+'×'+n+'×'+n+'='+(n*n*n))); },
+  ()=>{ const n=[2,4,6,8][randInt(0,3)], a=n*3/2; return mkQ('AU', T(n+' AU ≈ ? 亿千米（1AU≈1.5亿千米）', n+' AU ≈ ? hundred million km (1 AU ≈ 150 million km)'), a, [a,n,a*2,a+1], T('1AU≈1.5亿千米：'+n+'×1.5='+a,'1 AU ≈ 150 million km: '+n+'×1.5='+a)); },
+  ()=>mkQ('AU', T('地球到太阳的距离是多少 AU？','How many AU is Earth from the Sun?'), 1, [1,2,10,100], T('1天文单位就是地球到太阳的平均距离','1 AU is the average distance from Earth to the Sun')),
+  ()=>mkQ('光分', T('光从太阳走到地球大约要几分钟？','About how many minutes does light take to go from the Sun to Earth?'), 8, [8,1,60,24], T('光从太阳到地球大约8分钟','Light takes about 8 minutes from the Sun to Earth')),
+  ()=>{ const n=randInt(2,5); return mkQ('光分', T('光走1AU约8分钟，走'+n+'AU要几分钟？','Light takes 8 minutes to travel 1 AU. How many minutes for '+n+' AU?'), 8*n, [8*n,n,n+8,8*n+8], T(n+'×8='+(8*n)+'分钟',n+'×8='+(8*n)+' minutes')); },
+  ()=>mkQ('c', T('光每秒大约走多少万千米？','About how many ten-thousands of km does light travel per second?'), 30, [30,3,300,1], T('光每秒约30万千米，也就是30个一万千米','Light travels about 300,000 km per second, which is 30 ten-thousands')),
+  ()=>mkQ('ly', T('1光年大约是几万亿千米？（取整）','1 light-year is about how many trillion km? (round to a whole number)'), 9, [9,1,100,30], T('1光年≈9.46万亿千米，取整约9','1 light-year ≈ 9.46 trillion km, which rounds to 9')),
+  ()=>{ const n=randInt(2,6); return mkQ('pc', T(n+' pc ≈ ? 光年（1pc≈3光年）',n+' pc ≈ ? light-years (1 pc ≈ 3 light-years)'), 3*n, [3*n,n,n+3,3*n+3], T('1pc≈3光年：'+n+'×3='+(3*n),'1 pc ≈ 3 light-years: '+n+'×3='+(3*n))); },
+  ()=>mkQ('比邻星', T('比邻星离我们大约几光年？（取整）','About how many light-years away is Proxima Centauri? (round to a whole number)'), 4, [4,1,10,100], T('比邻星约4.2光年，取整是4','Proxima Centauri is about 4.2 light-years away, which rounds to 4')),
+  ()=>mkQ('Gyr', T('宇宙年龄大约是多少亿年？','About how many hundred-millions of years old is the universe?'), 138, [138,13.8,1380,46], T('宇宙约138亿年','The universe is about 13.8 billion years old, which is 138 hundred-millions')),
+  ()=>mkQ('观测宇宙', T('可观测宇宙的直径大约是多少亿光年？','About how many hundred-million light-years across is the observable universe?'), 930, [930,93,9300,138], T('约930亿光年','About 93 billion light-years, which is 930 hundred-millions')),
+  ()=>mkQ('c', T('光从月亮走到地球大约要几秒？（取整）','About how many seconds does light take from the Moon to Earth? (round to a whole number)'), 1, [1,8,60,10], T('月亮离地球约38万千米，光约1.3秒，取整是1','The Moon is about 384,000 km away, so light takes about 1.3 s, which rounds to 1')),
+];
+const unitGenerators = [
+  ()=>{ const c=[['m','cm',100],['kg','g',1000],['min','s',60],['km','m',1000],['L','mL',1000]][randInt(0,4)]; const n=randInt(2,9), ans=n*c[2]; return mkQ('m cm', n+' '+c[0]+' = ? '+c[1], ans, [ans,ans*10,ans/10,ans+c[2]], T('1'+c[0]+'='+c[2]+c[1]+'，所以'+n+'×'+c[2]+'='+ans,'1 '+c[0]+' = '+c[2]+' '+c[1]+', so '+n+'×'+c[2]+'='+ans)); },
+  ()=>{ const c=[['cm','m',100],['g','kg',1000],['s','min',60],['m','km',1000],['mL','L',1000],['min','h',60]][randInt(0,5)]; const n=randInt(2,9), big=n*c[2]; return mkQ('cm→m', big+' '+c[0]+' = ? '+c[1], n, [n,n*10,n+1,n+2], T(c[2]+c[0]+'=1'+c[1]+'，所以'+big+'÷'+c[2]+'='+n, c[2]+' '+c[0]+' = 1 '+c[1]+', so '+big+'÷'+c[2]+'='+n)); },
+  ()=>{ const v=randInt(2,9)*10, t=randInt(2,5); return mkQ('km/h', T('速度'+v+'千米/时，走'+t+'小时，路程 = ? 千米','Speed '+v+' km/h for '+t+' hours. Distance = ? km'), v*t, [v*t,v*t+v,v*t-v,v+t], T('路程=速度×时间：'+v+'×'+t+'='+(v*t),'Distance = speed × time: '+v+'×'+t+'='+(v*t))); },
+  ()=>{ const v=randInt(2,9)*10, t=randInt(2,5); return mkQ('h', T('路程'+(v*t)+'千米，速度'+v+'千米/时，要走几小时？','Distance '+(v*t)+' km at '+v+' km/h. How many hours?'), t, [t,t+1,t+2,v], T('时间=路程÷速度：'+(v*t)+'÷'+v+'='+t,'Time = distance ÷ speed: '+(v*t)+'÷'+v+'='+t)); },
+  ()=>mkQ('℃', T('水大约在多少℃沸腾？','At about what ℃ does water boil?'), 100, [100,0,50,37], T('水在100℃沸腾','Water boils at 100℃')),
+  ()=>mkQ('℃', T('水大约在多少℃结冰？','At about what ℃ does water freeze?'), 0, [0,100,10,37], T('水在0℃结冰','Water freezes at 0℃')),
+  ()=>{ const hi=randInt(25,35), lo=randInt(10,24); return mkQ('℃', T('最高'+hi+'℃，最低'+lo+'℃，温差 = ?','High '+hi+'℃, low '+lo+'℃. Temperature difference = ?'), hi-lo, null, T('温差=高−低：'+hi+'−'+lo+'='+(hi-lo),'Difference = high − low: '+hi+'−'+lo+'='+(hi-lo))); },
+  ()=>{ const n=[2,4,6,8][randInt(0,3)]; return mkQ('L', T(n+'瓶500毫升的水，一共是几升？',n+' bottles of 500 mL water. How many litres in total?'), n/2, [n/2,n,n*500,n/2+0.5], T(n+'×500='+(n*500)+'毫升，1000毫升=1升，所以'+(n/2)+'升',n+'×500='+(n*500)+' mL, and 1000 mL = 1 L, so '+(n/2)+' L')); },
+  ()=>{ const n=randInt(2,9), a=12*n; return mkQ('ft', n+' ft = ? in', a, [a,10*n,a+12,a-12], T('1英尺=12英寸，所以'+n+'×12='+a,'1 ft = 12 in, so '+n+'×12='+a)); },
+  ()=>{ const n=randInt(10,40), a=n+273; return mkQ('K', T(n+'℃ = ? K（K = ℃ + 273）', n+'℃ = ? K (K = ℃ + 273)'), a, null, T('开尔文=摄氏度+273：'+n+'+273='+a,'Kelvin = Celsius + 273: '+n+'+273='+a)); },
+  ()=>mkQ('℉', T('水在100℃沸腾，相当于多少℉？','Water boils at 100℃. How many ℉ is that?'), 212, [212,132,180,100], T('水在212℉沸腾','Water boils at 212℉')),
+  ()=>mkQ('℉', T('水在0℃结冰，相当于多少℉？','Water freezes at 0℃. How many ℉ is that?'), 32, [32,0,100,212], T('水在32℉结冰','Water freezes at 32℉')),
+  ()=>{ const n=randInt(2,9), a=16*n; return mkQ('lb', n+' lb = ? oz', a, [a,10*n,a+16,a-16], T('1磅=16盎司，所以'+n+'×16='+a,'1 lb = 16 oz, so '+n+'×16='+a)); },
+  ()=>{ const n=randInt(2,9), a=3*n; return mkQ('yd', n+' yd = ? ft', a, null, T('1码=3英尺，所以'+n+'×3='+a,'1 yd = 3 ft, so '+n+'×3='+a)); },
+  ()=>{ const n=randInt(2,9), a=1000*n; return mkQ('t', n+' t = ? kg', a, [a,100*n,10*a,a+100], T('1吨=1000千克，所以'+n+'×1000='+a,'1 t = 1000 kg, so '+n+'×1000='+a)); },
+  ()=>{ const n=randInt(2,9), a=1000*n; return mkQ('ms', n+' s = ? ms', a, [a,100*n,10*a,60*n], T('1秒=1000毫秒，所以'+n+'×1000='+a,'1 s = 1000 ms, so '+n+'×1000='+a)); },
+  ()=>{ const n=[5,10,15,20][randInt(0,3)], a=Math.round(n*36)/10; return mkQ('m/s', n+' m/s = ? km/h', a, [a,n*3,a+6,a-6], T('1米/秒=3.6千米/时，所以'+n+'×3.6='+a,'1 m/s = 3.6 km/h, so '+n+'×3.6='+a)); },
+  ()=>{ const n=randInt(2,9), a=7*n; return mkQ('wk', T(n+' 周 = ? 天', n+' weeks = ? days'), a, null, T('1周=7天，所以'+n+'×7='+a,'1 week = 7 days, so '+n+'×7='+a)); },
+  ()=>{ const n=randInt(2,5), a=24*n; return mkQ('d', T(n+' 天 = ? 小时', n+' days = ? hours'), a, [a,12*n,60*n,a+24], T('1天=24小时，所以'+n+'×24='+a,'1 day = 24 hours, so '+n+'×24='+a)); },
+  ()=>{ const n=randInt(2,9), a=10000*n; return mkQ('ha', n+' ha = ? m²', a, [a,1000*n,100000*n,100*n], T('1公顷=10000平方米，所以'+n+'×10000='+a,'1 ha = 10000 m², so '+n+'×10000='+a)); },
+  ()=>{ const n=randInt(2,9), a=10000*n; return mkQ('m²', n+' m² = ? cm²', a, [a,100*n,1000*n,100000*n], T('1平方米=10000平方厘米，所以'+n+'×10000='+a,'1 m² = 10000 cm², so '+n+'×10000='+a)); },
+  ()=>{ const n=randInt(2,9), a=1000*n; return mkQ('m³', n+' m³ = ? L', a, [a,100*n,10000*n,10*n], T('1立方米=1000升，所以'+n+'×1000='+a,'1 m³ = 1000 L, so '+n+'×1000='+a)); },
+  ()=>{ const n=randInt(2,9), a=4*n; return mkQ('gal', T(n+' 加仑 ≈ ? 升（1加仑≈4升）', n+' gal ≈ ? L (1 gal ≈ 4 L)'), a, null, T('1加仑约4升，所以'+n+'×4='+a,'1 gal is about 4 L, so '+n+'×4='+a)); },
+  ()=>{ const n=randInt(2,9), a=30*n; return mkQ('ft', T(n+' 英尺 ≈ ? 厘米（1英尺≈30厘米）', n+' ft ≈ ? cm (1 ft ≈ 30 cm)'), a, [a,12*n,3*n,a+30], T('1英尺约30厘米，所以'+n+'×30='+a,'1 ft is about 30 cm, so '+n+'×30='+a)); },
+  ()=>{ const n=[5,10,20][randInt(0,2)], a=Math.round(n*16)/10; return mkQ('mi', T(n+' 英里 ≈ ? 千米（1英里≈1.6千米）', n+' miles ≈ ? km (1 mile ≈ 1.6 km)'), a, [a,a*10,a/2,a+2], T('1英里约1.6千米，所以'+n+'×1.6='+a,'1 mile is about 1.6 km, so '+n+'×1.6='+a)); },
+  ()=>{ const c=[0,10,20,25,30][randInt(0,4)], k=c+273; return mkQ('K', k+' K = ? ℃'+T('（取273）',' (use 273)'), c, [c,k,c+10,c-10], T('℃=K−273：'+k+'−273='+c,'℃ = K − 273: '+k+'−273='+c)); },
+  ()=>{ const n=[2,4,6,8][randInt(0,3)], a=n*5/2; return mkQ('in', T(n+'英寸 ≈ ? 厘米（1英寸≈2.5厘米）',n+' in ≈ ? cm (1 in ≈ 2.5 cm)'), a, [a,n,a*2,a+2], T('1英寸≈2.5厘米：'+n+'×2.5='+a,'1 inch ≈ 2.5 cm: '+n+'×2.5='+a)); },
+  ()=>mkQ('mi', T('1英里 = ? 英尺','1 mile = ? feet'), 5280, [5280,1000,1760,12], T('1英里=5280英尺','1 mile = 5280 feet')),
+  ()=>{ const c=[['kJ','J',1000],['kW','W',1000],['A','mA',1000],['kHz','Hz',1000]][randInt(0,3)]; const n=randInt(2,9), a=n*c[2]; return mkQ('J W A Hz', n+' '+c[0]+' = ? '+c[1], a, [a,a*10,a/10,a+c[2]], T('1'+c[0]+'='+c[2]+c[1]+'，所以'+n+'×'+c[2]+'='+a,'1 '+c[0]+' = '+c[2]+' '+c[1]+', so '+n+'×'+c[2]+'='+a)); },
+  ()=>mkQ('g/cm³', T('水的密度大约是多少 g/cm³？','About what is the density of water in g/cm³?'), 1, [1,10,0.1,100], T('水的密度大约是1g/cm³','The density of water is about 1 g/cm³')),
+];
+let quizQuestions=[], quizIndex=0, quizScore=0, wrongAnswers=[];
+function startQuiz(){
+  stopPlayTimer();
+  const gens = shuffle(({science:sciGenerators,units:unitGenerators,math:quizGenerators})[subject].slice());
+  quizQuestions = gens.slice(0,20).map(g=>g());
+  quizIndex=0; quizScore=0; wrongAnswers=[];
+  document.getElementById('quiz-modal').classList.add('open');
+  renderQuiz();
+}
+function renderQuiz(){
+  const box = document.getElementById('quiz-content');
+  if(quizIndex >= quizQuestions.length){
+    const pct0=quizScore/quizQuestions.length; let html = '<div class="q-done">'+(pct0>=.9?'🏆':pct0>=.7?'🎉':pct0>=.5?'👍':'💪')+'</div><div class="q-score" id="q-final">'+T('答对 '+quizScore+' / '+quizQuestions.length+' 题', quizScore+' / '+quizQuestions.length+' correct')+'</div>';
+    if(wrongAnswers.length){
+      html += '<div class="q-review">' + wrongAnswers.map(w=>
+        '<div class="q-review-item"><b>'+w.prompt+'</b><br>'+T('你选了 '+w.chosen+'，正确答案是 '+w.correct, 'You chose '+w.chosen+', the correct answer is '+w.correct)+'<br><span class="q-why">'+w.explain+'</span></div>'
+      ).join('') + '</div>';
+    } else {
+      html += '<div class="q-why" style="margin-bottom:14px">'+T('全对啦，太厉害了！','Perfect score! Amazing!')+'</div>';
+    }
+    html += '<button class="dlbtn" onclick="startQuiz()">'+T('🔄 再来一组','🔄 New set')+'</button>';
+    box.innerHTML = html; resultFx();
+    return;
+  }
+  const q = quizQuestions[quizIndex];
+  const opts = q.options.map(o=>'<button class="q-opt" data-v="'+o+'" onclick="answerQuiz(this)">'+o+'</button>').join('');
+  box.innerHTML = '<div class="q-bar"><div style="width:'+Math.round(quizIndex/quizQuestions.length*100)+'%"></div></div><div class="q-count">'+(quizIndex+1)+' / '+quizQuestions.length+'</div>'
+    + '<div class="q-sym">'+q.prompt+'</div>'
+    + '<div class="q-opts">'+opts+'</div>';
+}
+function answerQuiz(btn){
+  const q = quizQuestions[quizIndex];
+  const chosen = Number(btn.dataset.v);
+  document.querySelectorAll('.q-opt').forEach(b=>{
+    b.disabled = true;
+    if(Number(b.dataset.v) === q.correct) b.classList.add('q-correct');
+  });
+  if(chosen === q.correct){ quizScore++; const r=btn.getBoundingClientRect(); confetti(r.left+r.width/2,r.top+r.height/2,10); } else { btn.classList.add('q-wrong'); wrongAnswers.push({prompt:q.prompt, chosen, correct:q.correct, explain:q.explain}); }
+  setTimeout(()=>{ quizIndex++; renderQuiz(); }, 900);
+}
+function closeQuiz(){ document.getElementById('quiz-modal').classList.remove('open'); }
+async function downloadPage(){
+  try{
+    const dl = await claude.use('downloads');
+    if(!dl){ alert('当前环境不支持下载，请稍后再试'); return; }
+    const html = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+    await dl.save({filename:'数学符号闯关手册.html', data: html});
+  }catch(e){
+    if(e && e.code === 'declined') return;
+    alert('下载没有成功，请再试一次');
+  }
+}
+
+function confetti(x,y,n,emojis){ if(RM) return; const em=emojis||['🎉','✨','⭐','🎊','💫'];
+  for(let i=0;i<n;i++){ const s=document.createElement('span'); s.className='confetti'; s.textContent=em[i%em.length]; s.style.left=x+'px'; s.style.top=y+'px';
+    const a=Math.random()*Math.PI*2, r=60+Math.random()*(n>12?170:70);
+    s.style.setProperty('--dx',Math.cos(a)*r+'px'); s.style.setProperty('--dy',(Math.sin(a)*r-20)+'px'); s.style.setProperty('--rot',(Math.random()*720-360)+'deg');
+    s.style.animationDelay=(Math.random()*120)+'ms'; document.body.appendChild(s); setTimeout(()=>s.remove(),1500); } }
+function resultFx(){ const n=quizQuestions.length, el=document.getElementById('q-final'), medal=document.querySelector('#quiz-content .q-done'); if(!el) return;
+  let k=0; const step=()=>{ el.textContent=T('答对 '+k+' / '+n+' 题', k+' / '+n+' correct'); if(k<quizScore){ k++; setTimeout(step, RM?0:70); } }; step();
+  if(!RM){ medal.style.display='inline-block'; medal.style.animation='m-pulseIn .8s ease both'; }
+  if(quizScore/n>=.7){ const r=medal.getBoundingClientRect(); setTimeout(()=>confetti(r.left+r.width/2,r.top+r.height/2,36),300); } }
+function hoot(el){ el.classList.remove('hoot'); void el.offsetWidth; el.classList.add('hoot'); el.addEventListener('animationend',()=>el.classList.remove('hoot'),{once:true});
+  const r=el.getBoundingClientRect(); confetti(r.left+r.width/2,r.top+r.height/2,8,['✨','⭐','💫']); }
+document.querySelectorAll('.grid').forEach(g=>g.querySelectorAll('.card').forEach((c,i)=>c.style.setProperty('--i',i%14)));
+SCENES.ripple=function(sc,W,H,emo,txt){ label(sc,''); for(let i=0;i<3;i++){ const w=box(sc,'sc-wave'); w.style.animationDelay=(i*0.6)+'s'; if(RM) w.style.animation='none'; }
+  const e=mk(sc,emo,W/2-30,32,60); pop(e,0); st(()=>label(sc,txt),700); };
+
+/* ===== animated backgrounds (canvas) ===== */
+const BG={cv:null,cx:null,w:0,h:0,dpr:1,mode:'',items:[],orbs:[],stars:[],shoots:[],band:null,t:0,last:0,lastDraw:0,raf:0,nextShoot:2,rt:0};
+const GLY={math:['+','−','×','÷','=','π','∑','√','∞','∫','%','≈','Δ','∠','x²','a²+b²=c²','sin θ','log','e','≠','≤','≥','∂','△','○','□','½','n!'],
+  units:['cm','kg','L','s','°C','m/s','km','g','mL','N','Hz','V','A','W','J','K','in','lb','m²','mph','°F','ft','h','min']};
+const PAL={math:['#3FB57A','#4C93E8','#A76CE0','#E8913A','#E8735C','#F4B942'],units:['#2BA6A0','#4C93E8','#3D7DD1','#5FC49A','#7FB2E8']};
+const rnd=(a,b)=>a+Math.random()*(b-a), pick=a=>a[Math.floor(Math.random()*a.length)];
+function bgSize(){ const c=BG.cv; BG.dpr=Math.min(2,window.devicePixelRatio||1); BG.w=window.innerWidth; BG.h=window.innerHeight; c.width=Math.round(BG.w*BG.dpr); c.height=Math.round(BG.h*BG.dpr); BG.cx.setTransform(BG.dpr,0,0,BG.dpr,0,0); if(BG.mode) bgBuild(); }
+function bgBuild(){
+  const w=BG.w,h=BG.h,m=BG.mode,area=w*h;
+  BG.items=[]; BG.orbs=[]; BG.stars=[]; BG.shoots=[]; BG.band=null;
+  if(m==='science'){
+    const n=Math.max(60,Math.min(240,Math.round(area/2600)));
+    for(let i=0;i<n;i++){ const L=i<n*.55?0:(i<n*.85?1:2); BG.stars.push({x:rnd(0,w),y:rnd(0,h),r:[.6,1.0,1.7][L]*rnd(.8,1.2),par:[.02,.05,.1][L],ph:rnd(0,6.28),sp:rnd(.8,2.6),a:[.55,.75,1][L],col:pick(['#ffffff','#ffffff','#cfe3ff','#ffe9c4','#ffd1e8'])}); }
+    const b=document.createElement('canvas'); b.width=w; b.height=Math.round(h*1.25); const x=b.getContext('2d');
+    x.translate(w*.5,b.height*.5); x.rotate(-.42);
+    const g=x.createLinearGradient(0,-h*.22,0,h*.22); g.addColorStop(0,'rgba(150,130,255,0)'); g.addColorStop(.5,'rgba(170,150,255,.13)'); g.addColorStop(1,'rgba(150,130,255,0)');
+    x.fillStyle=g; x.fillRect(-w,-h*.22,w*2,h*.44);
+    for(let i=0;i<650;i++){ const u=rnd(-w*.9,w*.9), v=(Math.random()+Math.random()+Math.random()-1.5)*h*.2; x.globalAlpha=rnd(.15,.7); x.fillStyle=pick(['#fff','#d8ccff','#ffe6f2']); x.fillRect(u,v,rnd(.5,1.3),rnd(.5,1.3)); }
+    BG.band=b;
+  } else {
+    const n=Math.max(14,Math.min(40,Math.round(area/20000))), pal=PAL[m+':'+BG.theme]||PAL[m], gl=GLY[m];
+    for(let i=0;i<n;i++){ const s=rnd(20,62); BG.items.push({g:pick(gl),x:rnd(0,w),y:rnd(0,h),s:s,vy:rnd(5,16),ph:rnd(0,6.28),sw:rnd(8,22),rot:rnd(-.35,.35),par:.04+s/800,col:pick(pal),a:rnd(.10,.22)*(DARKT.indexOf(BG.theme)>=0?1.9:1)}); }
+    for(let i=0;i<(BG.theme==='notebook'?0:BG.theme==='chalk'?2:4);i++) BG.orbs.push({x:rnd(.1,.9),y:rnd(.05,1),r:rnd(130,260),c:pick(pal),sp:rnd(.05,.12),ph:rnd(0,6.28)});
+  }
+  bgExtraBuild(); bgBuild2();
+}
+function drawFloat(c,w,h,sy,t,dt){
+  BG.orbs.forEach(o=>{ const x=o.x*w+Math.sin(t*o.sp+o.ph)*60, y=((o.y*h-sy*.04)%(h*1.3)+h*1.3)%(h*1.3)-h*.15; const g=c.createRadialGradient(x,y,0,x,y,o.r); g.addColorStop(0,o.c+'30'); g.addColorStop(1,o.c+'00'); c.fillStyle=g; c.beginPath(); c.arc(x,y,o.r,0,6.2832); c.fill(); });
+  c.textAlign='center'; c.textBaseline='middle';
+  const span=h+120;
+  BG.items.forEach(it=>{ it.y-=it.vy*dt; const y=(((it.y-sy*it.par)%span)+span)%span-60, x=it.x+Math.sin(t*.4+it.ph)*it.sw;
+    c.save(); const pp=bgPush(x,y); c.translate(pp[0],pp[1]); c.rotate(it.rot+Math.sin(t*.3+it.ph)*.15); c.globalAlpha=it.a; c.fillStyle=it.col; c.font='700 '+it.s+'px system-ui,Arial,sans-serif'; c.fillText(it.g,0,0); c.restore(); });
+  if(BG.mode==='units') drawRuler(c,w,h,sy);
+}
+function drawRuler(c,w,h,sy){
+  c.save(); c.fillStyle=BG.rc?BG.rc.bg:'rgba(255,255,255,.6)'; c.fillRect(0,0,18,h); c.fillRect(w-18,0,18,h);
+  c.strokeStyle=BG.rc?BG.rc.st:'rgba(30,100,140,.6)'; c.fillStyle=BG.rc?BG.rc.tx:'rgba(30,100,140,.8)'; c.lineWidth=1; c.font='700 8px system-ui,Arial'; c.textBaseline='middle';
+  const off=sy%8, first=Math.floor(sy/8);
+  for(let i=0;i*8-off<=h;i++){ const y=i*8-off, idx=first+i, len=idx%10===0?14:(idx%5===0?10:5);
+    c.beginPath(); c.moveTo(0,y); c.lineTo(len,y); c.moveTo(w,y); c.lineTo(w-len,y); c.stroke();
+    if(idx%10===0&&idx>=0){ c.textAlign='left'; c.fillText(String(idx/10),len+1,y); c.textAlign='right'; c.fillText(String(idx/10),w-len-1,y); } }
+  c.restore();
+}
+function drawPlanet(c,px,py,r){
+  c.save(); c.translate(px,py);
+  const ring=(a0,a1)=>{ c.beginPath(); c.ellipse(0,0,r*1.95,r*.5,-.32,a0,a1); c.stroke(); };
+  c.lineWidth=r*.17; c.strokeStyle='rgba(215,195,255,.5)'; ring(Math.PI,Math.PI*2);
+  const g=c.createRadialGradient(-r*.4,-r*.4,r*.1,0,0,r); g.addColorStop(0,'#a99bff'); g.addColorStop(.55,'#5b4bd0'); g.addColorStop(1,'#1c1458');
+  c.fillStyle=g; c.beginPath(); c.arc(0,0,r,0,6.2832); c.fill();
+  c.save(); c.beginPath(); c.arc(0,0,r,0,6.2832); c.clip(); c.fillStyle='rgba(255,255,255,.10)'; c.fillRect(-r,-r*.35,r*2,r*.16); c.fillStyle='rgba(20,10,80,.22)'; c.fillRect(-r,r*.1,r*2,r*.2); c.fillRect(-r,r*.5,r*2,r*.1);
+  const sh=c.createLinearGradient(-r,0,r,0); sh.addColorStop(0,'rgba(0,0,0,0)'); sh.addColorStop(1,'rgba(0,0,10,.55)'); c.fillStyle=sh; c.fillRect(-r,-r,r*2,r*2); c.restore();
+  c.lineWidth=r*.17; c.strokeStyle='rgba(225,208,255,.62)'; ring(0,Math.PI);
+  c.restore();
+}
+function drawSci(c,w,h,sy,t,dt){
+  if(BG.band){ c.globalAlpha=1; c.drawImage(BG.band,0,-((sy*.02)%(h*.2))); }
+  BG.stars.forEach(s=>{ const y=(((s.y-sy*s.par)%h)+h)%h, tw=.5+.5*Math.sin(t*s.sp+s.ph), a=s.a*(.35+.65*tw);
+    c.globalAlpha=a; c.fillStyle=s.col; c.beginPath(); c.arc(s.x,y,s.r,0,6.2832); c.fill();
+    if(s.r>1.4){ c.globalAlpha=a*.28; c.beginPath(); c.arc(s.x,y,s.r*3.2,0,6.2832); c.fill(); } });
+  c.globalAlpha=1;
+  const R=Math.min(w,h)*.15; drawPlanet(c,w*.84,h*.82+Math.sin(t*.12)*4,R);
+  const r2=Math.min(w,h)*.034, g=c.createRadialGradient(w*.12-r2*.3,h*.2-r2*.3,1,w*.12,h*.2,r2); g.addColorStop(0,'#9ff0e6'); g.addColorStop(1,'#1b6f8a'); c.fillStyle=g; c.beginPath(); c.arc(w*.12,h*.2+Math.sin(t*.15)*3,r2,0,6.2832); c.fill();
+  BG.nextShoot-=dt; if(BG.nextShoot<=0){ BG.shoots.push({x:rnd(w*.4,w*1.05),y:rnd(0,h*.4),vx:-rnd(380,600),vy:rnd(220,360),l:0,m:rnd(.7,1.1)}); BG.nextShoot=rnd(3,8); }
+  BG.shoots=BG.shoots.filter(s=>{ s.l+=dt; s.x+=s.vx*dt; s.y+=s.vy*dt; const k=s.l/s.m; if(k>=1) return false; const len=130, n=Math.hypot(s.vx,s.vy), tx=s.x-s.vx/n*len, ty=s.y-s.vy/n*len;
+    const lg=c.createLinearGradient(s.x,s.y,tx,ty); lg.addColorStop(0,'rgba(255,255,255,'+(1-k)+')'); lg.addColorStop(1,'rgba(255,255,255,0)'); c.globalAlpha=1; c.strokeStyle=lg; c.lineWidth=2; c.lineCap='round'; c.beginPath(); c.moveTo(s.x,s.y); c.lineTo(tx,ty); c.stroke(); return true; });
+  c.globalAlpha=1;
+}
+
+const EASE=x=>x<0?0:x>1?1:1-Math.pow(1-x,3);
+function pPoly(c,pts,g){ let tot=0; const sg=[]; for(let i=1;i<pts.length;i++){ const d=Math.hypot(pts[i][0]-pts[i-1][0],pts[i][1]-pts[i-1][1]); sg.push(d); tot+=d; }
+  let rem=tot*g; c.beginPath(); c.moveTo(pts[0][0],pts[0][1]);
+  for(let i=1;i<pts.length&&rem>0;i++){ const d=sg[i-1]; if(rem>=d){ c.lineTo(pts[i][0],pts[i][1]); rem-=d; } else { const f=rem/d; c.lineTo(pts[i-1][0]+(pts[i][0]-pts[i-1][0])*f,pts[i-1][1]+(pts[i][1]-pts[i-1][1])*f); rem=0; } }
+  c.stroke(); }
+const DOO={math:['parabola','sine','pythag','circle','numline'],units:['thermo','protractor','stopwatch','cup','balance']};
+const DDRAW={
+  parabola(c,s,g){ const pts=[]; for(let i=0;i<=40;i++){ const x=-1+2*i/40; pts.push([x*s,s*.7-x*x*s*1.4]); } pPoly(c,[[-s,s*.7],[s,s*.7]],g); pPoly(c,[[0,-s*.8],[0,s*.8]],g); pPoly(c,pts,g); if(g>.9){ c.font='700 '+(s*.26)+'px system-ui'; c.fillText('y = x²',s*.45,-s*.55); } },
+  sine(c,s,g){ const pts=[]; for(let i=0;i<=60;i++){ const x=-1+2*i/60; pts.push([x*s,-Math.sin(x*Math.PI*1.5)*s*.45]); } pPoly(c,[[-s,0],[s,0]],g); pPoly(c,pts,g); if(g>.9){ c.font='700 '+(s*.26)+'px system-ui'; c.fillText('sin x',0,-s*.7); } },
+  pythag(c,s,g){ pPoly(c,[[-s,s*.6],[s,s*.6],[-s,-s*.6],[-s,s*.6]],g); if(g>.7) c.strokeRect(-s,s*.6-s*.2,s*.2,s*.2); if(g>.9){ c.font='700 '+(s*.26)+'px system-ui'; c.fillText('a',-s-s*.2,0); c.fillText('b',0,s*.6+s*.3); c.fillText('c',s*.15,-s*.12); } },
+  circle(c,s,g){ c.beginPath(); c.arc(0,0,s*.8,-Math.PI/2,-Math.PI/2+Math.PI*2*g); c.stroke(); if(g>.6) pPoly(c,[[0,0],[s*.8,0]],EASE((g-.6)/.4)); if(g>.9){ c.font='700 '+(s*.3)+'px system-ui'; c.fillText('r',s*.4,-s*.18); c.fillText('π',-s*.2,s*.3); } },
+  numline(c,s,g){ pPoly(c,[[-s,0],[s,0]],g); if(g>.95) pPoly(c,[[s*.88,-s*.09],[s,0],[s*.88,s*.09]],1); for(let k=-2;k<=2;k++){ if(g>.5) pPoly(c,[[k*s*.4,-s*.07],[k*s*.4,s*.07]],1); if(g>.85){ c.font='700 '+(s*.22)+'px system-ui'; c.fillText(String(k),k*s*.4,s*.28); } } },
+  thermo(c,s,g,t){ const w=s*.3,top=-s*.75,bot=s*.45; c.globalAlpha*=Math.min(1,g*2);
+    c.beginPath(); c.moveTo(-w/2,bot); c.lineTo(-w/2,top+w/2); c.arc(0,top+w/2,w/2,Math.PI,0); c.lineTo(w/2,bot); c.stroke();
+    c.beginPath(); c.arc(0,bot+w*.55,w*.8,0,6.2832); c.stroke();
+    c.fillStyle='rgba(232,115,92,.85)'; const lev=s*1.0*g*(.8+.2*Math.sin(t*1.5)); c.beginPath(); c.arc(0,bot+w*.55,w*.5,0,6.2832); c.fill(); c.fillRect(-w*.17,bot-lev,w*.34,lev+2);
+    for(let i=0;i<=5;i++){ const y=bot-i*(bot-top-w)/5; c.beginPath(); c.moveTo(w/2+3,y); c.lineTo(w/2+(i%5===0?12:7),y); c.stroke(); } },
+  protractor(c,s,g,t){ c.beginPath(); c.arc(0,s*.4,s*.9,Math.PI,Math.PI+Math.PI*g); c.stroke(); pPoly(c,[[-s*.9,s*.4],[s*.9,s*.4]],g);
+    if(g>.6) for(let i=0;i<=18;i++){ const a=Math.PI+i*Math.PI/18,r1=s*.9,r2=s*(i%3===0?.74:.82); c.beginPath(); c.moveTo(Math.cos(a)*r1,s*.4+Math.sin(a)*r1); c.lineTo(Math.cos(a)*r2,s*.4+Math.sin(a)*r2); c.stroke(); }
+    if(g>.9){ const a=Math.PI+Math.PI*(.5+.3*Math.sin(t*.8)); c.beginPath(); c.moveTo(0,s*.4); c.lineTo(Math.cos(a)*s*.9,s*.4+Math.sin(a)*s*.9); c.stroke(); } },
+  stopwatch(c,s,g,t){ c.beginPath(); c.arc(0,s*.1,s*.7,-Math.PI/2,-Math.PI/2+Math.PI*2*g); c.stroke();
+    if(g>.4){ c.strokeRect(-s*.1,-s*.8,s*.2,s*.12); for(let i=0;i<12;i++){ const a=i*Math.PI/6; c.beginPath(); c.moveTo(Math.cos(a)*s*.58,s*.1+Math.sin(a)*s*.58); c.lineTo(Math.cos(a)*s*.66,s*.1+Math.sin(a)*s*.66); c.stroke(); } }
+    if(g>.9){ const a=-Math.PI/2+((t*.5)%1)*Math.PI*2; c.beginPath(); c.moveTo(0,s*.1); c.lineTo(Math.cos(a)*s*.5,s*.1+Math.sin(a)*s*.5); c.stroke(); } },
+  cup(c,s,g,t){ pPoly(c,[[-s*.55,-s*.8],[-s*.4,s*.8],[s*.4,s*.8],[s*.55,-s*.8]],g);
+    if(g>.6){ const lv=s*1.0*EASE((g-.6)/.4), yb=s*.8, yt=yb-lv, e=s*.15*(lv/(s*1.6)); c.fillStyle='rgba(76,147,232,.5)'; c.beginPath(); c.moveTo(-s*.4,yb); c.lineTo(s*.4,yb); c.lineTo(s*.4+e,yt+Math.sin(t*2)*2); c.lineTo(-s*.4-e,yt+Math.sin(t*2+1)*2); c.closePath(); c.fill();
+      for(let i=1;i<=3;i++){ const y=s*.8-i*s*.4; c.beginPath(); c.moveTo(s*.3,y); c.lineTo(s*.5,y); c.stroke(); } } },
+  balance(c,s,g,t){ pPoly(c,[[0,s*.8],[-s*.35,s*.8],[0,-s*.4],[s*.35,s*.8],[0,s*.8]],g);
+    if(g>.5){ c.save(); c.translate(0,-s*.4); c.rotate(Math.sin(t*1.1)*.16); c.beginPath(); c.moveTo(-s,0); c.lineTo(s,0); c.stroke();
+      for(const sx of [-1,1]){ c.beginPath(); c.moveTo(sx*s,0); c.lineTo(sx*s*.8,s*.45); c.lineTo(sx*s*1.2,s*.45); c.closePath(); c.stroke(); } c.restore(); } }
+};
+
+function drawEarth(c,x,y,r,t){
+  c.save(); c.translate(x,y); c.beginPath(); c.arc(0,0,r,0,6.2832); c.clip();
+  const g=c.createRadialGradient(-r*.35,-r*.35,r*.1,0,0,r); g.addColorStop(0,'#6fd2ff'); g.addColorStop(.6,'#1f78d1'); g.addColorStop(1,'#0b2f78'); c.fillStyle=g; c.fillRect(-r,-r,2*r,2*r);
+  const P=3.2*r;
+  c.fillStyle='rgba(70,185,110,.92)'; BG.land.forEach(b=>{ const u=((b.u+t*.012)%1)*P-1.3*r; for(const o of [0,-P]){ c.beginPath(); c.ellipse(u+o,b.v*r,b.a*r,b.b*r,b.rot,0,6.2832); c.fill(); } });
+  c.fillStyle='rgba(255,255,255,.55)'; BG.cl.forEach(b=>{ const u=((b.u+t*.02)%1)*P-1.3*r; for(const o of [0,-P]){ c.beginPath(); c.ellipse(u+o,b.v*r,b.a*r,b.b*r,b.rot,0,6.2832); c.fill(); } });
+  const sh=c.createLinearGradient(-r,0,r,0); sh.addColorStop(0,'rgba(0,0,0,0)'); sh.addColorStop(1,'rgba(0,0,15,.6)'); c.fillStyle=sh; c.fillRect(-r,-r,2*r,2*r);
+  c.restore(); c.save(); c.translate(x,y); c.strokeStyle='rgba(140,200,255,.38)'; c.lineWidth=r*.09; c.beginPath(); c.arc(0,0,r*1.04,0,6.2832); c.stroke(); c.restore();
+}
+function drawTape(c,w,h,t){
+  const off=t*30, i0=Math.floor(off/6), y0=h-26;
+  c.save(); c.globalAlpha=.9; c.fillStyle='#F4C542'; c.fillRect(0,y0,w,26); c.strokeStyle='#3a2a00'; c.fillStyle='#3a2a00'; c.lineWidth=1; c.font='700 9px system-ui,Arial'; c.textAlign='center'; c.textBaseline='alphabetic';
+  for(let k=0,x=-(off%6);x<=w+6;k++,x+=6){ const idx=i0+k, len=idx%10===0?14:(idx%5===0?9:5); c.beginPath(); c.moveTo(x,y0); c.lineTo(x,y0+len); c.stroke(); if(idx%10===0) c.fillText(String(idx/10),x,y0+24); }
+  c.restore();
+}
+function shapePath(c,k,s){ c.beginPath();
+  if(k==='circle'){ c.arc(0,0,s,0,6.2832); }
+  else if(k==='star'){ for(let i=0;i<10;i++){ const a=-Math.PI/2+i*Math.PI/5, r=i%2?s*.45:s; c[i?'lineTo':'moveTo'](Math.cos(a)*r,Math.sin(a)*r); } c.closePath(); }
+  else { const n=k==='tri'?3:k==='sq'?4:6; for(let i=0;i<n;i++){ const a=-Math.PI/2+i*2*Math.PI/n; c[i?'lineTo':'moveTo'](Math.cos(a)*s,Math.sin(a)*s); } c.closePath(); }
+  c.stroke(); }
+function newDoodle(initial){ const w=BG.w,h=BG.h,s=Math.max(34,Math.min(84,Math.min(w,h)*.11)),dur=rnd(9,13);
+  return {type:pick(DOO[BG.mode]),x:rnd(s*1.4,w-s*1.4),y:rnd(s*1.2,h-s*1.2),s:s,dur:dur,t0:RM?-dur*.6:(initial?BG.t-rnd(0,dur):BG.t),col:pick(PAL[BG.mode+':'+BG.theme]||PAL[BG.mode])}; }
+function bgExtraBuild(){ BG.doo=[]; BG.fly=[]; BG.cloud=[]; BG.shp=[]; BG.land=[]; BG.cl=[]; BG.nextFly=rnd(4,9); const w=BG.w;
+  if(BG.mode==='science') BG.cloud=[{x:.18,y:.2,r:.5,c:'120,80,255',sp:.07,ph:0},{x:.8,y:.55,r:.55,c:'40,160,255',sp:.05,ph:2},{x:.45,y:.9,r:.5,c:'255,90,170',sp:.06,ph:4}];
+  else { const n=w<640?3:5; for(let i=0;i<n;i++) BG.doo.push(newDoodle(true)); const sn=w<640?8:14; for(let i=0;i<sn;i++) BG.shp.push({k:pick(['circle','tri','sq','hex','star']),x:rnd(0,w),y:rnd(0,BG.h),s:rnd(14,34),vy:rnd(6,14),rot:rnd(0,6.28),vr:rnd(-.3,.3),col:pick(PAL[BG.mode]),ph:rnd(0,6.28)}); }
+  if(BG.mode==='science'){ for(let i=0;i<7;i++) BG.land.push({u:Math.random(),v:rnd(-.6,.6),a:rnd(.18,.42),b:rnd(.12,.26),rot:rnd(-1,1)}); for(let i=0;i<6;i++) BG.cl.push({u:Math.random(),v:rnd(-.75,.75),a:rnd(.3,.6),b:.06,rot:rnd(-.3,.3)}); } }
+function bgExtraDraw(c,w,h,sy,t,dt){
+  if(BG.mode==='science'){
+    c.save(); c.globalCompositeOperation='lighter';
+    for(let k=0;k<3;k++){ const base=h*(.10+k*.07)-sy*.02, amp=26+k*10, col=[['80,255,170','60,160,255'],['120,255,200','140,120,255'],['60,220,255','180,100,255']][k];
+      const g=c.createLinearGradient(0,base-amp,0,base+h*.28); g.addColorStop(0,'rgba('+col[0]+',0)'); g.addColorStop(.25,'rgba('+col[0]+',.20)'); g.addColorStop(.6,'rgba('+col[1]+',.10)'); g.addColorStop(1,'rgba('+col[1]+',0)');
+      c.fillStyle=g; c.beginPath(); c.moveTo(0,h*.7);
+      for(let x=0;x<=w;x+=10){ const y=base+Math.sin(x*.008+t*(.25+k*.07)+k*2)*amp+Math.sin(x*.021-t*.4)*amp*.35; c.lineTo(x,y); }
+      c.lineTo(w,h*.7); c.closePath(); c.fill(); }
+    c.restore();
+    c.save(); c.globalCompositeOperation='lighter';
+    BG.cloud.forEach(o=>{ const x=o.x*w+Math.sin(t*o.sp+o.ph)*90, y=o.y*h+Math.cos(t*o.sp*1.3+o.ph)*70-sy*.03, r=Math.max(w,h)*o.r*.8, g=c.createRadialGradient(x,y,0,x,y,r); g.addColorStop(0,'rgba('+o.c+',.17)'); g.addColorStop(1,'rgba('+o.c+',0)'); c.fillStyle=g; c.fillRect(x-r,y-r,r*2,r*2); });
+    c.restore();
+    BG.stars.forEach(s=>{ if(s.r<1.4) return; const y=(((s.y-sy*s.par)%h)+h)%h, tw=.5+.5*Math.sin(t*s.sp+s.ph), L=s.r*(4+7*tw); c.globalAlpha=.55*tw; c.strokeStyle=s.col; c.lineWidth=1; c.beginPath(); c.moveTo(s.x-L,y); c.lineTo(s.x+L,y); c.moveTo(s.x,y-L); c.lineTo(s.x,y+L); c.stroke(); });
+    c.globalAlpha=1;
+    drawEarth(c,w*.88,h*.17-sy*.03+Math.sin(t*.2)*3,Math.max(24,Math.min(60,Math.min(w,h)*.07)),t);
+    c.globalAlpha=1;
+    BG.nextFly-=dt;
+    if(!RM && BG.nextFly<=0 && BG.fly.length<2){ const k=pick(['rocket','sat','comet']);
+      BG.fly.push(k==='rocket'?{k:k,x:-30,y:h*rnd(.75,.95),vx:(w+90)/11,vy:-(h*.65)/11,max:11,l:0,hist:[]}:k==='sat'?{k:k,x:-30,y:h*rnd(.1,.45),vx:(w+60)/26,vy:rnd(-6,6),max:26,l:0,hist:[]}:{k:k,x:w*rnd(.75,1.05),y:-20,vx:-rnd(260,380),vy:rnd(190,270),max:4.5,l:0,hist:[]});
+      BG.nextFly=rnd(14,26); }
+    BG.fly=BG.fly.filter(f=>{ f.l+=dt; f.x+=f.vx*dt; f.y+=f.vy*dt; if(f.l>f.max) return false; f.hist.push([f.x,f.y]); if(f.hist.length>(f.k==='comet'?22:14)) f.hist.shift();
+      const fade=Math.max(0,Math.min(1,f.l/.6,(f.max-f.l)/.8)); c.save(); c.globalAlpha=fade;
+      if(f.k==='comet'){ for(let i=0;i<f.hist.length-1;i++){ const a=i/f.hist.length; c.globalAlpha=fade*a*.7; c.fillStyle='#cfe8ff'; c.beginPath(); c.arc(f.hist[i][0],f.hist[i][1],1+a*4,0,6.2832); c.fill(); }
+        c.globalAlpha=fade; const g=c.createRadialGradient(f.x,f.y,0,f.x,f.y,12); g.addColorStop(0,'#fff'); g.addColorStop(1,'rgba(180,220,255,0)'); c.fillStyle=g; c.beginPath(); c.arc(f.x,f.y,12,0,6.2832); c.fill(); }
+      else { if(f.k==='rocket') for(let i=0;i<f.hist.length;i++){ const a=i/f.hist.length; c.globalAlpha=fade*a*.6; c.fillStyle=i%2?'#ffb454':'#fff3c4'; c.beginPath(); c.arc(f.hist[i][0]-8,f.hist[i][1]+8,1+a*4,0,6.2832); c.fill(); }
+        c.globalAlpha=fade; c.font=(f.k==='rocket'?32:26)+'px system-ui,sans-serif'; c.textAlign='center'; c.textBaseline='middle';
+        if(f.k==='sat'){ c.translate(f.x,f.y); c.rotate(Math.sin(f.l*.6)*.3); c.fillText('🛰️',0,0); } else c.fillText('🚀',f.x,f.y); }
+      c.restore(); return true; });
+  } else {
+    BG.shp.forEach(s=>{ const span=h+80, y=((s.y-s.vy*t-sy*.06)%span+span)%span-40, x=s.x+Math.sin(t*.5+s.ph)*14;
+      c.save(); c.translate(x,y); c.rotate(s.rot+s.vr*t); c.globalAlpha=.26; c.strokeStyle=s.col; c.lineWidth=2; c.lineJoin='round'; shapePath(c,s.k,s.s); c.restore(); });
+    if(BG.mode==='units') drawTape(c,w,h,t);
+    BG.doo.forEach((d,i)=>{ let p=(t-d.t0)/d.dur; if(p>1&&!RM){ d=BG.doo[i]=newDoodle(false); p=0; } if(p<0) return;
+      const g=EASE(p/.5), al=Math.min(1,p/.05)*(p<.85?1:Math.max(0,1-(p-.85)/.15)), yy=(((d.y-sy*.05)%(h+160))+(h+160))%(h+160)-80;
+      c.save(); c.translate(d.x,yy); c.globalAlpha=(DARKT.indexOf(BG.theme)>=0?.8:.5)*al; c.strokeStyle=d.col; c.fillStyle=d.col; c.lineWidth=2.4; c.lineCap='round'; c.lineJoin='round'; c.textAlign='center'; c.textBaseline='middle';
+      DDRAW[d.type](c,d.s,g,t); c.restore(); });
+  }
+}
+
+const DARKT=['chalk','space','aurora','solar','blueprint'];
+const BGTH={math:['candy','chalk','notebook'],science:['space','aurora','solar'],units:['paper','blueprint','lab']};
+const BGNAME={candy:['糖果','Candy'],chalk:['黑板','Chalkboard'],notebook:['笔记本','Notebook'],space:['星空','Space'],aurora:['极光','Aurora'],solar:['太阳系','Solar system'],paper:['方格纸','Graph paper'],blueprint:['蓝图','Blueprint'],lab:['实验室','Lab']};
+let bgTheme={math:'candy',science:'space',units:'paper'};
+try{ const sv=JSON.parse(localStorage.getItem('bgThemes')||'{}'); for(const k in bgTheme) if(BGTH[k].indexOf(sv[k])>=0) bgTheme[k]=sv[k]; }catch(e){}
+PAL['math:chalk']=['#ffffff','#ffe9a8','#ffc8dd','#bde0fe','#caffbf'];
+PAL['math:notebook']=['#3b4a6b','#5b6f9a','#7a5c3d','#2f6b4f','#8a4b4b'];
+PAL['units:blueprint']=['#ffffff','#cfe8ff','#9fd0ff','#bfe9ff'];
+PAL['units:lab']=['#2BA6A0','#4C93E8','#E8735C','#A76CE0','#F4B942'];
+function bgLabel(){ const n=BGNAME[bgTheme[BG.mode||'math']], el=document.getElementById('bg-name'); if(el&&n) el.textContent=(currentLang==='en'?n[1]:n[0]); }
+function cycleBg(){ const m=BG.mode||'math', L=BGTH[m], i=(L.indexOf(bgTheme[m])+1)%L.length; bgTheme[m]=L[i]; try{ localStorage.setItem('bgThemes',JSON.stringify(bgTheme)); }catch(e){} bgSet(m); }
+function bgPush(x,y){ const p=BG.ptr; if(!p||!p.on) return [x,y]; const dx=x-p.x,dy=y-p.y,d=Math.hypot(dx,dy); if(d>150||d<1) return [x,y]; const k=Math.pow(1-d/150,2)*70; return [x+dx/d*k,y+dy/d*k]; }
+function bgBuild2(){ const w=BG.w,h=BG.h,th=BG.theme; BG.dust=[]; BG.bub=[]; BG.rc=(th==='blueprint')?{bg:'rgba(8,60,120,.75)',st:'rgba(225,242,255,.85)',tx:'rgba(225,242,255,.95)'}:null;
+  if(th==='chalk') for(let i=0;i<45;i++) BG.dust.push({x:rnd(0,w),y:rnd(0,h),vy:rnd(3,10),r:rnd(.6,1.8),a:rnd(.15,.4),ph:rnd(0,6.28)});
+  if(th==='lab') for(let i=0;i<26;i++) BG.bub.push({x:rnd(0,w),y:rnd(0,h),r:rnd(6,26),vy:rnd(10,32),ph:rnd(0,6.28),col:pick(PAL['units:lab'])}); }
+function drawAurora(c,w,h,sy,t,dt){
+  BG.stars.forEach(s=>{ const y=(((s.y-sy*s.par)%h)+h)%h, tw=.5+.5*Math.sin(t*s.sp+s.ph); c.globalAlpha=s.a*(.3+.7*tw)*.9; c.fillStyle=s.col; c.beginPath(); c.arc(s.x,y,s.r,0,6.2832); c.fill(); });
+  c.globalAlpha=1; c.globalCompositeOperation='lighter'; const step=Math.max(6,Math.ceil(w/90));
+  [{b:.30,col:'80,255,170',ph:0,sp:.45},{b:.38,col:'70,200,255',ph:2.1,sp:.35},{b:.26,col:'170,110,255',ph:4.2,sp:.55}].forEach(r=>{ const base=h*r.b-sy*.03, hh=h*.34;
+    for(let x=0;x<=w;x+=step){ const top=base+Math.sin(x*.006+t*r.sp+r.ph)*h*.07+Math.sin(x*.017+t*r.sp*1.7)*h*.02, a=.11+.09*Math.sin(x*.01+t*.8+r.ph), g=c.createLinearGradient(0,top,0,top+hh);
+      g.addColorStop(0,'rgba('+r.col+',0)'); g.addColorStop(.25,'rgba('+r.col+','+a.toFixed(3)+')'); g.addColorStop(1,'rgba('+r.col+',0)'); c.fillStyle=g; c.fillRect(x,top,step+1,hh); } });
+  c.globalCompositeOperation='source-over';
+  const hill=(col,amp,base,f,ph)=>{ c.fillStyle=col; c.beginPath(); c.moveTo(0,h); for(let x=0;x<=w+10;x+=10) c.lineTo(x,h-base-Math.sin(x*f+ph)*amp-Math.sin(x*f*2.3+ph)*amp*.3); c.lineTo(w+10,h); c.closePath(); c.fill(); };
+  hill('#071a2c',h*.035,h*.075,.007,1); hill('#030c16',h*.03,h*.045,.01,3);
+  c.fillStyle='#02080f'; for(let x=10;x<w;x+=26){ const hh=16+((x*37)%22), by=h-h*.045-Math.sin(x*.01+3)*h*.03-Math.sin(x*.023+3)*h*.009+4; c.beginPath(); c.moveTo(x,by-hh); c.lineTo(x-hh*.35,by); c.lineTo(x+hh*.35,by); c.closePath(); c.fill(); }
+  c.globalAlpha=1; }
+function drawSolar(c,w,h,sy,t,dt){
+  BG.stars.forEach(s=>{ const y=(((s.y-sy*s.par)%h)+h)%h, tw=.5+.5*Math.sin(t*s.sp+s.ph); c.globalAlpha=s.a*(.25+.6*tw)*.8; c.fillStyle=s.col; c.beginPath(); c.arc(s.x,y,s.r*.9,0,6.2832); c.fill(); });
+  c.globalAlpha=1; const dg=Math.hypot(w,h)*.72, m=Math.min(w,h), sx=w*.06, sy0=h*.08-sy*.02, SR=m*.085;
+  const P=[[.10,.012,'#b8a99a',1.7],[.16,.019,'#e6c27a',1.2],[.23,.021,'#4ea0ff',.9],[.30,.016,'#d9603b',.7],[.42,.048,'#d9b88f',.38],[.55,.040,'#e8d6a0',.27,1],[.68,.028,'#8fe3e3',.19],[.80,.027,'#4a6bff',.15]];
+  c.lineWidth=1; c.strokeStyle='rgba(255,255,255,.10)'; P.forEach(p=>{ c.beginPath(); c.ellipse(sx,sy0,p[0]*dg,p[0]*dg*.7,0,0,6.2832); c.stroke(); });
+  c.fillStyle='rgba(200,190,180,.55)'; for(let i=0;i<80;i++){ const a=i*2.399+t*.03, rr=(.35+((i*37)%10)/300)*dg; c.fillRect(sx+Math.cos(a)*rr,sy0+Math.sin(a)*rr*.7,1.4,1.4); }
+  const pulse=1+.05*Math.sin(t*1.3); let g=c.createRadialGradient(sx,sy0,SR*.6,sx,sy0,SR*3.4*pulse); g.addColorStop(0,'rgba(255,190,70,.55)'); g.addColorStop(1,'rgba(255,120,30,0)'); c.fillStyle=g; c.beginPath(); c.arc(sx,sy0,SR*3.4*pulse,0,6.2832); c.fill();
+  g=c.createRadialGradient(sx-SR*.25,sy0-SR*.25,SR*.1,sx,sy0,SR); g.addColorStop(0,'#fff6c8'); g.addColorStop(.5,'#ffc247'); g.addColorStop(1,'#ff8a1f'); c.fillStyle=g; c.beginPath(); c.arc(sx,sy0,SR,0,6.2832); c.fill();
+  P.forEach((p,i)=>{ const a=i*1.1+t*p[3]*.25, px=sx+Math.cos(a)*p[0]*dg, py=sy0+Math.sin(a)*p[0]*dg*.7, r=Math.max(2.5,p[1]*m); if(px<-60||px>w+60||py<-60||py>h+60) return;
+    if(p[4]){ c.strokeStyle='rgba(230,215,170,.6)'; c.lineWidth=Math.max(1.2,r*.18); c.beginPath(); c.ellipse(px,py,r*1.9,r*.5,-.3,0,6.2832); c.stroke(); }
+    const pg=c.createRadialGradient(px-r*.35,py-r*.35,r*.1,px,py,r); pg.addColorStop(0,'#fff'); pg.addColorStop(.25,p[2]); pg.addColorStop(1,'rgba(0,0,0,.65)'); c.fillStyle=pg; c.beginPath(); c.arc(px,py,r,0,6.2832); c.fill();
+    if(i===2){ const ma=t*2.2; c.fillStyle='#ddd'; c.beginPath(); c.arc(px+Math.cos(ma)*r*2.1,py+Math.sin(ma)*r*1.5,Math.max(1.2,r*.28),0,6.2832); c.fill(); } });
+  c.globalAlpha=1; }
+function bgScene(c,w,h,sy,t,dt){ const th=BG.theme;
+  if(BG.mode==='science'){ if(th==='aurora') drawAurora(c,w,h,sy,t,dt); else if(th==='solar') drawSolar(c,w,h,sy,t,dt); else drawSci(c,w,h,sy,t,dt); }
+  else drawFloat(c,w,h,sy,t,dt); }
+function spawnSpark(x,y,n){ if(RM||!BG.sp) return; const m=BG.mode, ch={math:['+','−','×','÷','=','π','∑','√'],units:['cm','kg','°C','L','s','m'],science:['✦','⭐','✧','·']}[m]||['✦'], pal=PAL[m+':'+BG.theme]||PAL[m]||['#fff'];
+  for(let i=0;i<n;i++){ if(BG.sp.length>60) BG.sp.shift(); BG.sp.push({x:x,y:y,vx:rnd(-50,50)*(n>1?2:1),vy:rnd(-110,-30)*(n>1?1.6:1),l:0,max:rnd(.7,1.2),ch:pick(ch),col:(m==='science'?'#fff':pick(pal)),s:rnd(14,26),rot:rnd(-.5,.5)}); } }
+function bgPtrInit(){ BG.ptr={x:0,y:0,on:false,to:0,last:0}; BG.sp=[]; if(RM) return;
+  window.addEventListener('pointermove',e=>{ const p=BG.ptr; p.x=e.clientX; p.y=e.clientY; p.on=true; clearTimeout(p.to); p.to=setTimeout(()=>{ p.on=false; },1400); const n=performance.now(); if(n-p.last>40){ p.last=n; spawnSpark(p.x,p.y,1); } },{passive:true});
+  window.addEventListener('pointerdown',e=>spawnSpark(e.clientX,e.clientY,9),{passive:true}); }
+function bgExtra2(c,w,h,sy,t,dt){ const p=BG.ptr;
+  if(BG.mode==='science'&&p&&p.on){ BG.stars.forEach(s=>{ const y=(((s.y-sy*s.par)%h)+h)%h, d=Math.hypot(s.x-p.x,y-p.y); if(d<100){ c.globalAlpha=.6*(1-d/100); c.fillStyle='#fff'; c.beginPath(); c.arc(s.x,y,s.r*4,0,6.2832); c.fill(); } }); }
+  (BG.dust||[]).forEach(d=>{ d.y-=d.vy*dt; if(d.y<-5) d.y=h+5; c.globalAlpha=d.a*(.6+.4*Math.sin(t+d.ph)); c.fillStyle='#fff'; c.beginPath(); c.arc(d.x+Math.sin(t*.5+d.ph)*6,d.y,d.r,0,6.2832); c.fill(); });
+  (BG.bub||[]).forEach(b=>{ b.y-=b.vy*dt; if(b.y<-b.r*2){ b.y=h+b.r*2; b.x=rnd(0,w); } const x=b.x+Math.sin(t*.8+b.ph)*10; c.globalAlpha=.16; c.fillStyle=b.col; c.beginPath(); c.arc(x,b.y,b.r,0,6.2832); c.fill(); c.globalAlpha=.5; c.strokeStyle=b.col; c.lineWidth=1.5; c.stroke(); c.globalAlpha=.7; c.fillStyle='#fff'; c.beginPath(); c.arc(x-b.r*.35,b.y-b.r*.35,Math.max(1.2,b.r*.18),0,6.2832); c.fill(); });
+  BG.sp=(BG.sp||[]).filter(q=>{ q.l+=dt; if(q.l>q.max) return false; q.x+=q.vx*dt; q.y+=q.vy*dt; q.vy+=80*dt; c.save(); c.globalAlpha=1-q.l/q.max; c.fillStyle=q.col; c.font='700 '+q.s+'px system-ui,Arial'; c.textAlign='center'; c.textBaseline='middle'; c.translate(q.x,q.y); c.rotate(q.rot); c.fillText(q.ch,0,0); c.restore(); return true; });
+  c.globalAlpha=1; }
+function bgDraw(dt){
+  try{ const c=BG.cx; c.clearRect(0,0,BG.w,BG.h); const sy=window.scrollY||0;
+    bgScene(c,BG.w,BG.h,sy,BG.t,dt); c.globalAlpha=1; bgExtraDraw(c,BG.w,BG.h,sy,BG.t,dt); c.globalAlpha=1; bgExtra2(c,BG.w,BG.h,sy,BG.t,dt); c.globalAlpha=1;
+  }catch(e){}
+}
+function bgFrame(ts){
+  BG.raf=requestAnimationFrame(bgFrame);
+  if(ts-BG.lastDraw<30) return;
+  const dt=Math.min(.06,(ts-(BG.last||ts))/1000); BG.last=ts; BG.lastDraw=ts; BG.t+=dt; bgDraw(dt);
+}
+function bgSet(s){
+  BG.mode=(s==='science'||s==='units')?s:'math';
+  BG.theme=bgTheme[BG.mode]; document.body.dataset.theme=BG.theme; document.body.classList.toggle('dark',DARKT.indexOf(BG.theme)>=0); bgLabel();
+  if(!BG.cv) return;
+  BG.cv.style.opacity=0;
+  setTimeout(()=>{ bgBuild(); BG.cv.style.opacity=1; if(RM){ bgDraw(0); } },RM?0:260);
+  if(!RM && !BG.raf) BG.raf=requestAnimationFrame(bgFrame);
+}
+function bgInit(){
+  BG.cv=document.getElementById('bg'); if(!BG.cv||!BG.cv.getContext) return; BG.cx=BG.cv.getContext('2d');
+  bgSize(); window.addEventListener('resize',()=>{ clearTimeout(BG.rt); BG.rt=setTimeout(()=>{ bgSize(); if(RM) bgDraw(0); },150); });
+  if(RM) window.addEventListener('scroll',()=>bgDraw(0),{passive:true});
+  bgSet(subject);
+}
+bgPtrInit();
+bgInit();
+</script>
+</body>
+</html>
